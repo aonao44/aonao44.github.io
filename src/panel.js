@@ -121,3 +121,48 @@ export function renderEventPanel(el, ev, formatYear) {
   el.innerHTML = parts.join('');
   return ev;
 }
+
+/**
+ * その断面のトピック一覧を描く。
+ * ポリゴンを選んでいないときの既定表示。
+ *
+ * @param {HTMLElement} el
+ * @param {string} eraLabel 「紀元前1年」など
+ * @param {Array<{title_ja:string,body_ja:string,polity?:string,wiki_url:string}>} topics
+ * @param {Record<string,string>} [namesJa] polity の日本語名引き
+ */
+export function renderTopics(el, eraLabel, topics = [], namesJa = {}) {
+  if (!topics.length) {
+    el.innerHTML = `<p class="panel-kicker">${escapeHtml(eraLabel)}</p>`
+      + '<p class="panel-hint">この年代のトピックはまだ登録されていません。'
+      + '地図上の政体をクリックすると詳細が出ます。</p>';
+    return 0;
+  }
+
+  const items = topics.map((t, i) => {
+    const polity = t.polity ? (namesJa[t.polity] ?? t.polity) : null;
+    return '<li class="topic">'
+      + `<button class="topic-btn" data-topic-index="${i}"`
+      + `${t.polity ? ` data-polity="${escapeHtml(t.polity)}"` : ''}>`
+      + `<span class="topic-title">${escapeHtml(t.title_ja)}</span>`
+      + (polity ? `<span class="topic-polity">${escapeHtml(polity)}</span>` : '')
+      + '</button>'
+      + `<p class="topic-body">${escapeHtml(t.body_ja)}</p>`
+      + `<p class="topic-source"><a href="${escapeHtml(t.wiki_url)}" target="_blank" rel="noopener noreferrer">Wikipedia</a></p>`
+      + '</li>';
+  });
+
+  el.innerHTML = `<p class="panel-kicker" data-testid="topics-era">${escapeHtml(eraLabel)}のトピック</p>`
+    + `<ul class="topics" data-testid="topics-list">${items.join('')}</ul>`;
+  return topics.length;
+}
+
+/** パネル上部に「← トピック一覧」の戻りリンクを付ける。 */
+export function prependBackLink(el) {
+  const back = document.createElement('button');
+  back.className = 'panel-back';
+  back.dataset.testid = 'panel-back';
+  back.textContent = '← トピック一覧';
+  el.prepend(back);
+  return back;
+}

@@ -95,3 +95,29 @@ export function renderPanel(el, properties, dicts = {}) {
   el.innerHTML = parts.join('');
   return m;
 }
+
+/**
+ * 出来事をパネルに描画する。
+ * @param {HTMLElement} el
+ * @param {{year:number,title_ja:string,summary_ja:string,source_url:string}} ev
+ * @param {(year:number)=>string} formatYear 年ラベル整形
+ */
+export function renderEventPanel(el, ev, formatYear) {
+  if (!ev) return null;
+  const parts = [
+    `<p class="panel-kicker" data-testid="panel-event-year">${escapeHtml(formatYear(ev.year))}</p>`,
+    `<h2 class="panel-name" data-testid="panel-event-title">${escapeHtml(ev.title_ja ?? '')}</h2>`,
+  ];
+  if (ev.summary_ja) {
+    parts.push(`<p class="panel-summary">${escapeHtml(ev.summary_ja)}</p>`);
+  }
+  if (ev.source_url) {
+    parts.push(
+      '<p class="panel-source">'
+      + `<a href="${escapeHtml(ev.source_url)}" target="_blank" rel="noopener noreferrer">Wikipedia で読む</a>`
+      + '</p>',
+    );
+  }
+  el.innerHTML = parts.join('');
+  return ev;
+}

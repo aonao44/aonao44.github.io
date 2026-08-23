@@ -1,0 +1,882 @@
+[
+ {
+  "year": -3000,
+  "lat": 31.32,
+  "lng": 45.64,
+  "title_ja": "ウルクの興隆",
+  "summary_ja": "メソポタミア南部に都市国家ウルクが発展し、最初期の都市文明が生まれた。",
+  "source_url": "https://ja.wikipedia.org/wiki/ウルク"
+ },
+ {
+  "year": -2650,
+  "lat": 29.98,
+  "lng": 31.13,
+  "title_ja": "ギザの大ピラミッド",
+  "summary_ja": "エジプト古王国でギザの大ピラミッドが建設され、王権の絶大な力を象徴した。",
+  "source_url": "https://ja.wikipedia.org/wiki/ギザの大ピラミッド"
+ },
+ {
+  "year": -2334,
+  "lat": 33,
+  "lng": 44.4,
+  "title_ja": "アッカド帝国建国",
+  "summary_ja": "サルゴンがメソポタミアを統一し、世界初期の帝国とされるアッカド帝国を築いた。",
+  "source_url": "https://ja.wikipedia.org/wiki/アッカド帝国"
+ },
+ {
+  "year": -1792,
+  "lat": 32.54,
+  "lng": 44.42,
+  "title_ja": "ハンムラビ即位",
+  "summary_ja": "バビロン王ハンムラビが即位し、法典編纂などでメソポタミアに強大な王国を築いた。",
+  "source_url": "https://ja.wikipedia.org/wiki/ハンムラビ"
+ },
+ {
+  "year": -1600,
+  "lat": 34.75,
+  "lng": 114.7,
+  "title_ja": "殷王朝の成立",
+  "summary_ja": "黄河流域に殷（商）王朝が成立し、甲骨文字を用いた中国最古級の王朝文明が栄えた。",
+  "source_url": "https://ja.wikipedia.org/wiki/殷"
+ },
+ {
+  "year": -1500,
+  "lat": 31.5,
+  "lng": 74.3,
+  "title_ja": "アーリア人のインド進入",
+  "summary_ja": "アーリア人が中央アジアからインド北西部に進入し、ヴェーダ文化の基礎を築いた。",
+  "source_url": "https://ja.wikipedia.org/wiki/ヴェーダ時代"
+ },
+ {
+  "year": -1350,
+  "lat": 27.65,
+  "lng": 30.9,
+  "title_ja": "アマルナ改革",
+  "summary_ja": "エジプト王アクエンアテンが一神教的改革を行い、都をアマルナに移した宗教改革。",
+  "source_url": "https://ja.wikipedia.org/wiki/アクエンアテン"
+ },
+ {
+  "year": -1274,
+  "lat": 34.57,
+  "lng": 36.53,
+  "title_ja": "カデシュの戦い",
+  "summary_ja": "エジプトとヒッタイトが激突し、後に現存最古とされる和平条約が結ばれた戦い。",
+  "source_url": "https://ja.wikipedia.org/wiki/カデシュの戦い"
+ },
+ {
+  "year": -1200,
+  "lat": 35.6,
+  "lng": 35.77,
+  "title_ja": "海の民の侵入",
+  "summary_ja": "「海の民」の侵攻などにより東地中海の諸文明が崩壊した、青銅器時代の終焉。",
+  "source_url": "https://ja.wikipedia.org/wiki/海の民"
+ },
+ {
+  "year": -1046,
+  "lat": 34.26,
+  "lng": 108.94,
+  "title_ja": "周の殷打倒",
+  "summary_ja": "周の武王が殷を滅ぼし、封建制を敷いた周王朝が中国に成立した。",
+  "source_url": "https://ja.wikipedia.org/wiki/周"
+ },
+ {
+  "year": -970,
+  "lat": 31.7767,
+  "lng": 35.2345,
+  "title_ja": "ソロモン神殿建立",
+  "summary_ja": "イスラエル王ソロモンがエルサレムに神殿を建立し、王国の最盛期を迎えた。",
+  "source_url": "https://ja.wikipedia.org/wiki/ソロモン神殿"
+ },
+ {
+  "year": -814,
+  "lat": 36.85,
+  "lng": 10.32,
+  "title_ja": "カルタゴ建国",
+  "summary_ja": "フェニキア人がカルタゴを建設し、地中海貿易を支配する海洋都市国家に発展した。",
+  "source_url": "https://ja.wikipedia.org/wiki/カルタゴ"
+ },
+ {
+  "year": -753,
+  "lat": 41.89,
+  "lng": 12.48,
+  "title_ja": "ローマ建国",
+  "summary_ja": "伝説によりロムルスがローマを建国し、後の大帝国の起源となったとされる。",
+  "source_url": "https://ja.wikipedia.org/wiki/古代ローマ"
+ },
+ {
+  "year": -722,
+  "lat": 32.28,
+  "lng": 35.19,
+  "title_ja": "サマリア陥落",
+  "summary_ja": "アッシリアが北イスラエル王国の都サマリアを陥落させ、王国を滅ぼした。",
+  "source_url": "https://ja.wikipedia.org/wiki/イスラエル王国"
+ },
+ {
+  "year": -671,
+  "lat": 36.36,
+  "lng": 43.15,
+  "title_ja": "アッシリアの覇権確立",
+  "summary_ja": "アッシリア帝国がエジプトを征服し、オリエント世界最初の統一帝国を築いた。",
+  "source_url": "https://ja.wikipedia.org/wiki/アッシリア"
+ },
+ {
+  "year": -660,
+  "lat": 34.68,
+  "lng": 135.83,
+  "title_ja": "神武天皇即位",
+  "summary_ja": "日本神話で神武天皇が即位したとされ、日本の建国神話の起点とされる。",
+  "source_url": "https://ja.wikipedia.org/wiki/神武天皇"
+ },
+ {
+  "year": -586,
+  "lat": 31.78,
+  "lng": 35.23,
+  "title_ja": "バビロン捕囚",
+  "summary_ja": "新バビロニアがエルサレムを破壊しユダ王国民を連行、バビロン捕囚が始まった。",
+  "source_url": "https://ja.wikipedia.org/wiki/バビロン捕囚"
+ },
+ {
+  "year": -551,
+  "lat": 35.6,
+  "lng": 116.99,
+  "title_ja": "孔子誕生",
+  "summary_ja": "後の儒教の祖となる孔子が魯国に生まれ、中国思想に大きな影響を与えた。",
+  "source_url": "https://ja.wikipedia.org/wiki/孔子"
+ },
+ {
+  "year": -539,
+  "lat": 32.54,
+  "lng": 44.42,
+  "title_ja": "ペルシアのバビロン征服",
+  "summary_ja": "アケメネス朝ペルシアのキュロス2世がバビロンを征服し、大帝国を築いた。",
+  "source_url": "https://ja.wikipedia.org/wiki/キュロス2世"
+ },
+ {
+  "year": -509,
+  "lat": 41.89,
+  "lng": 12.48,
+  "title_ja": "ローマ共和政樹立",
+  "summary_ja": "ローマで王政が廃止され共和政が樹立、後の共和国発展の基礎となった。",
+  "source_url": "https://ja.wikipedia.org/wiki/ローマ共和政"
+ },
+ {
+  "year": -490,
+  "lat": 38.15,
+  "lng": 23.98,
+  "title_ja": "マラトンの戦い",
+  "summary_ja": "アテネ軍がペルシア軍を撃退し、ギリシアがペルシア戦争で重要な勝利を得た。",
+  "source_url": "https://ja.wikipedia.org/wiki/マラトンの戦い"
+ },
+ {
+  "year": -447,
+  "lat": 37.9715,
+  "lng": 23.7267,
+  "title_ja": "パルテノン神殿着工",
+  "summary_ja": "アテネのアクロポリスにパルテノン神殿の建設が始まり、古典期文化が花開いた。",
+  "source_url": "https://ja.wikipedia.org/wiki/パルテノン神殿"
+ },
+ {
+  "year": -403,
+  "lat": 34.68,
+  "lng": 112.45,
+  "title_ja": "戦国時代の始まり",
+  "summary_ja": "晋の分裂を機に中国は戦国時代に突入し、諸国が覇権を争う動乱期となった。",
+  "source_url": "https://ja.wikipedia.org/wiki/戦国時代_(中国)"
+ },
+ {
+  "year": -336,
+  "lat": 40.76,
+  "lng": 22.52,
+  "title_ja": "アレクサンドロス即位",
+  "summary_ja": "アレクサンドロス大王がマケドニア王に即位し、大遠征の礎を築いた。",
+  "source_url": "https://ja.wikipedia.org/wiki/アレクサンドロス3世"
+ },
+ {
+  "year": -326,
+  "lat": 32.89,
+  "lng": 73.73,
+  "title_ja": "ヒュダスペス河畔の戦い",
+  "summary_ja": "アレクサンドロス大王がインド北西部に進軍し、王ポロスと激戦を繰り広げた。",
+  "source_url": "https://ja.wikipedia.org/wiki/ヒュダスペス河畔の戦い"
+ },
+ {
+  "year": -272,
+  "lat": 25.61,
+  "lng": 85.14,
+  "title_ja": "アショーカ王即位",
+  "summary_ja": "マウリヤ朝のアショーカ王が即位し、仏教を保護しインド亜大陸を統一した。",
+  "source_url": "https://ja.wikipedia.org/wiki/アショーカ王"
+ },
+ {
+  "year": -221,
+  "lat": 34.35,
+  "lng": 108.93,
+  "title_ja": "秦の中国統一",
+  "summary_ja": "秦王政が中国全土を統一し、始皇帝として中央集権的な統一帝国を築いた。",
+  "source_url": "https://ja.wikipedia.org/wiki/秦"
+ },
+ {
+  "year": -146,
+  "lat": 36.85,
+  "lng": 10.32,
+  "title_ja": "カルタゴ滅亡",
+  "summary_ja": "第三次ポエニ戦争でローマがカルタゴを完全に破壊し、地中海の覇権を握った。",
+  "source_url": "https://ja.wikipedia.org/wiki/ポエニ戦争"
+ },
+ {
+  "year": -73,
+  "lat": 41.1,
+  "lng": 14.25,
+  "title_ja": "スパルタクスの反乱",
+  "summary_ja": "剣闘士スパルタクスが蜂起し、ローマ共和政を揺るがす大規模な奴隷反乱が起きた。",
+  "source_url": "https://ja.wikipedia.org/wiki/スパルタクス"
+ },
+ {
+  "year": -27,
+  "lat": 41.89,
+  "lng": 12.48,
+  "title_ja": "ローマ帝政開始",
+  "summary_ja": "オクタウィアヌスが初代皇帝アウグストゥスとなり、ローマ帝政が始まった。",
+  "source_url": "https://ja.wikipedia.org/wiki/アウグストゥス"
+ },
+ {
+  "year": -4,
+  "lat": 31.7,
+  "lng": 35.2,
+  "title_ja": "イエス・キリスト誕生",
+  "summary_ja": "ベツレヘムでイエスが生まれたとされ、後のキリスト教成立の起点となった。",
+  "source_url": "https://ja.wikipedia.org/wiki/イエス・キリスト"
+ },
+ {
+  "year": 9,
+  "lat": 52.03,
+  "lng": 8.42,
+  "title_ja": "トイトブルクの戦い",
+  "summary_ja": "ゲルマン諸部族がローマ軍を破り、ライン川以東への進出を阻止した戦い。",
+  "source_url": "https://ja.wikipedia.org/wiki/トイトブルクの森の戦い"
+ },
+ {
+  "year": 25,
+  "lat": 34.68,
+  "lng": 112.45,
+  "title_ja": "後漢の成立",
+  "summary_ja": "劉秀が漢を再興し洛陽を都とする後漢を建て、中国に統一政権が復活した。",
+  "source_url": "https://ja.wikipedia.org/wiki/後漢"
+ },
+ {
+  "year": 79,
+  "lat": 40.75,
+  "lng": 14.49,
+  "title_ja": "ヴェスヴィオ火山噴火",
+  "summary_ja": "ヴェスヴィオ火山が大噴火し、都市ポンペイが火山灰に埋もれ壊滅した。",
+  "source_url": "https://ja.wikipedia.org/wiki/ポンペイ"
+ },
+ {
+  "year": 105,
+  "lat": 34.68,
+  "lng": 112.45,
+  "title_ja": "製紙法の改良",
+  "summary_ja": "後漢の蔡倫が製紙技術を改良し、紙が広く普及する契機となった。",
+  "source_url": "https://ja.wikipedia.org/wiki/蔡倫"
+ },
+ {
+  "year": 117,
+  "lat": 41.89,
+  "lng": 12.48,
+  "title_ja": "ローマ帝国最大版図",
+  "summary_ja": "トラヤヌス帝の時代にローマ帝国は領土最大に達し、繁栄の頂点を迎えた。",
+  "source_url": "https://ja.wikipedia.org/wiki/トラヤヌス"
+ },
+ {
+  "year": 220,
+  "lat": 34.68,
+  "lng": 112.45,
+  "title_ja": "後漢の滅亡",
+  "summary_ja": "後漢が滅亡し、魏・呉・蜀が並び立つ三国時代が中国で始まった。",
+  "source_url": "https://ja.wikipedia.org/wiki/三国時代_(中国)"
+ },
+ {
+  "year": 313,
+  "lat": 45.46,
+  "lng": 9.19,
+  "title_ja": "ミラノ勅令",
+  "summary_ja": "コンスタンティヌス帝がミラノ勅令を発し、キリスト教信仰が公認された。",
+  "source_url": "https://ja.wikipedia.org/wiki/ミラノ勅令"
+ },
+ {
+  "year": 330,
+  "lat": 41.01,
+  "lng": 28.98,
+  "title_ja": "コンスタンティノープル遷都",
+  "summary_ja": "コンスタンティヌス帝がビザンティウムに遷都し、コンスタンティノープルと改名した。",
+  "source_url": "https://ja.wikipedia.org/wiki/コンスタンティノープル"
+ },
+ {
+  "year": 476,
+  "lat": 44.42,
+  "lng": 12.2,
+  "title_ja": "西ローマ帝国滅亡",
+  "summary_ja": "ゲルマン人傭兵隊長オドアケルが皇帝を廃し、西ローマ帝国が滅亡した。",
+  "source_url": "https://ja.wikipedia.org/wiki/西ローマ帝国"
+ },
+ {
+  "year": 527,
+  "lat": 41.01,
+  "lng": 28.98,
+  "title_ja": "ユスティニアヌス即位",
+  "summary_ja": "ビザンツ皇帝ユスティニアヌス1世が即位し、ローマ法典編纂や領土回復を進めた。",
+  "source_url": "https://ja.wikipedia.org/wiki/ユスティニアヌス1世"
+ },
+ {
+  "year": 570,
+  "lat": 21.42,
+  "lng": 39.83,
+  "title_ja": "ムハンマド誕生",
+  "summary_ja": "後にイスラム教を創始するムハンマドがメッカに生まれた。",
+  "source_url": "https://ja.wikipedia.org/wiki/ムハンマド"
+ },
+ {
+  "year": 622,
+  "lat": 24.47,
+  "lng": 39.61,
+  "title_ja": "ヒジュラ",
+  "summary_ja": "ムハンマドがメッカからメディナへ移住し、イスラム暦元年とされる出来事。",
+  "source_url": "https://ja.wikipedia.org/wiki/ヒジュラ"
+ },
+ {
+  "year": 645,
+  "lat": 34.48,
+  "lng": 135.82,
+  "title_ja": "大化の改新",
+  "summary_ja": "中大兄皇子らが蘇我氏を打倒し、律令国家建設を目指す大化の改新が始まった。",
+  "source_url": "https://ja.wikipedia.org/wiki/大化の改新"
+ },
+ {
+  "year": 661,
+  "lat": 33.51,
+  "lng": 36.29,
+  "title_ja": "ウマイヤ朝成立",
+  "summary_ja": "ムアーウィヤがダマスカスを都にウマイヤ朝を開き、イスラム帝国が拡大した。",
+  "source_url": "https://ja.wikipedia.org/wiki/ウマイヤ朝"
+ },
+ {
+  "year": 710,
+  "lat": 34.68,
+  "lng": 135.83,
+  "title_ja": "平城京遷都",
+  "summary_ja": "元明天皇が奈良に平城京を築き遷都、日本の律令国家の中心が定まった。",
+  "source_url": "https://ja.wikipedia.org/wiki/平城京"
+ },
+ {
+  "year": 750,
+  "lat": 33.31,
+  "lng": 44.36,
+  "title_ja": "アッバース朝成立",
+  "summary_ja": "アッバース家がウマイヤ朝を倒し、バグダードを中心に新王朝を樹立した。",
+  "source_url": "https://ja.wikipedia.org/wiki/アッバース朝"
+ },
+ {
+  "year": 793,
+  "lat": 55.67,
+  "lng": -1.8,
+  "title_ja": "リンディスファーン襲撃",
+  "summary_ja": "ヴァイキングが英国リンディスファーン修道院を襲撃し、北欧諸族の遠征が本格化した。",
+  "source_url": "https://ja.wikipedia.org/wiki/リンディスファーン"
+ },
+ {
+  "year": 800,
+  "lat": 41.89,
+  "lng": 12.48,
+  "title_ja": "カール大帝戴冠",
+  "summary_ja": "フランク王カールがローマ教皇より皇帝の冠を受け、西ローマ帝国の再興とされた。",
+  "source_url": "https://ja.wikipedia.org/wiki/カール大帝"
+ },
+ {
+  "year": 960,
+  "lat": 34.8,
+  "lng": 114.35,
+  "title_ja": "宋の建国",
+  "summary_ja": "趙匡胤が後周を継いで宋を建国し、中国に文治主義の統一王朝が成立した。",
+  "source_url": "https://ja.wikipedia.org/wiki/宋_(王朝)"
+ },
+ {
+  "year": 1066,
+  "lat": 50.91,
+  "lng": 0.49,
+  "title_ja": "ヘイスティングズの戦い",
+  "summary_ja": "ノルマンディー公ウィリアムがイングランド王を破り、ノルマン征服が成った。",
+  "source_url": "https://ja.wikipedia.org/wiki/ヘイスティングズの戦い"
+ },
+ {
+  "year": 1096,
+  "lat": 45.78,
+  "lng": 3.08,
+  "title_ja": "第1回十字軍開始",
+  "summary_ja": "教皇の呼びかけで第1回十字軍が発され、聖地エルサレムへの遠征が始まった。",
+  "source_url": "https://ja.wikipedia.org/wiki/十字軍"
+ },
+ {
+  "year": 1192,
+  "lat": 35.32,
+  "lng": 139.55,
+  "title_ja": "鎌倉幕府成立",
+  "summary_ja": "源頼朝が征夷大将軍に任じられ、日本初の武家政権である鎌倉幕府が成立した。",
+  "source_url": "https://ja.wikipedia.org/wiki/鎌倉幕府"
+ },
+ {
+  "year": 1206,
+  "lat": 47.2,
+  "lng": 102.85,
+  "title_ja": "モンゴル帝国建国",
+  "summary_ja": "テムジンがモンゴル諸部族を統一しチンギス・ハンを称し、大帝国を建てた。",
+  "source_url": "https://ja.wikipedia.org/wiki/チンギス・カン"
+ },
+ {
+  "year": 1215,
+  "lat": 51.44,
+  "lng": -0.56,
+  "title_ja": "マグナ・カルタ締結",
+  "summary_ja": "イングランド王ジョンが貴族の要求に応じ、王権を制限するマグナ・カルタに署名した。",
+  "source_url": "https://ja.wikipedia.org/wiki/マグナ・カルタ"
+ },
+ {
+  "year": 1271,
+  "lat": 39.9,
+  "lng": 116.41,
+  "title_ja": "元の成立",
+  "summary_ja": "フビライ・ハンが国号を元と定め、中国を支配するモンゴル系王朝が成立した。",
+  "source_url": "https://ja.wikipedia.org/wiki/元_(王朝)"
+ },
+ {
+  "year": 1347,
+  "lat": 38.19,
+  "lng": 15.55,
+  "title_ja": "黒死病の流入",
+  "summary_ja": "ペスト（黒死病）がシチリア島経由で欧州に上陸し、大規模な流行を引き起こした。",
+  "source_url": "https://ja.wikipedia.org/wiki/黒死病"
+ },
+ {
+  "year": 1368,
+  "lat": 32.06,
+  "lng": 118.8,
+  "title_ja": "明の建国",
+  "summary_ja": "朱元璋が元を北へ追い、南京を都とする明王朝を中国に建てた。",
+  "source_url": "https://ja.wikipedia.org/wiki/明"
+ },
+ {
+  "year": 1453,
+  "lat": 41.01,
+  "lng": 28.98,
+  "title_ja": "コンスタンティノープル陥落",
+  "summary_ja": "オスマン帝国がコンスタンティノープルを攻略し、ビザンツ帝国が滅亡した。",
+  "source_url": "https://ja.wikipedia.org/wiki/コンスタンティノープルの陥落"
+ },
+ {
+  "year": 1492,
+  "lat": 24.02,
+  "lng": -74.47,
+  "title_ja": "コロンブスの新大陸到達",
+  "summary_ja": "コロンブスが西インド諸島に到達し、ヨーロッパによる新大陸「発見」の契機となった。",
+  "source_url": "https://ja.wikipedia.org/wiki/クリストファー・コロンブス"
+ },
+ {
+  "year": 1517,
+  "lat": 51.87,
+  "lng": 12.65,
+  "title_ja": "宗教改革の始まり",
+  "summary_ja": "ルターが「95か条の論題」を発表し、ヨーロッパ全域に宗教改革が広がった。",
+  "source_url": "https://ja.wikipedia.org/wiki/宗教改革"
+ },
+ {
+  "year": 1521,
+  "lat": 19.43,
+  "lng": -99.13,
+  "title_ja": "アステカ帝国滅亡",
+  "summary_ja": "コルテス率いるスペイン軍がテノチティトランを陥落させ、アステカ帝国が滅んだ。",
+  "source_url": "https://ja.wikipedia.org/wiki/アステカ"
+ },
+ {
+  "year": 1526,
+  "lat": 29.39,
+  "lng": 76.97,
+  "title_ja": "ムガル帝国建国",
+  "summary_ja": "バーブルがパーニーパットの戦いで勝利し、インドにムガル帝国を建国した。",
+  "source_url": "https://ja.wikipedia.org/wiki/ムガル帝国"
+ },
+ {
+  "year": 1533,
+  "lat": -7.16,
+  "lng": -78.51,
+  "title_ja": "インカ帝国滅亡",
+  "summary_ja": "ピサロ率いるスペイン軍がインカ皇帝を捕らえ処刑し、インカ帝国を滅ぼした。",
+  "source_url": "https://ja.wikipedia.org/wiki/インカ帝国"
+ },
+ {
+  "year": 1543,
+  "lat": 54.37,
+  "lng": 19.67,
+  "title_ja": "地動説の発表",
+  "summary_ja": "コペルニクスが地動説を唱えた著作を発表し、天文学に革命をもたらした。",
+  "source_url": "https://ja.wikipedia.org/wiki/ニコラウス・コペルニクス"
+ },
+ {
+  "year": 1588,
+  "lat": 51,
+  "lng": 2.1,
+  "title_ja": "スペイン無敵艦隊の敗北",
+  "summary_ja": "イングランド海軍がスペインの無敵艦隊を撃退し、海上覇権の転換点となった。",
+  "source_url": "https://ja.wikipedia.org/wiki/アルマダの海戦"
+ },
+ {
+  "year": 1600,
+  "lat": 35.37,
+  "lng": 136.47,
+  "title_ja": "関ヶ原の戦い",
+  "summary_ja": "徳川家康が石田三成らを破り、日本の実権を掌握する契機となった戦い。",
+  "source_url": "https://ja.wikipedia.org/wiki/関ヶ原の戦い"
+ },
+ {
+  "year": 1603,
+  "lat": 35.68,
+  "lng": 139.75,
+  "title_ja": "江戸幕府開府",
+  "summary_ja": "徳川家康が征夷大将軍に任じられ、江戸幕府による約260年の統治が始まった。",
+  "source_url": "https://ja.wikipedia.org/wiki/江戸幕府"
+ },
+ {
+  "year": 1618,
+  "lat": 50.09,
+  "lng": 14.42,
+  "title_ja": "三十年戦争勃発",
+  "summary_ja": "プラハでの事件を契機に三十年戦争が始まり、欧州各国を巻き込む大戦となった。",
+  "source_url": "https://ja.wikipedia.org/wiki/三十年戦争"
+ },
+ {
+  "year": 1642,
+  "lat": 52.95,
+  "lng": -1.15,
+  "title_ja": "ピューリタン革命勃発",
+  "summary_ja": "国王軍と議会軍が衝突し、イングランド内戦（ピューリタン革命）が始まった。",
+  "source_url": "https://ja.wikipedia.org/wiki/清教徒革命"
+ },
+ {
+  "year": 1644,
+  "lat": 39.9,
+  "lng": 116.41,
+  "title_ja": "清の中国支配開始",
+  "summary_ja": "明が滅び清軍が北京に入城、満州族の清王朝による中国統治が始まった。",
+  "source_url": "https://ja.wikipedia.org/wiki/清"
+ },
+ {
+  "year": 1648,
+  "lat": 51.96,
+  "lng": 7.63,
+  "title_ja": "ウェストファリア条約",
+  "summary_ja": "三十年戦争を終結させるウェストファリア条約が結ばれ、主権国家体制が確立した。",
+  "source_url": "https://ja.wikipedia.org/wiki/ウェストファリア条約"
+ },
+ {
+  "year": 1757,
+  "lat": 23.8,
+  "lng": 88.25,
+  "title_ja": "プラッシーの戦い",
+  "summary_ja": "イギリス東インド会社がベンガル太守軍を破り、インド植民地支配の礎を築いた。",
+  "source_url": "https://ja.wikipedia.org/wiki/プラッシーの戦い"
+ },
+ {
+  "year": 1776,
+  "lat": 39.95,
+  "lng": -75.15,
+  "title_ja": "アメリカ独立宣言",
+  "summary_ja": "北米13植民地が独立宣言を採択し、アメリカ合衆国建国への道が開かれた。",
+  "source_url": "https://ja.wikipedia.org/wiki/アメリカ独立宣言"
+ },
+ {
+  "year": 1789,
+  "lat": 48.85,
+  "lng": 2.37,
+  "title_ja": "フランス革命勃発",
+  "summary_ja": "バスティーユ牢獄襲撃を機にフランス革命が始まり、旧体制が崩壊へ向かった。",
+  "source_url": "https://ja.wikipedia.org/wiki/フランス革命"
+ },
+ {
+  "year": 1804,
+  "lat": 19.45,
+  "lng": -72.68,
+  "title_ja": "ハイチ独立",
+  "summary_ja": "奴隷反乱を経てハイチが独立を宣言し、世界初の黒人共和国が誕生した。",
+  "source_url": "https://ja.wikipedia.org/wiki/ハイチの独立"
+ },
+ {
+  "year": 1815,
+  "lat": 48.21,
+  "lng": 16.37,
+  "title_ja": "ウィーン会議終結",
+  "summary_ja": "ナポレオン戦争後の欧州秩序を定めるウィーン会議が終結し、新体制が発足した。",
+  "source_url": "https://ja.wikipedia.org/wiki/ウィーン会議"
+ },
+ {
+  "year": 1839,
+  "lat": 23.13,
+  "lng": 113.26,
+  "title_ja": "アヘン戦争勃発",
+  "summary_ja": "清のアヘン取締りを機にイギリスが開戦し、アヘン戦争で清が敗北した。",
+  "source_url": "https://ja.wikipedia.org/wiki/アヘン戦争"
+ },
+ {
+  "year": 1853,
+  "lat": 35.23,
+  "lng": 139.73,
+  "title_ja": "黒船来航",
+  "summary_ja": "ペリー率いる米艦隊が浦賀に来航し、日本に開国を迫る契機となった。",
+  "source_url": "https://ja.wikipedia.org/wiki/黒船来航"
+ },
+ {
+  "year": 1857,
+  "lat": 28.98,
+  "lng": 77.71,
+  "title_ja": "インド大反乱",
+  "summary_ja": "東インド会社の傭兵らが蜂起し、インド全域を巻き込む大反乱に発展した。",
+  "source_url": "https://ja.wikipedia.org/wiki/インド大反乱"
+ },
+ {
+  "year": 1861,
+  "lat": 32.75,
+  "lng": -79.87,
+  "title_ja": "南北戦争勃発",
+  "summary_ja": "サムター要塞砲撃を機に、奴隷制を巡るアメリカ南北戦争が始まった。",
+  "source_url": "https://ja.wikipedia.org/wiki/南北戦争"
+ },
+ {
+  "year": 1868,
+  "lat": 35.01,
+  "lng": 135.77,
+  "title_ja": "明治維新",
+  "summary_ja": "江戸幕府が倒れ天皇中心の新政府が樹立、日本の近代化が本格的に始まった。",
+  "source_url": "https://ja.wikipedia.org/wiki/明治維新"
+ },
+ {
+  "year": 1871,
+  "lat": 48.8,
+  "lng": 2.12,
+  "title_ja": "ドイツ統一",
+  "summary_ja": "プロイセン主導でドイツ諸邦が統一され、ドイツ帝国がヴェルサイユで成立した。",
+  "source_url": "https://ja.wikipedia.org/wiki/ドイツ帝国"
+ },
+ {
+  "year": 1885,
+  "lat": 52.52,
+  "lng": 13.4,
+  "title_ja": "ベルリン会議",
+  "summary_ja": "欧州列強がアフリカ分割の原則を協議し、植民地分割競争が加速した。",
+  "source_url": "https://ja.wikipedia.org/wiki/ベルリン会議_(1884年-1885年)"
+ },
+ {
+  "year": 1894,
+  "lat": 37.57,
+  "lng": 126.98,
+  "title_ja": "日清戦争勃発",
+  "summary_ja": "朝鮮の支配権を巡り日本と清が開戦し、東アジアの国際秩序が大きく変動した。",
+  "source_url": "https://ja.wikipedia.org/wiki/日清戦争"
+ },
+ {
+  "year": 1904,
+  "lat": 38.82,
+  "lng": 121.26,
+  "title_ja": "日露戦争勃発",
+  "summary_ja": "満州・朝鮮を巡る対立から日本とロシアが開戦し、日露戦争が始まった。",
+  "source_url": "https://ja.wikipedia.org/wiki/日露戦争"
+ },
+ {
+  "year": 1911,
+  "lat": 30.55,
+  "lng": 114.3,
+  "title_ja": "辛亥革命",
+  "summary_ja": "武昌での蜂起を機に辛亥革命が広がり、清朝が倒れ中華民国建国へ向かった。",
+  "source_url": "https://ja.wikipedia.org/wiki/辛亥革命"
+ },
+ {
+  "year": 1914,
+  "lat": 43.86,
+  "lng": 18.41,
+  "title_ja": "サラエボ事件",
+  "summary_ja": "オーストリア皇太子暗殺事件を機に、第一次世界大戦が勃発した。",
+  "source_url": "https://ja.wikipedia.org/wiki/サラエボ事件"
+ },
+ {
+  "year": 1917,
+  "lat": 59.93,
+  "lng": 30.34,
+  "title_ja": "ロシア革命",
+  "summary_ja": "ロマノフ朝が倒れボリシェヴィキが政権を握り、世界初の社会主義国家が誕生した。",
+  "source_url": "https://ja.wikipedia.org/wiki/ロシア革命"
+ },
+ {
+  "year": 1922,
+  "lat": 55.75,
+  "lng": 37.62,
+  "title_ja": "ソビエト連邦成立",
+  "summary_ja": "ロシアを中心に諸共和国が統合し、ソビエト社会主義共和国連邦が成立した。",
+  "source_url": "https://ja.wikipedia.org/wiki/ソビエト連邦"
+ },
+ {
+  "year": 1929,
+  "lat": 40.71,
+  "lng": -74.01,
+  "title_ja": "世界恐慌の発生",
+  "summary_ja": "ニューヨーク株式市場が大暴落し、世界規模の大恐慌が始まった。",
+  "source_url": "https://ja.wikipedia.org/wiki/世界恐慌"
+ },
+ {
+  "year": 1931,
+  "lat": 41.8,
+  "lng": 123.43,
+  "title_ja": "満州事変",
+  "summary_ja": "関東軍が柳条湖事件を起こし満州を占領、日本の大陸進出が本格化した。",
+  "source_url": "https://ja.wikipedia.org/wiki/満州事変"
+ },
+ {
+  "year": 1933,
+  "lat": 52.52,
+  "lng": 13.4,
+  "title_ja": "ヒトラー首相就任",
+  "summary_ja": "ヒトラーがドイツ首相に任命され、ナチス独裁体制への道が開かれた。",
+  "source_url": "https://ja.wikipedia.org/wiki/アドルフ・ヒトラー"
+ },
+ {
+  "year": 1937,
+  "lat": 39.85,
+  "lng": 116.2,
+  "title_ja": "日中戦争勃発",
+  "summary_ja": "盧溝橋事件を発端に日本と中国が全面戦争に突入した。",
+  "source_url": "https://ja.wikipedia.org/wiki/盧溝橋事件"
+ },
+ {
+  "year": 1939,
+  "lat": 52.23,
+  "lng": 21.01,
+  "title_ja": "第二次世界大戦勃発",
+  "summary_ja": "ドイツ軍がポーランドに侵攻し、第二次世界大戦が始まった。",
+  "source_url": "https://ja.wikipedia.org/wiki/第二次世界大戦"
+ },
+ {
+  "year": 1941,
+  "lat": 21.36,
+  "lng": -157.95,
+  "title_ja": "真珠湾攻撃",
+  "summary_ja": "日本軍がハワイの真珠湾を奇襲し、日米が太平洋戦争に突入した。",
+  "source_url": "https://ja.wikipedia.org/wiki/真珠湾攻撃"
+ },
+ {
+  "year": 1945,
+  "lat": 34.4,
+  "lng": 132.45,
+  "title_ja": "広島への原爆投下",
+  "summary_ja": "アメリカ軍が広島に原子爆弾を投下し、甚大な被害と戦争終結への転機となった。",
+  "source_url": "https://ja.wikipedia.org/wiki/広島市への原子爆弾投下"
+ },
+ {
+  "year": 1947,
+  "lat": 28.61,
+  "lng": 77.21,
+  "title_ja": "インド・パキスタン独立",
+  "summary_ja": "イギリスからインドとパキスタンが分離独立し、大規模な住民移動と対立が生じた。",
+  "source_url": "https://ja.wikipedia.org/wiki/インド・パキスタン分離独立"
+ },
+ {
+  "year": 1948,
+  "lat": 32.08,
+  "lng": 34.78,
+  "title_ja": "イスラエル建国",
+  "summary_ja": "ユダヤ人がイスラエル建国を宣言し、中東戦争など地域対立の起点となった。",
+  "source_url": "https://ja.wikipedia.org/wiki/イスラエル"
+ },
+ {
+  "year": 1949,
+  "lat": 39.9,
+  "lng": 116.4,
+  "title_ja": "中華人民共和国成立",
+  "summary_ja": "国共内戦を経て毛沢東が北京で中華人民共和国の成立を宣言した。",
+  "source_url": "https://ja.wikipedia.org/wiki/中華人民共和国の成立"
+ },
+ {
+  "year": 1950,
+  "lat": 37.57,
+  "lng": 126.98,
+  "title_ja": "朝鮮戦争勃発",
+  "summary_ja": "北朝鮮軍が韓国に侵攻し、南北を分断する朝鮮戦争が始まった。",
+  "source_url": "https://ja.wikipedia.org/wiki/朝鮮戦争"
+ },
+ {
+  "year": 1955,
+  "lat": -6.91,
+  "lng": 107.61,
+  "title_ja": "バンドン会議",
+  "summary_ja": "アジア・アフリカ29か国がバンドンに集い、非同盟・反植民地主義を掲げた。",
+  "source_url": "https://ja.wikipedia.org/wiki/バンドン会議"
+ },
+ {
+  "year": 1961,
+  "lat": 52.52,
+  "lng": 13.4,
+  "title_ja": "ベルリンの壁建設",
+  "summary_ja": "東ドイツが東西ベルリンを隔てる壁を建設し、冷戦分断の象徴となった。",
+  "source_url": "https://ja.wikipedia.org/wiki/ベルリンの壁"
+ },
+ {
+  "year": 1969,
+  "lat": 28.39,
+  "lng": -80.61,
+  "title_ja": "アポロ11号月面着陸",
+  "summary_ja": "アメリカのアポロ11号が打ち上げられ、人類初の月面着陸に成功した。",
+  "source_url": "https://ja.wikipedia.org/wiki/アポロ11号"
+ },
+ {
+  "year": 1975,
+  "lat": 10.78,
+  "lng": 106.7,
+  "title_ja": "サイゴン陥落",
+  "summary_ja": "北ベトナム軍がサイゴンを制圧し、ベトナム戦争が終結した。",
+  "source_url": "https://ja.wikipedia.org/wiki/サイゴン陥落"
+ },
+ {
+  "year": 1979,
+  "lat": 35.69,
+  "lng": 51.39,
+  "title_ja": "イラン革命",
+  "summary_ja": "パフラヴィー朝が倒れホメイニ師が主導するイスラム共和国が樹立された。",
+  "source_url": "https://ja.wikipedia.org/wiki/イラン革命"
+ },
+ {
+  "year": 1989,
+  "lat": 52.52,
+  "lng": 13.4,
+  "title_ja": "ベルリンの壁崩壊",
+  "summary_ja": "東欧民主化の波の中でベルリンの壁が崩壊し、冷戦終結を象徴する出来事となった。",
+  "source_url": "https://ja.wikipedia.org/wiki/ベルリンの壁"
+ },
+ {
+  "year": 1991,
+  "lat": 55.75,
+  "lng": 37.62,
+  "title_ja": "ソビエト連邦崩壊",
+  "summary_ja": "ソビエト連邦が解体し、冷戦時代の一方の超大国が消滅した。",
+  "source_url": "https://ja.wikipedia.org/wiki/ソビエト連邦の崩壊"
+ },
+ {
+  "year": 2001,
+  "lat": 40.71,
+  "lng": -74.01,
+  "title_ja": "同時多発テロ事件",
+  "summary_ja": "ニューヨークなどでアルカイダによる同時多発テロが発生し、世界情勢が一変した。",
+  "source_url": "https://ja.wikipedia.org/wiki/アメリカ同時多発テロ事件"
+ },
+ {
+  "year": 2008,
+  "lat": 40.71,
+  "lng": -74.01,
+  "title_ja": "世界金融危機",
+  "summary_ja": "リーマン・ブラザーズ破綻を機に世界的な金融危機が発生し、世界経済が混乱した。",
+  "source_url": "https://ja.wikipedia.org/wiki/世界金融危機_(2007年-2010年)"
+ }
+]

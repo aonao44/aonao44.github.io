@@ -44,7 +44,55 @@ node scripts/extract-names.js --missing  # names.ja.json に未登録のもの�
 npm test    # node:test。eras / slider / layers / panel のロジック
 ```
 
-表示の確認は Playwright でスクリーンショットを撮る（`output/`）。
+表示の確認は Playwright で撮る（`output/`）。デスクトップ4断面
+（bc3000 / 100 / 1492 / 2010）とモバイル1枚を撮り、次を自動で検査する:
+
+- ポリゴンが1つ以上描画されている
+- 非国家判定が実際に適用され、国家と非国家が両方存在する
+- 出来事の点が描画されている
+- ポリゴンをクリックするとパネルに名前が出る
+- クリックしたポリゴンが強調される
+- モバイルでシートが開き、タッチでスライダーが動く
+
+```sh
+python3 -m http.server 8765 &
+node scripts/screenshot.mjs
+```
+
+## 非国家ポリゴンの扱い
+
+元データは、実在の国家と「狩猟採集民」「牧畜遊牧民」「民族集団」「考古学的文化」を
+同じ形で並べている。両者を同じ濃さで塗ると、地図が民族分布図に見えてしまい
+「この年代にどんな国があったか」が読めなくなる。
+
+そこで非国家は **消さずに薄く**（塗り 15%・輪郭も細く）描く。判定規則は
+`data/nonstate.json`、実装は `src/nonstate.js`。
+
+**なぜ名前で判定するのか。** 元データには `type` 属性が一応あるが、7断面
+3844 feature を数えたところ値が入っているのは 138 件、非 null は 16 件しかなく、
+分類には使えなかった。`SUBJECTO` / `PARTOF` は宗主関係であって国家性とは無関係。
+残る手掛かりが `NAME` の語形しかない。
+
+規則は3つの部分からなる:
+
+- `patterns` — 小文字化した NAME に含まれれば非国家とみなす部分文字列
+  (`hunter`, `gatherer`, `forag`, `nomad`, `pastoral`, `culture`, `tribe`,
+  `peoples`, `farmer` など14種)。元データの誤字 (`fich`, `Pacifi`) も含む
+- `exceptions` — パターンに引っかかるが実際は国家である NAME（現在は0件）
+- `explicit` — パターンでは拾えない裸の民族名・考古学的文化名
+  (`Bantu`, `Ainu`, `Guanches`, `Afanasevo`, `Yamnaya` など66件)
+
+**迷ったら国家扱いにする。** 実在の帝国を薄く塗る誤りの方が、狩猟採集民を
+濃く塗る誤りより重いため。この方針から、次は意図的に国家側に残してある:
+
+- 「軍閥」(`Chinese Warlords`) — 事実上の国家であり文化集団ではない
+- `Xiongnu` / `Mongols` / `Franks` / `Visigoths` — 国家・連合体を指しうる
+- `Huns` / `Goths` — アッティラの帝国・西ゴート王国を指しうる
+- `Indus valley civilization` — 考古学的文化ではあるが四大文明の一つであり、
+  薄く塗ると世界史教材として誤解を招く
+
+現在 2548 件中 160 件前後が非国家と判定される。規則を変えたら
+`npm test` の `nonstate` 系テストが範囲(50件超・全体の25%未満)を検査する。
 
 ## 構成
 
@@ -57,8 +105,12 @@ src/panel.js                  右パネル
 src/slider.js                 スライダー・自動再生
 data/eras/*.geojson           簡略化済み48断面（生成物）
 data/modern-borders.geojson   Natural Earth 110m 国境線
-data/names.ja.json            NAME → 日本語名
-data/modern.json              NAME → 現在の国
+data/names.ja.json            NAME → 日本語名（全2548件）
+data/modern.json              NAME → 現在の国（面積上位216件）
+data/nonstate.json            非国家判定の規則
+data/events.json              主要な出来事110件
+src/nonstate.js               非国家判定
+src/events.js                 断面に対応する出来事の選別
 scripts/build-data.sh         元データ取得 + 簡略化
 scripts/extract-names.js      NAME ユニーク抽出
 ```

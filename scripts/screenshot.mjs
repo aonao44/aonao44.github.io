@@ -13,7 +13,7 @@ const outDir = join(root, 'output');
 mkdirSync(outDir, { recursive: true });
 
 const base = process.argv[2] ?? 'http://localhost:8765';
-const ERAS = ['bc3000', '100', '1492', '2010'];
+const ERAS = ['bc3000', 'bc1', '100', '1492', '2010'];
 
 const results = [];
 let failed = 0;
@@ -79,15 +79,39 @@ for (const era of ERAS) {
     const feats = m.queryRenderedFeatures({ layers: symbolIds });
     const withJa = feats.filter((f) => f.properties && f.properties['name:ja']);
     const hasCjk = (t) => /[\u3040-\u30ff\u4e00-\u9fff]/.test(t);
+    // 下地ラベルが「脇役」に落ちているか: 灰色・小さい・都市名はズーム下限あり
+    const someLabel = symbolIds.find((id) => id !== 'era-label');
+    const colour = someLabel ? m.getPaintProperty(someLabel, 'text-color') : null;
+    const size = someLabel ? m.getLayoutProperty(someLabel, 'text-size') : null;
+    const cityLayer = symbolIds.find((id) => /city|town|village/.test(id));
+    const cityMinZoom = cityLayer ? (m.getLayer(cityLayer).minzoom ?? 0) : null;
+    // 政体ラベルの最小サイズ(interpolate の最初の出力)
+    const polityStops = m.getLayoutProperty('era-label', 'text-size');
+    const polityMinSize = Array.isArray(polityStops) ? polityStops[4] : polityStops;
     return {
       localisedLayers: window.imperia.localisedLayers,
+      demoted: window.imperia.basemapLabelStats.demoted,
+      cityLayers: window.imperia.basemapLabelStats.cityLayers,
       symbolLayers: symbolIds.length,
       renderedSymbols: feats.length,
       withNameJa: withJa.length,
       japaneseSample: [...new Set(withJa.map((f) => f.properties['name:ja']).filter(hasCjk))].slice(0, 6),
+      sampleColour: colour,
+      sampleSize: size,
+      greyed: typeof colour === 'string' && /^#(8|9|a)/i.test(colour),
+      cityMinZoom,
+      polityMinSize,
+      polityFont: m.getLayoutProperty('era-label', 'text-font'),
+      smallerThanPolity: typeof size === 'number' && size < polityMinSize,
     };
   });
   if (r.basemap.localisedLayers < 1) fail(r, 'no basemap symbol layer was localised');
+  if (r.basemap.demoted < r.basemap.localisedLayers) fail(r, 'some basemap labels were not demoted');
+  if (r.basemap.cityLayers < 1) fail(r, 'no basemap detail layer got a zoom floor');
+  if (!r.basemap.greyed) fail(r, `basemap label colour is ${r.basemap.sampleColour}, expected grey`);
+  if (!r.basemap.smallerThanPolity) {
+    fail(r, `basemap text ${r.basemap.sampleSize}px is not smaller than polity text ${r.basemap.polityMinSize}px`);
+  }
   if (r.basemap.withNameJa < 1) fail(r, 'no rendered basemap feature carries name:ja');
   if (r.basemap.japaneseSample.length < 1) fail(r, 'no Japanese basemap label rendered');
 
@@ -110,6 +134,32 @@ for (const era of ERAS) {
     fail(r, `polity labels duplicated: ${r.eraLabels.duplicated.slice(0, 3).join(', ')}`);
   }
   if (r.eraLabels.japanese < 1) fail(r, 'no polity label rendered in Japanese');
+  if (!String(r.basemap.polityFont).includes('Bold')) {
+    fail(r, `polity labels should be bold, got ${JSON.stringify(r.basemap.polityFont)}`);
+  }
+  if (r.basemap.cityMinZoom !== null && r.basemap.cityMinZoom < 4) {
+    fail(r, `basemap city labels show from zoom ${r.basemap.cityMinZoom}, expected >= 4`);
+  }
+
+  // --- 凡例と年入力ヒント ---
+  r.legend = await page.evaluate(() => ({
+    visible: getComputedStyle(document.getElementById('legend')).display !== 'none',
+    items: document.querySelectorAll('#legend-body li').length,
+    hint: (document.getElementById('year-format-hint')?.textContent ?? '').trim(),
+  }));
+  if (!r.legend.visible) fail(r, 'the legend is not visible');
+  if (r.legend.items < 4) fail(r, `legend has ${r.legend.items} entries, expected 4`);
+  if (!r.legend.hint.includes('紀元前0年')) fail(r, 'the year-format hint is missing');
+
+  // --- トピック一覧（何も選んでいない既定表示） ---
+  r.topics = await page.evaluate(() => ({
+    header: document.querySelector('[data-testid="topics-era"]')?.textContent ?? '',
+    count: document.querySelectorAll('[data-testid="topics-list"] .topic').length,
+    linked: document.querySelectorAll('.topic-btn[data-polity]').length,
+    first: document.querySelector('.topic-title')?.textContent ?? '',
+  }));
+  if (r.topics.count < 4) fail(r, `only ${r.topics.count} topics shown for this era`);
+  if (!r.topics.header.includes('トピック')) fail(r, 'topics header missing');
 
   // --- アサート5: 出来事が描画されている ---
   r.events = await page.evaluate(() => ({
@@ -160,6 +210,35 @@ for (const era of ERAS) {
     if (r.selectedId === null || r.selectedId === undefined) {
       fail(r, 'clicked polygon was not highlighted (no feature-state set)');
     }
+  }
+
+  // --- トピックから政体へ、そして戻れること（bc1 で確認）---
+  if (era === 'bc1') {
+    await page.evaluate(() => window.imperia.showTopics());
+    await page.waitForTimeout(300);
+    const btn = page.locator('.topic-btn[data-polity]').first();
+    r.topicClicked = (await btn.textContent()).trim();
+    await btn.click();
+    await page.waitForTimeout(1800);
+    r.topicPanelName = await page.locator('[data-testid="panel-name"]').textContent().catch(() => null);
+    r.topicSelectedId = await page.evaluate(() => window.imperia.selectedId);
+    if (!r.topicPanelName) fail(r, 'clicking a topic did not open the polity detail');
+    if (r.topicSelectedId === null || r.topicSelectedId === undefined) {
+      fail(r, 'clicking a topic did not highlight the polity on the map');
+    }
+    const backs = await page.locator('[data-testid="panel-back"]').count();
+    if (backs !== 1) fail(r, 'no back link on the polity detail');
+    await page.locator('[data-testid="panel-back"]').click();
+    await page.waitForTimeout(400);
+    const backCount = await page.locator('[data-testid="topics-list"] .topic').count();
+    if (backCount < 4) fail(r, 'the back link did not restore the topics list');
+    // スクリーンショットはトピック一覧・世界表示の状態で撮る。
+    // 直前のトピッククリックで地図が寄っているので、視点を初期位置に戻す。
+    await page.evaluate(() => {
+      window.imperia.map.jumpTo({ center: [20, 25], zoom: 1.6 });
+      window.imperia.showTopics();
+    });
+    await page.waitForTimeout(1800);
   }
 
   r.yearLabel = await page.locator('#year-label').textContent();
@@ -248,11 +327,40 @@ const mobile = await browser.newContext({ ...devices['iPhone 13'] });
   await waitReady(page);
   r.viewport = page.viewportSize();
 
-  // シートは選択するまで閉じている
-  const sheetHidden = await page.evaluate(
-    () => document.getElementById('panel').getBoundingClientRect().top >= window.innerHeight - 1,
-  );
-  if (!sheetHidden) fail(r, 'bottom sheet should start closed on mobile');
+  // シートは畳まれていて、「この時代のトピック」ハンドルだけが見えている
+  r.sheet = await page.evaluate(() => {
+    const panel = document.getElementById('panel');
+    const handle = document.getElementById('sheet-handle');
+    const hb = handle.getBoundingClientRect();
+    return {
+      open: panel.classList.contains('is-open'),
+      handleVisible: getComputedStyle(handle).display !== 'none'
+        && hb.top < window.innerHeight && hb.bottom > 0,
+      handleText: handle.textContent.trim(),
+      bodyMostlyHidden: panel.getBoundingClientRect().top > window.innerHeight * 0.7,
+    };
+  });
+  if (r.sheet.open) fail(r, 'bottom sheet should start collapsed on mobile');
+  if (!r.sheet.handleVisible) fail(r, 'the topics handle is not visible on mobile');
+  if (!r.sheet.handleText.includes('トピック')) fail(r, `handle reads "${r.sheet.handleText}"`);
+  if (!r.sheet.bodyMostlyHidden) fail(r, 'collapsed sheet is taking up the screen');
+
+  // ハンドルをタップすると開いてトピックが読める
+  await page.locator('#sheet-handle').tap();
+  await page.waitForTimeout(500);
+  r.sheetOpened = await page.evaluate(() => ({
+    open: document.getElementById('panel').classList.contains('is-open'),
+    topics: document.querySelectorAll('[data-testid="topics-list"] .topic').length,
+  }));
+  if (!r.sheetOpened.open) fail(r, 'tapping the handle did not open the sheet');
+  if (r.sheetOpened.topics < 4) fail(r, `sheet opened with ${r.sheetOpened.topics} topics`);
+
+  // 凡例はモバイルでは畳める
+  r.legendMobile = await page.evaluate(() => {
+    const toggle = document.getElementById('legend-toggle');
+    return { toggleVisible: getComputedStyle(toggle).display !== 'none' };
+  });
+  if (!r.legendMobile.toggleVisible) fail(r, 'the legend has no collapse control on mobile');
 
   // 版図をタップするとシートが開く
   const target = await page.evaluate(() => {
@@ -328,10 +436,16 @@ for (const r of results) {
     console.log(`      events rendered=${r.events.rendered} selected=${r.events.selected} total=${r.events.total}`);
     console.log(`      basemap ja: localised=${r.basemap.localisedLayers} layers, ${r.basemap.withNameJa} features w/ name:ja, e.g. ${JSON.stringify(r.basemap.japaneseSample.slice(0, 4))}`);
     console.log(`      polity labels: ${r.eraLabels.count} rendered, ${r.eraLabels.japanese} japanese, dupes=${r.eraLabels.duplicated.length}, e.g. ${JSON.stringify(r.eraLabels.sample.slice(0, 4))}`);
+    console.log(`      hierarchy: basemap ${r.basemap.sampleSize}px ${r.basemap.sampleColour} vs polity ${r.basemap.polityMinSize}px ${JSON.stringify(r.basemap.polityFont)}, city labels from zoom ${r.basemap.cityMinZoom}`);
+    console.log(`      legend: ${r.legend.items} entries visible=${r.legend.visible} | topics: ${r.topics.count} (${r.topics.linked} linked) "${r.topics.first}"`);
+    if (r.topicClicked) console.log(`      topic click "${r.topicClicked}" -> panel ${JSON.stringify(r.topicPanelName)}, highlighted id=${r.topicSelectedId}, back link OK`);
     console.log(`      nonstate sample=${JSON.stringify(r.nonstateSample)}`);
   }
   if (r.snapped) {
     console.log(`      117 -> ${r.snapped.label} (hint: ${r.snapped.hint}) | 紀元前500 -> ${r.exact.label} (hint empty: ${!r.exact.hint}) | bad input flagged: ${r.bad.invalid}, map unmoved: ${r.bad.shown === r.exact.shown}`);
+  }
+  if (r.sheet) {
+    console.log(`      sheet collapsed=${!r.sheet.open} handle="${r.sheet.handleText}" -> tap opens with ${r.sheetOpened.topics} topics | legend collapsible=${r.legendMobile.toggleVisible}`);
   }
   if (r.afterDrag) {
     console.log(`      touch slider -> index=${r.afterDrag.index} label=${r.afterDrag.label} box=${JSON.stringify(r.sliderBox)}`);

@@ -73,14 +73,29 @@
     padding: 0 20px;
     z-index: 6;
   }
-  #play {
-    flex: none;
-    width: 38px; height: 38px;
-    border: 1px solid var(--line); border-radius: 50%;
-    background: var(--bg); cursor: pointer;
-    font-size: 14px; line-height: 1;
+  #year-jump { flex: none; }
+  #year-input {
+    width: 108px;
+    padding: 7px 10px;
+    border: 1px solid var(--line); border-radius: 7px;
+    background: var(--bg); color: var(--ink);
+    font: inherit; font-size: 13px;
+    font-variant-numeric: tabular-nums;
   }
-  #play:hover { background: #f4f4f6; }
+  #year-input::placeholder { color: #a5a5aa; }
+  #year-input:focus {
+    outline: none;
+    border-color: #2f6fd0;
+    box-shadow: 0 0 0 3px rgba(47, 111, 208, .15);
+  }
+  #year-input.is-invalid {
+    border-color: #c0392b;
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, .12);
+  }
+  #year-hint {
+    flex: none; font-size: 12px; color: var(--muted);
+    white-space: nowrap;
+  }
   #era-slider { flex: 1; min-width: 0; }
   .bar-end { flex: none; font-size: 12px; color: var(--muted); }
   #year-label {
@@ -164,6 +179,9 @@
       height: 32px;
     }
     .bar-end { font-size: 11px; }
+    #year-input { width: 92px; }
+    /* ヒントは幅を食うので、モバイルでは折り返して全幅に置く */
+    #year-hint { flex: 1 1 100%; order: 20; font-size: 11px; }
     #year-label { min-width: 0; font-size: 16px; margin-left: auto; }
   }
 </style>
@@ -182,11 +200,15 @@
   </aside>
 
   <div id="bar">
-    <button id="play" title="自動再生">▶</button>
     <span class="bar-end">紀元前3000年</span>
     <input type="range" id="era-slider" min="0" max="47" step="1" value="0" aria-label="年代">
     <span class="bar-end">2010年</span>
+    <label id="year-jump">
+      <input type="text" id="year-input" inputmode="text" autocomplete="off"
+             placeholder="年で移動" aria-label="年を入力して移動">
+    </label>
     <span id="loading"></span>
+    <span id="year-hint"></span>
     <span id="year-label">紀元前3000年</span>
   </div>
 

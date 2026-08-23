@@ -170,6 +170,70 @@ for (const era of ERAS) {
   results.push(r);
   await page.close();
 }
+
+// ---------- 年を打ち込んで飛ぶ ----------
+{
+  const r = { era: 'year-input', problems: [], errors: [] };
+  const page = await context.newPage();
+  page.on('pageerror', (e) => r.errors.push(String(e)));
+  page.on('console', (m) => { if (m.type() === 'error') r.errors.push(m.text()); });
+
+  await page.goto(`${base}/index.html`, { waitUntil: 'load' });
+  await waitReady(page);
+
+  // 自動再生ボタンは撤去済み
+  if (await page.locator('#play').count() > 0) fail(r, 'the autoplay button is still present');
+
+  const jump = async (text) => {
+    await page.fill('#year-input', '');
+    await page.fill('#year-input', text);
+    await page.press('#year-input', 'Enter');
+    await page.waitForTimeout(1200);
+    return {
+      label: await page.textContent('#year-label'),
+      hint: (await page.textContent('#year-hint')).trim(),
+      shown: await page.evaluate(() => window.imperia.shownIndex),
+      slider: await page.evaluate(() => Number(document.getElementById('era-slider').value)),
+      invalid: await page.evaluate(() => document.getElementById('year-input').classList.contains('is-invalid')),
+    };
+  };
+
+  // 117 -> 100年の断面へ寄る
+  const snapped = await jump('117');
+  r.snapped = snapped;
+  if (snapped.label !== '100年') fail(r, `117 should show 100年, got ${snapped.label}`);
+  if (snapped.shown !== snapped.slider) fail(r, 'slider and map disagree after a year jump');
+  if (!snapped.hint) fail(r, 'no hint shown when the year was snapped');
+
+  // 紀元前500 -> ちょうど断面があるのでヒントは出ない
+  const exact = await jump('紀元前500');
+  r.exact = exact;
+  if (exact.label !== '紀元前500年') fail(r, `紀元前500 should show 紀元前500年, got ${exact.label}`);
+  if (exact.hint) fail(r, `hint should be empty on an exact hit, got ${exact.hint}`);
+
+  // BC500 / 500BC / 前500 も同じ断面
+  for (const form of ['BC500', '500BC', '前500', '-500']) {
+    const got = await jump(form);
+    if (got.shown !== exact.shown) fail(r, `${form} landed on era ${got.shown}, expected ${exact.shown}`);
+  }
+
+  // 読めない入力は動かさずに知らせる
+  const before = exact.shown;
+  const bad = await jump('ローマ');
+  r.bad = bad;
+  if (!bad.invalid) fail(r, 'unreadable input was not flagged');
+  if (bad.shown !== before) fail(r, 'unreadable input moved the map');
+
+  r.shot = join(outDir, 'imperia-year-input.png');
+  await page.fill('#year-input', '117');
+  await page.press('#year-input', 'Enter');
+  await page.waitForTimeout(1500);
+  await page.screenshot({ path: r.shot });
+  if (r.errors.length) fail(r, `console errors: ${r.errors.slice(0, 2).join(' | ')}`);
+  results.push(r);
+  await page.close();
+}
+
 await context.close();
 
 // ---------- モバイル: ボトムシート + タッチでのスライダー操作 ----------
@@ -265,6 +329,9 @@ for (const r of results) {
     console.log(`      basemap ja: localised=${r.basemap.localisedLayers} layers, ${r.basemap.withNameJa} features w/ name:ja, e.g. ${JSON.stringify(r.basemap.japaneseSample.slice(0, 4))}`);
     console.log(`      polity labels: ${r.eraLabels.count} rendered, ${r.eraLabels.japanese} japanese, dupes=${r.eraLabels.duplicated.length}, e.g. ${JSON.stringify(r.eraLabels.sample.slice(0, 4))}`);
     console.log(`      nonstate sample=${JSON.stringify(r.nonstateSample)}`);
+  }
+  if (r.snapped) {
+    console.log(`      117 -> ${r.snapped.label} (hint: ${r.snapped.hint}) | 紀元前500 -> ${r.exact.label} (hint empty: ${!r.exact.hint}) | bad input flagged: ${r.bad.invalid}, map unmoved: ${r.bad.shown === r.exact.shown}`);
   }
   if (r.afterDrag) {
     console.log(`      touch slider -> index=${r.afterDrag.index} label=${r.afterDrag.label} box=${JSON.stringify(r.sliderBox)}`);

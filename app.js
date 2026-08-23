@@ -16,7 +16,7 @@ import {
   ERA_FILL_LAYER, ERA_SOURCE, EVENTS_LAYER,
 } from './src/layers.js';
 import { renderPanel, renderEmpty, renderEventPanel } from './src/panel.js';
-import { Autoplay } from './src/slider.js';
+import { resolveYearInput } from './src/yearinput.js';
 import { eventsForEra } from './src/events.js';
 
 const el = {
@@ -24,7 +24,8 @@ const el = {
   panel: document.getElementById('panel-body'),
   slider: document.getElementById('era-slider'),
   year: document.getElementById('year-label'),
-  play: document.getElementById('play'),
+  yearInput: document.getElementById('year-input'),
+  yearHint: document.getElementById('year-hint'),
   loading: document.getElementById('loading'),
   borders: document.getElementById('borders-checkbox'),
   toast: document.getElementById('toast'),
@@ -149,6 +150,9 @@ el.slider.addEventListener('input', () => {
 
 // 離した時に断面をロード（spec）
 el.slider.addEventListener('change', () => {
+  // スライダーで動かしたら、年入力に対する「寄せました」表示は用済み
+  el.yearHint.textContent = '';
+  el.yearInput.classList.remove('is-invalid');
   showEra(Number(el.slider.value));
 });
 
@@ -159,21 +163,46 @@ function goTo(index) {
   return showEra(index);
 }
 
-// --- 自動再生 ---
-const autoplay = new Autoplay({
-  getIndex: () => Number(el.slider.value),
-  onStep: (i) => goTo(i),
-  onEnd: () => updatePlayButton(),
-});
+// --- 年を打ち込んで飛ぶ ---
+/**
+ * 入力された年の断面へ移動する。
+ * 断面は48しかないので、打った年ちょうどの断面はまず無い。
+ * その年に有効だった最後の断面へ寄せ、寄せた場合はその旨を小さく出す。
+ */
+let lastAppliedYearInput = null;
 
-function updatePlayButton() {
-  el.play.textContent = autoplay.playing ? '■' : '▶';
-  el.play.title = autoplay.playing ? '停止' : '自動再生';
+function jumpToTypedYear() {
+  const raw = el.yearInput.value;
+  const result = resolveYearInput(raw);
+
+  if (!result.ok) {
+    el.yearInput.classList.toggle('is-invalid', result.reason === 'unparsable');
+    el.yearHint.textContent = result.reason === 'unparsable'
+      ? '年を読み取れません（例: 117 / 紀元前500 / BC500）'
+      : '';
+    return;
+  }
+
+  el.yearInput.classList.remove('is-invalid');
+  el.yearHint.textContent = result.snapped
+    ? `→ ${labelAt(result.index)}の断面を表示`
+    : '';
+  lastAppliedYearInput = raw;
+  goTo(result.index);
 }
 
-el.play.addEventListener('click', () => {
-  autoplay.toggle();
-  updatePlayButton();
+el.yearInput.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter') return;
+  e.preventDefault();
+  jumpToTypedYear();
+});
+
+// フォーカスを外した時も反映する。ただし内容が前回と同じなら何もしない
+// （入力欄をクリックして離れただけで、スライダーで選び直した断面が
+//   打ち込んだ年に引き戻されるのを防ぐ）。
+el.yearInput.addEventListener('blur', () => {
+  if (el.yearInput.value === lastAppliedYearInput) return;
+  jumpToTypedYear();
 });
 
 // --- パネル ---
@@ -181,14 +210,6 @@ el.play.addEventListener('click', () => {
 function openSheet() {
   el.sheet.classList.add('is-open');
 }
-
-// 再生中はクリックで停止する（spec）。ポリゴン外（海など）をクリックしても
-// 止まる必要があるので、レイヤー限定ではなく地図全体で受ける。
-map.on('click', () => {
-  if (!autoplay.playing) return;
-  autoplay.stop();
-  updatePlayButton();
-});
 
 // 出来事の点を版図より優先して拾う（点の方が小さく、狙ってクリックされるため）
 map.on('click', EVENTS_LAYER, (e) => {
@@ -317,8 +338,8 @@ window.imperia = {
   store,
   dicts,
   goTo,
-  autoplay,
   eventsForEra,
+  jumpToTypedYear,
   get events() { return allEvents; },
   get nonStateRule() { return nonStateRule; },
   get shownIndex() { return shownIndex; },

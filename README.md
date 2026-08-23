@@ -16,6 +16,11 @@ open http://localhost:8765/
 
 `?era=<id>` で初期断面を指定できる（例: `?era=bc3000`, `?era=100`, `?era=2010`）。
 
+下部の入力欄に年を打って Enter を押すと、その年に有効だった断面へ飛ぶ。
+`117` / `-500` / `紀元前500` / `BC500` / `500BC` / `前500` を受け付ける。
+断面は48しかないので、打った年ちょうどの断面が無いときは
+その年以前で最も新しい断面へ寄せ、「→ 100年の断面を表示」と表示する。
+
 ## データを作り直す
 
 ```sh
@@ -138,7 +143,7 @@ app.js                        エントリ。map 初期化・UI 結線
 src/eras.js                   断面一覧・年ラベル・ロード + キャッシュ
 src/layers.js                 版図/国境レイヤー・NAME ハッシュからの配色
 src/panel.js                  右パネル
-src/slider.js                 スライダー・自動再生
+src/yearinput.js              年入力の解釈と断面への寄せ
 data/eras/*.geojson           簡略化済み48断面（生成物）
 data/modern-borders.geojson   Natural Earth 110m 国境線
 data/names.ja.json            NAME → 日本語名（全2548件）

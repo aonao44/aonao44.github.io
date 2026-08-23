@@ -33,6 +33,9 @@
     background: var(--bg);
     padding: 20px;
     overflow-y: auto;
+    /* MapLibre のコントロール(帰属表示・ズーム)より前に出す。
+       モバイルではシートが地図に重なるため、これが無いと帰属表示が本文に被る */
+    z-index: 5;
   }
   #panel h1 {
     font-size: 15px;
@@ -68,6 +71,7 @@
     background: var(--bg);
     display: flex; align-items: center; gap: 16px;
     padding: 0 20px;
+    z-index: 6;
   }
   #play {
     flex: none;
@@ -94,10 +98,73 @@
     padding: 10px 14px; border-radius: 8px;
     font-size: 13px; display: none;
     align-items: center; gap: 12px;
+    z-index: 7;
   }
   #toast button {
     background: #4a4a50; color: #fff; border: 0;
     padding: 4px 10px; border-radius: 5px; cursor: pointer; font-size: 12px;
+  }
+
+  /* 出来事パネル */
+  .panel-kicker {
+    margin: 0 0 4px; font-size: 12px; color: var(--muted);
+    letter-spacing: .06em; font-variant-numeric: tabular-nums;
+  }
+  .panel-summary { margin: 12px 0 0; font-size: 14px; line-height: 1.75; }
+  .panel-source { margin: 16px 0 0; font-size: 13px; }
+  .panel-source a { color: #2f6fd0; }
+
+  /* デスクトップでは閉じるボタンは不要 */
+  #sheet-close { display: none; }
+
+  /* --- モバイル: パネルを下からのシートにする --- */
+  @media (max-width: 767px) {
+    :root { --bar-h: 88px; }
+
+    #map { inset: 0 0 var(--bar-h) 0; }
+
+    #panel {
+      top: auto; right: 0; left: 0;
+      bottom: var(--bar-h);
+      width: auto;
+      max-height: 55vh;
+      border-left: 0;
+      border-top: 1px solid var(--line);
+      border-radius: 14px 14px 0 0;
+      box-shadow: 0 -6px 24px rgba(0, 0, 0, .12);
+      padding: 20px 20px 24px;
+      /* 選択するまではシートを隠しておく（地図を広く使う） */
+      transform: translateY(calc(100% + var(--bar-h)));
+      transition: transform .22s ease;
+    }
+    #panel.is-open { transform: translateY(0); }
+
+    #sheet-close {
+      display: block;
+      position: absolute; top: 10px; right: 12px;
+      width: 32px; height: 32px;
+      border: 0; border-radius: 50%;
+      background: #f0f0f3; color: var(--ink);
+      font-size: 18px; line-height: 1; cursor: pointer;
+    }
+
+    #panel h1 { display: none; }
+
+    /* 下部バーは 2 段にしてスライダーに幅を与える（タッチ操作のため） */
+    #bar {
+      flex-wrap: wrap;
+      align-content: center;
+      gap: 6px 12px;
+      padding: 8px 14px;
+    }
+    #era-slider {
+      order: 10;
+      flex: 1 1 100%;
+      /* 指で掴めるだけの高さを確保する */
+      height: 32px;
+    }
+    .bar-end { font-size: 11px; }
+    #year-label { min-width: 0; font-size: 16px; margin-left: auto; }
   }
 </style>
 </head>
@@ -105,6 +172,7 @@
   <div id="map"></div>
 
   <aside id="panel">
+    <button id="sheet-close" aria-label="閉じる">×</button>
     <h1>imperia</h1>
     <div id="panel-body"></div>
     <label id="borders-toggle">

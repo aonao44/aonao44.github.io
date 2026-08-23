@@ -1,12 +1,18 @@
 // 版図ポリゴン / 現代国境 / 出来事 レイヤーの追加・差し替えと、政体名から色を決める処理。
 
 import { compileNonStateRule, isNonState, EMPTY_RULE } from './nonstate.js';
+import { buildLabelFeatures } from './labelpoint.js';
 
 /** MapLibre のソース/レイヤー ID。 */
 export const ERA_SOURCE = 'era';
 export const ERA_FILL_LAYER = 'era-fill';
 export const ERA_OUTLINE_LAYER = 'era-outline';
 export const ERA_SELECTED_LAYER = 'era-selected';
+export const ERA_LABEL_LAYER = 'era-label';
+export const ERA_LABEL_SOURCE = 'era-labels';
+
+/** これより小さい政体には地図上のラベルを出さない(km^2)。狭い所の字潰れを防ぐ。 */
+export const LABEL_MIN_AREA = 20000;
 export const BORDERS_SOURCE = 'modern-borders';
 export const BORDERS_LAYER = 'modern-borders-line';
 export const EVENTS_SOURCE = 'events';
@@ -71,18 +77,53 @@ export function strokeForName(name) {
   return `hsl(${hueForName(name)}, ${STROKE_SAT}%, ${STROKE_LIGHT}%)`;
 }
 
+const EARTH_R = 6371.0088;
+const toRad = (d) => (d * Math.PI) / 180;
+
+/** 球面上の環の面積(km^2)。符号は無視する。 */
+function ringArea(ring) {
+  let total = 0;
+  for (let i = 0; i < ring.length; i += 1) {
+    const [x1, y1] = ring[i];
+    const [x2, y2] = ring[(i + 1) % ring.length];
+    total += (toRad(x2) - toRad(x1)) * (2 + Math.sin(toRad(y1)) + Math.sin(toRad(y2)));
+  }
+  return Math.abs((total * EARTH_R * EARTH_R) / 2);
+}
+
+/**
+ * ポリゴン/マルチポリゴンのおおよその面積(km^2)。
+ * ラベルの文字サイズを決めるためだけに使うので、穴は外周から引く程度の精度でよい。
+ * @param {object|null} geometry
+ * @returns {number}
+ */
+export function geometryArea(geometry) {
+  if (!geometry) return 0;
+  const poly = (rings) => rings.reduce((s, r, i) => s + (i === 0 ? ringArea(r) : -ringArea(r)), 0);
+  if (geometry.type === 'Polygon') return Math.max(0, poly(geometry.coordinates));
+  if (geometry.type === 'MultiPolygon') {
+    return Math.max(0, geometry.coordinates.reduce((s, p) => s + poly(p), 0));
+  }
+  return 0;
+}
+
 /**
  * 断面 GeoJSON の各 feature に描画用プロパティを焼き込む。
- * MapLibre の式ではハッシュも非国家判定もできないため、ここで前処理する。
+ * MapLibre の式ではハッシュも非国家判定も対訳引きもできないため、ここで前処理する。
  * 元データは変更せず、新しい FeatureCollection を返す。
+ *
  * @param {object} geojson
  * @param {object} [nonStateRule] data/nonstate.json の中身
+ * @param {Record<string,string>} [namesJa] 日本語対訳（地図上のラベルに使う）
  * @returns {object}
  */
-export function decorateEra(geojson, nonStateRule = EMPTY_RULE) {
+export function decorateEra(geojson, nonStateRule = EMPTY_RULE, namesJa = {}) {
   const compiled = compileNonStateRule(nonStateRule);
   const features = (geojson?.features ?? []).map((f) => {
-    const name = f.properties?.NAME ?? null;
+    // 元データには末尾に空白が付いた NAME が混ざっている ("Pomeranian culture ")。
+    // 対訳表のキーは trim 済みなので、ここで正規化しないと対訳が引けない。
+    const raw = f.properties?.NAME;
+    const name = typeof raw === 'string' ? (raw.trim() || null) : (raw ?? null);
     return {
       ...f,
       properties: {
@@ -91,6 +132,9 @@ export function decorateEra(geojson, nonStateRule = EMPTY_RULE) {
         _color: colorForName(name),
         _stroke: strokeForName(name),
         _nonstate: isNonState(name, compiled),
+        // 地図上に出す政体名。対訳が無ければ英語のまま（spec のフォールバック方針）
+        _label: name ? (namesJa[name] ?? name) : '',
+        _area: Math.round(geometryArea(f.geometry)),
       },
     };
   });
@@ -100,9 +144,13 @@ export function decorateEra(geojson, nonStateRule = EMPTY_RULE) {
 /**
  * 版図レイヤーを地図に追加する（初回のみ）。データは空で始める。
  * @param {import('maplibre-gl').Map} map
+ * @param {string} [beforeId] このレイヤーの下に差し込む。
+ *   下地の地名ラベルより下に入れることで、塗りが地名を覆い隠さないようにする。
  */
-export function addEraLayers(map) {
+export function addEraLayers(map, beforeId) {
   if (map.getSource(ERA_SOURCE)) return;
+  // beforeId が実在しない場合に addLayer が投げるのを避ける
+  const before = beforeId && map.getLayer(beforeId) ? beforeId : undefined;
 
   // generateId: クリックしたポリゴンだけを強調するのに feature-state を使うため。
   // 元データに id が無いので MapLibre に振らせる。
@@ -123,7 +171,7 @@ export function addEraLayers(map) {
         ERA_FILL_OPACITY,
       ],
     },
-  });
+  }, before);
 
   map.addLayer({
     id: ERA_OUTLINE_LAYER,
@@ -137,7 +185,7 @@ export function addEraLayers(map) {
       // 境界の曖昧さはぼかしで表現する（にじんだ境界を残す）
       'line-blur': ['case', ['==', ['get', 'BORDERPRECISION'], 1], 2, 0.3],
     },
-  });
+  }, before);
 
   // クリックしたポリゴンだけ太い輪郭で強調する。
   // 注意: feature-state は layer の filter では使えない
@@ -152,6 +200,59 @@ export function addEraLayers(map) {
       'line-width': ['case', ['boolean', ['feature-state', 'selected'], false], 3, 0],
       'line-opacity': ['case', ['boolean', ['feature-state', 'selected'], false], 1, 0],
     },
+  }, before);
+}
+
+/**
+ * 政体名を地図上に出す symbol レイヤー。
+ *
+ * 版図ポリゴンに直接張らず、専用の Point ソース(ERA_LABEL_SOURCE)に張る。
+ * ポリゴンに張ると MapLibre がタイルごとにラベルを置くため、広い版図が
+ * 画面上で同じ名前を何度も繰り返してしまう（北極圏の狩猟民が5回出た）。
+ * 点は setEraData が政体ごとに1つだけ作る。
+ *
+ * 文字サイズは版図の面積で変える（大きな帝国ほど大きく）。日本語のグリフは
+ * Map 側の localIdeographFontFamily でローカル描画するため、
+ * text-font には下地スタイルが配っている欧文フォントを指定しておけばよい。
+ *
+ * @param {import('maplibre-gl').Map} map
+ */
+export function addEraLabelLayer(map) {
+  if (map.getLayer(ERA_LABEL_LAYER)) return;
+  if (!map.getSource(ERA_LABEL_SOURCE)) {
+    map.addSource(ERA_LABEL_SOURCE, { type: 'geojson', data: EMPTY_FC });
+  }
+  map.addLayer({
+    id: ERA_LABEL_LAYER,
+    type: 'symbol',
+    source: ERA_LABEL_SOURCE,
+    layout: {
+      'text-field': ['get', '_label'],
+      'text-font': ['Noto Sans Regular'],
+      // 面積(km^2)で字の大きさを変える。極端に差がつかないよう幅は抑える
+      'text-size': [
+        'interpolate', ['linear'], ['get', '_area'],
+        50000, 10,
+        500000, 12,
+        3000000, 15,
+        12000000, 19,
+      ],
+      'text-allow-overlap': false,
+      'text-ignore-placement': false,
+      'text-padding': 4,
+      'text-max-width': 8,
+      // 入りきらないラベルは出さない。大きい政体を優先する
+      'symbol-sort-key': ['-', 0, ['get', '_area']],
+    },
+    paint: {
+      // 政体名はその政体の色（濃いめ）で描く。下地の現代地名は黒なので、
+      // 「今の国名」と「当時の政体名」がひと目で区別できる。
+      // 非国家は控えめの灰色にして、国家名を先に読ませる。
+      'text-color': ['case', ['get', '_nonstate'], '#78787d', ['coalesce', ['get', '_stroke'], '#1a1a1c']],
+      'text-halo-color': 'rgba(255,255,255,0.92)',
+      'text-halo-width': 1.4,
+      'text-opacity': ['case', ['get', '_nonstate'], 0.8, 1],
+    },
   });
 }
 
@@ -161,10 +262,16 @@ export function addEraLayers(map) {
  * @param {object} geojson 断面 GeoJSON（未加工）
  * @param {object} [nonStateRule]
  */
-export function setEraData(map, geojson, nonStateRule = EMPTY_RULE) {
+export function setEraData(map, geojson, nonStateRule = EMPTY_RULE, namesJa = {}) {
   const src = map.getSource(ERA_SOURCE);
   if (!src) throw new Error('era source is not added yet');
-  src.setData(decorateEra(geojson, nonStateRule));
+  const decorated = decorateEra(geojson, nonStateRule, namesJa);
+  src.setData(decorated);
+
+  // 政体ごとに1点だけのラベル。ポリゴンに直接 symbol を張るとタイルごとに
+  // ラベルが複製されて同じ名前が画面に何度も出てしまうため、点を別に作る。
+  const labels = map.getSource(ERA_LABEL_SOURCE);
+  if (labels) labels.setData(buildLabelFeatures(decorated.features, LABEL_MIN_AREA));
 }
 
 /**

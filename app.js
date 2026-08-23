@@ -12,7 +12,7 @@ import {
 } from './src/eras.js';
 import {
   addEraLayers, setEraData, addBorderLayer, setBordersVisible,
-  addEventLayer, setEventData,
+  addEventLayer, setEventData, addEraLabelLayer,
   ERA_FILL_LAYER, ERA_SOURCE, EVENTS_LAYER,
 } from './src/layers.js';
 import { renderPanel, renderEmpty, renderEventPanel } from './src/panel.js';
@@ -40,6 +40,8 @@ const store = new EraStore({ basePath: 'data/eras' });
 const dicts = { namesJa: {}, modern: {} };
 let nonStateRule = { patterns: [], exceptions: [], explicit: [] };
 let allEvents = [];
+/** 日本語化した下地ラベルレイヤー数（テスト用）。 */
+let localisedLayers = 0;
 
 /** 現在表示中の断面インデックス（ロード成功したもの）。 */
 let shownIndex = -1;
@@ -53,24 +55,19 @@ let selectedId = null;
 renderEmpty(el.panel);
 
 // --- 地図 ---
+/** 下地スタイル。ベクタなのでラベルの言語を差し替えられる。positron = 最も淡い */
+const BASEMAP_STYLE = 'https://tiles.openfreemap.org/styles/positron';
+
 const map = new MapLibreMap({
   container: 'map',
-  style: {
-    version: 8,
-    sources: {
-      osm: {
-        type: 'raster',
-        tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
-        tileSize: 256,
-        maxzoom: 19,
-        attribution: '&copy; OpenStreetMap contributors',
-      },
-    },
-    layers: [{ id: 'osm', type: 'raster', source: 'osm' }],
-  },
+  style: BASEMAP_STYLE,
   center: [20, 25],
   zoom: 1.6,
   hash: false,
+  // 漢字・ひらがな・カタカナはグリフを取りに行かずローカルフォントで描く。
+  // 下地の配るフォントスタックに CJK が入っているとは限らず、
+  // 入っていないと豆腐(□)になるため。
+  localIdeographFontFamily: "'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', sans-serif",
 });
 map.addControl(new NavigationControl({ showCompass: false }), 'top-left');
 
@@ -127,7 +124,7 @@ async function showEra(index) {
     }
 
     clearSelection();
-    setEraData(map, geojson, nonStateRule);
+    setEraData(map, geojson, nonStateRule, dicts.namesJa);
     setEventData(map, eventsForEra(index, allEvents));
     shownIndex = index;
     hideToast();
@@ -241,8 +238,43 @@ async function loadJson(path, fallback) {
   }
 }
 
+/**
+ * 下地の地名ラベルを日本語にする。
+ * OpenMapTiles の place/poi などは name:ja を持っているので、
+ * 全 symbol レイヤーの text-field を name:ja 優先に差し替える。
+ * name:ja が無い地物は name:latin → name の順にフォールバックする。
+ * @returns {number} 差し替えたレイヤー数
+ */
+function localiseBasemapLabels() {
+  let changed = 0;
+  for (const layer of map.getStyle().layers) {
+    if (layer.type !== 'symbol') continue;
+    if (!layer.layout || layer.layout['text-field'] === undefined) continue;
+    map.setLayoutProperty(layer.id, 'text-field', [
+      'coalesce',
+      ['get', 'name:ja'],
+      ['get', 'name:latin'],
+      ['get', 'name'],
+    ]);
+    changed += 1;
+  }
+  return changed;
+}
+
+/** 下地の最初の symbol(ラベル)レイヤー ID。版図の塗りをこの下に入れる。 */
+function firstSymbolLayerId() {
+  const found = map.getStyle().layers.find((l) => l.type === 'symbol');
+  return found?.id;
+}
+
 map.on('load', async () => {
-  addEraLayers(map);
+  localisedLayers = localiseBasemapLabels();
+
+  // 版図の塗りは下地のラベルより下に入れる。上に載せると
+  // 不透明度 0.55 の塗りが地名を覆って読めなくなる。
+  addEraLayers(map, firstSymbolLayerId());
+  // 政体名と出来事は最前面（下地のラベルより上）
+  addEraLabelLayer(map);
   addEventLayer(map);
   layersReady = true;
 
@@ -291,4 +323,5 @@ window.imperia = {
   get nonStateRule() { return nonStateRule; },
   get shownIndex() { return shownIndex; },
   get selectedId() { return selectedId; },
+  get localisedLayers() { return localisedLayers; },
 };

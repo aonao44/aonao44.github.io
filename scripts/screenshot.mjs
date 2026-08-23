@@ -72,7 +72,46 @@ for (const era of ERAS) {
   if (era === 'bc3000' && cls.nonstate < 1) fail(r, 'bc3000 should contain non-state polygons');
   if (era === '2010' && cls.nonstate > cls.state) fail(r, '2010 should be dominated by states');
 
-  // --- アサート3: 出来事が描画されている ---
+  // --- アサート3: 下地の地名が日本語になっている ---
+  r.basemap = await page.evaluate(() => {
+    const m = window.imperia.map;
+    const symbolIds = m.getStyle().layers.filter((l) => l.type === 'symbol').map((l) => l.id);
+    const feats = m.queryRenderedFeatures({ layers: symbolIds });
+    const withJa = feats.filter((f) => f.properties && f.properties['name:ja']);
+    const hasCjk = (t) => /[\u3040-\u30ff\u4e00-\u9fff]/.test(t);
+    return {
+      localisedLayers: window.imperia.localisedLayers,
+      symbolLayers: symbolIds.length,
+      renderedSymbols: feats.length,
+      withNameJa: withJa.length,
+      japaneseSample: [...new Set(withJa.map((f) => f.properties['name:ja']).filter(hasCjk))].slice(0, 6),
+    };
+  });
+  if (r.basemap.localisedLayers < 1) fail(r, 'no basemap symbol layer was localised');
+  if (r.basemap.withNameJa < 1) fail(r, 'no rendered basemap feature carries name:ja');
+  if (r.basemap.japaneseSample.length < 1) fail(r, 'no Japanese basemap label rendered');
+
+  // --- アサート4: 政体名が日本語で地図上に出ており、重複していない ---
+  r.eraLabels = await page.evaluate(() => {
+    const feats = window.imperia.map.queryRenderedFeatures({ layers: ['era-label'] });
+    const texts = feats.map((f) => f.properties._label);
+    const counts = {};
+    for (const t of texts) counts[t] = (counts[t] || 0) + 1;
+    const hasCjk = (t) => /[\u3040-\u30ff\u4e00-\u9fff]/.test(t);
+    return {
+      count: feats.length,
+      duplicated: Object.entries(counts).filter(([, v]) => v > 1).map(([k, v]) => `${k}x${v}`),
+      japanese: texts.filter(hasCjk).length,
+      sample: [...new Set(texts)].slice(0, 6),
+    };
+  });
+  if (r.eraLabels.count < 1) fail(r, 'no polity label rendered on the map');
+  if (r.eraLabels.duplicated.length) {
+    fail(r, `polity labels duplicated: ${r.eraLabels.duplicated.slice(0, 3).join(', ')}`);
+  }
+  if (r.eraLabels.japanese < 1) fail(r, 'no polity label rendered in Japanese');
+
+  // --- アサート5: 出来事が描画されている ---
   r.events = await page.evaluate(() => ({
     rendered: window.imperia.map.queryRenderedFeatures({ layers: ['events-point'] }).length,
     selected: window.imperia.eventsForEra(
@@ -86,7 +125,7 @@ for (const era of ERAS) {
     fail(r, 'events selected for this era but none rendered');
   }
 
-  // --- アサート4: ポリゴンをクリックするとパネルに NAME が出る ---
+  // --- アサート6: ポリゴンをクリックするとパネルに NAME が出る ---
   const target = await page.evaluate(() => {
     const m = window.imperia.map;
     const translated = window.imperia.dicts.namesJa ?? {};
@@ -116,7 +155,7 @@ for (const era of ERAS) {
     r.panelModern = await page.locator('[data-testid="panel-modern"]').textContent().catch(() => null);
     if (!r.panelName) fail(r, 'clicking a polygon did not show a NAME in the panel');
 
-    // --- アサート5: クリックしたポリゴンが強調される ---
+    // --- アサート7: クリックしたポリゴンが強調される ---
     r.selectedId = await page.evaluate(() => window.imperia.selectedId);
     if (r.selectedId === null || r.selectedId === undefined) {
       fail(r, 'clicked polygon was not highlighted (no feature-state set)');
@@ -223,6 +262,8 @@ for (const r of results) {
   if (r.polygons !== undefined) {
     console.log(`      label=${r.yearLabel} polygons=${r.polygons} state=${r.state} nonstate=${r.nonstate}`);
     console.log(`      events rendered=${r.events.rendered} selected=${r.events.selected} total=${r.events.total}`);
+    console.log(`      basemap ja: localised=${r.basemap.localisedLayers} layers, ${r.basemap.withNameJa} features w/ name:ja, e.g. ${JSON.stringify(r.basemap.japaneseSample.slice(0, 4))}`);
+    console.log(`      polity labels: ${r.eraLabels.count} rendered, ${r.eraLabels.japanese} japanese, dupes=${r.eraLabels.duplicated.length}, e.g. ${JSON.stringify(r.eraLabels.sample.slice(0, 4))}`);
     console.log(`      nonstate sample=${JSON.stringify(r.nonstateSample)}`);
   }
   if (r.afterDrag) {

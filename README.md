@@ -59,6 +59,42 @@ python3 -m http.server 8765 &
 node scripts/screenshot.mjs
 ```
 
+## 地図を日本語にする
+
+下地は **OpenFreeMap の positron**（ベクタタイル、キー不要）。ラスタタイルをやめた
+理由は、ラスタは画像に地名が焼き込まれていて言語を変えられないから。ベクタなら
+起動時に全 symbol レイヤーの `text-field` を差し替えられる:
+
+```js
+['coalesce', ['get', 'name:ja'], ['get', 'name:latin'], ['get', 'name']]
+```
+
+OpenMapTiles の地物は `name:ja` を持っているので、これで「Deutschland」が「ドイツ」
+になる。持っていない地物はラテン文字表記→原語表記に落ちる。
+
+**日本語のグリフ**は Map の `localIdeographFontFamily` でローカルフォントに描かせる。
+下地が配るフォントスタック（Noto Sans Regular ほか）に CJK が含まれる保証がなく、
+無いと豆腐（□）になるため。漢字・ひらがな・カタカナはグリフを取りに行かない。
+
+版図の塗りは**下地のラベルより下**に差し込む（`addEraLayers(map, firstSymbolLayerId())`）。
+上に載せると不透明度 0.55 の塗りが地名を覆って読めなくなる。
+
+## 地図上の政体名
+
+政体名は `data/names.ja.json` を引いて地図に直接描く。クリックしなくても
+「今のどこに何があったか」が読めるようにするため。文字サイズは版図の面積で変え、
+非国家は小さめ・灰色にする。色は**その政体の塗りと同じ色相の濃い色**にしてあり、
+黒で描かれる下地の現代地名と見分けられる。
+
+ラベルは版図ポリゴンに直接張らず、**政体ごとに1点の Point ソース**に張る
+(`src/labelpoint.js`)。ポリゴンに直接張ると MapLibre がタイルごとにラベルを置くため、
+広い版図（北極圏の狩猟民など）が画面上で同じ名前を5回繰り返してしまう。
+代表点は最大の多角形の重心、重心が図形の外に落ちる形（コの字・三日月）では
+走査線で内側を取り直す。
+
+> 元データには末尾に空白が付いた NAME (`"Pomeranian culture "`) が混ざっている。
+> 対訳表のキーは trim 済みなので、`decorateEra` で NAME を trim して正規化している。
+
 ## 非国家ポリゴンの扱い
 
 元データは、実在の国家と「狩猟採集民」「牧畜遊牧民」「民族集団」「考古学的文化」を
@@ -110,6 +146,7 @@ data/modern.json              NAME → 現在の国（面積上位216件）
 data/nonstate.json            非国家判定の規則
 data/events.json              主要な出来事110件
 src/nonstate.js               非国家判定
+src/labelpoint.js             政体名ラベルの代表点計算
 src/events.js                 断面に対応する出来事の選別
 scripts/build-data.sh         元データ取得 + 簡略化
 scripts/extract-names.js      NAME ユニーク抽出
@@ -123,7 +160,9 @@ scripts/extract-names.js      NAME ユニーク抽出
   「およその勢力範囲」以上のものではない。
 - **現代国境**: [Natural Earth](https://www.naturalearthdata.com/) 110m admin-0
   boundary lines — パブリックドメイン（[nvkelso/natural-earth-vector](https://github.com/nvkelso/natural-earth-vector) 経由で取得）。
-- **背景タイル**: [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors — ODbL。
+- **背景タイル**: [OpenFreeMap](https://openfreemap.org/) の positron スタイル（キー不要・無料）。
+  ベクタタイルは [OpenMapTiles](https://openmaptiles.org/) スキーマ、データは
+  [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors — ODbL。
 - **地図ライブラリ**: [MapLibre GL JS](https://maplibre.org/) — BSD-3-Clause。
 
 版図データが GPL-3.0 のため、本リポジトリのコードも **GPL-3.0-or-later** で公開する。

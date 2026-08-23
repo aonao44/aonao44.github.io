@@ -120,6 +120,80 @@
     padding: 4px 10px; border-radius: 5px; cursor: pointer; font-size: 12px;
   }
 
+  /* --- 凡例 --- */
+  #legend {
+    position: absolute;
+    left: 12px; bottom: calc(var(--bar-h) + 12px);
+    z-index: 4;
+    max-width: 330px;
+    background: rgba(255, 255, 255, .93);
+    border: 1px solid var(--line); border-radius: 9px;
+    padding: 10px 12px;
+    font-size: 11.5px; line-height: 1.55; color: #4b4b50;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .07);
+  }
+  #legend-toggle {
+    display: none;
+    background: none; border: 0; padding: 0;
+    font: inherit; font-weight: 600; color: var(--ink); cursor: pointer;
+  }
+  #legend-body { list-style: none; margin: 0; padding: 0; }
+  #legend-body li {
+    display: flex; align-items: flex-start; gap: 7px;
+    margin-top: 5px;
+  }
+  #legend-body li:first-child { margin-top: 0; }
+  .lg-swatch {
+    flex: none; width: 13px; height: 13px; margin-top: 2px; border-radius: 3px;
+    background: hsl(28, 68%, 52%); opacity: .55;
+    border: 1px solid hsl(28, 72%, 28%);
+  }
+  .lg-swatch.lg-faint { opacity: .15; border-color: #9a9aa0; }
+  .lg-dot {
+    flex: none; width: 11px; height: 11px; margin-top: 3px; border-radius: 50%;
+    background: #fdf6e3; border: 2px solid #1c1c1e;
+  }
+  .lg-line {
+    flex: none; width: 15px; height: 0; margin-top: 8px;
+    border-top: 1px solid #2b2b2e;
+  }
+
+  #year-format-hint {
+    display: block;
+    margin-top: 3px;
+    font-size: 10.5px; color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* --- トピック一覧 --- */
+  .topics { list-style: none; margin: 12px 0 0; padding: 0; }
+  .topic { padding: 12px 0; border-top: 1px solid var(--line); }
+  .topic:first-child { border-top: 0; padding-top: 4px; }
+  .topic-btn {
+    display: block; width: 100%; text-align: left;
+    background: none; border: 0; padding: 0; cursor: pointer; font: inherit;
+  }
+  .topic-btn:hover .topic-title { text-decoration: underline; }
+  .topic-title {
+    display: block; font-size: 14px; font-weight: 600; line-height: 1.5;
+    color: var(--ink);
+  }
+  .topic-polity {
+    display: inline-block; margin-top: 3px;
+    font-size: 11px; color: #2f6fd0;
+  }
+  .topic-polity::before { content: '▸ '; }
+  .topic-body { margin: 5px 0 0; font-size: 12.5px; line-height: 1.7; color: #4b4b50; }
+  .topic-source { margin: 4px 0 0; font-size: 11px; }
+  .topic-source a { color: var(--muted); }
+
+  .panel-back {
+    display: block; margin: 0 0 14px; padding: 0;
+    background: none; border: 0; cursor: pointer;
+    font: inherit; font-size: 12px; color: #2f6fd0;
+  }
+  .panel-back:hover { text-decoration: underline; }
+
   /* 出来事パネル */
   .panel-kicker {
     margin: 0 0 4px; font-size: 12px; color: var(--muted);
@@ -129,8 +203,9 @@
   .panel-source { margin: 16px 0 0; font-size: 13px; }
   .panel-source a { color: #2f6fd0; }
 
-  /* デスクトップでは閉じるボタンは不要 */
+  /* デスクトップでは閉じるボタンもシートのハンドルも不要 */
   #sheet-close { display: none; }
+  #sheet-handle { display: none; }
 
   /* --- モバイル: パネルを下からのシートにする --- */
   @media (max-width: 767px) {
@@ -148,11 +223,24 @@
       border-radius: 14px 14px 0 0;
       box-shadow: 0 -6px 24px rgba(0, 0, 0, .12);
       padding: 20px 20px 24px;
-      /* 選択するまではシートを隠しておく（地図を広く使う） */
-      transform: translateY(calc(100% + var(--bar-h)));
+      /* 既定ではハンドルの高さぶんだけ見せておく。
+         「この時代のトピック」を押すと開く */
+      transform: translateY(calc(100% - 44px));
       transition: transform .22s ease;
     }
     #panel.is-open { transform: translateY(0); }
+    #sheet-handle { display: block; }
+
+    #sheet-handle {
+      width: 100%;
+      height: 44px;
+      margin: -20px 0 4px;
+      background: none; border: 0;
+      font: inherit; font-size: 13px; font-weight: 600;
+      color: var(--ink); cursor: pointer; text-align: left;
+    }
+    #sheet-handle::after { content: ' ▴'; color: var(--muted); }
+    #panel.is-open #sheet-handle::after { content: ' ▾'; }
 
     #sheet-close {
       display: block;
@@ -178,6 +266,20 @@
       /* 指で掴めるだけの高さを確保する */
       height: 32px;
     }
+    /* 凡例はモバイルでは畳んでおく（地図を広く使う） */
+    #legend {
+      left: 8px; right: 8px; max-width: none;
+      bottom: calc(var(--bar-h) + 8px);
+      padding: 8px 10px;
+    }
+    #legend-toggle { display: block; }
+    #legend-toggle::after { content: ' ▾'; }
+    #legend.is-collapsed #legend-body { display: none; }
+    #legend.is-collapsed #legend-toggle::after { content: ' ▸'; }
+    #legend-body { margin-top: 7px; }
+
+    #year-format-hint { display: none; }
+
     .bar-end { font-size: 11px; }
     #year-input { width: 92px; }
     /* ヒントは幅を食うので、モバイルでは折り返して全幅に置く */
@@ -190,6 +292,7 @@
   <div id="map"></div>
 
   <aside id="panel">
+    <button id="sheet-handle" aria-expanded="false">この時代のトピック</button>
     <button id="sheet-close" aria-label="閉じる">×</button>
     <h1>imperia</h1>
     <div id="panel-body"></div>
@@ -206,10 +309,21 @@
     <label id="year-jump">
       <input type="text" id="year-input" inputmode="text" autocomplete="off"
              placeholder="年で移動" aria-label="年を入力して移動">
+      <span id="year-format-hint">紀元前は「紀元前500」「-500」「BC500」など（紀元前0年はありません）</span>
     </label>
     <span id="loading"></span>
     <span id="year-hint"></span>
     <span id="year-label">紀元前3000年</span>
+  </div>
+
+  <div id="legend">
+    <button id="legend-toggle" aria-expanded="true" aria-controls="legend-body">凡例</button>
+    <ul id="legend-body">
+      <li><span class="lg-swatch"></span>色 = 政体ごとの識別色（意味はなく、同じ政体は年代をまたいで同じ色）</li>
+      <li><span class="lg-swatch lg-faint"></span>薄い文字/塗り = 国家でない文化圏（狩猟採集民・部族など）</li>
+      <li><span class="lg-dot"></span>○ = 出来事（クリックで詳細）</li>
+      <li><span class="lg-line"></span>細い線 = 現代の国境</li>
+    </ul>
   </div>
 
   <div id="toast">

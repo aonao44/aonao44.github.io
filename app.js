@@ -15,7 +15,9 @@ import {
   addEventLayer, setEventData, addEraLabelLayer,
   ERA_FILL_LAYER, ERA_SOURCE, EVENTS_LAYER,
 } from './src/layers.js';
-import { renderPanel, renderEmpty, renderEventPanel } from './src/panel.js';
+import {
+  renderPanel, renderEventPanel, renderTopics, prependBackLink,
+} from './src/panel.js';
 import { resolveYearInput } from './src/yearinput.js';
 import { eventsForEra } from './src/events.js';
 
@@ -33,6 +35,9 @@ const el = {
   toastRetry: document.getElementById('toast-retry'),
   sheet: document.getElementById('panel'),
   sheetClose: document.getElementById('sheet-close'),
+  sheetHandle: document.getElementById('sheet-handle'),
+  legend: document.getElementById('legend'),
+  legendToggle: document.getElementById('legend-toggle'),
 };
 
 el.slider.max = String(ERA_COUNT - 1);
@@ -41,8 +46,9 @@ const store = new EraStore({ basePath: 'data/eras' });
 const dicts = { namesJa: {}, modern: {} };
 let nonStateRule = { patterns: [], exceptions: [], explicit: [] };
 let allEvents = [];
-/** 日本語化した下地ラベルレイヤー数（テスト用）。 */
-let localisedLayers = 0;
+let allTopics = {};
+/** 下地ラベルの日本語化・格下げの結果（テスト用）。 */
+let basemapLabelStats = { localised: 0, demoted: 0, cityLayers: 0 };
 
 /** 現在表示中の断面インデックス（ロード成功したもの）。 */
 let shownIndex = -1;
@@ -53,11 +59,15 @@ let layersReady = false;
 /** feature-state で強調中のポリゴン id。 */
 let selectedId = null;
 
-renderEmpty(el.panel);
+// 何も選んでいない間はトピック一覧を出す（起動直後は断面未確定なので空）
+el.panel.innerHTML = '';
 
 // --- 地図 ---
 /** 下地スタイル。ベクタなのでラベルの言語を差し替えられる。positron = 最も淡い */
 const BASEMAP_STYLE = 'https://tiles.openfreemap.org/styles/positron';
+
+/** 都市名など下地の細かいラベルを出し始めるズーム。世界表示では国名だけにする。 */
+const BASEMAP_DETAIL_MIN_ZOOM = 4;
 
 const map = new MapLibreMap({
   container: 'map',
@@ -128,6 +138,8 @@ async function showEra(index) {
     setEraData(map, geojson, nonStateRule, dicts.namesJa);
     setEventData(map, eventsForEra(index, allEvents));
     shownIndex = index;
+    // 断面が変われば選択は解除されるので、既定表示のトピック一覧に戻す
+    showTopics();
     hideToast();
   } catch (err) {
     if (seq !== requestSeq) return;
@@ -209,6 +221,85 @@ el.yearInput.addEventListener('blur', () => {
 /** モバイルではパネルが下からのシートなので、選択時に開く。 */
 function openSheet() {
   el.sheet.classList.add('is-open');
+  el.sheetHandle.setAttribute('aria-expanded', 'true');
+}
+
+/** 現在の断面のトピック一覧をパネルに出す（既定表示）。 */
+function showTopics() {
+  const era = eraAt(shownIndex < 0 ? Number(el.slider.value) : shownIndex);
+  renderTopics(el.panel, formatYear(era.year), allTopics[era.id] ?? [], dicts.namesJa);
+}
+
+/** 政体の詳細を出す。トピック一覧へ戻れるようにする。 */
+function showPolity(properties) {
+  renderPanel(el.panel, properties, dicts);
+  const back = prependBackLink(el.panel);
+  back.addEventListener('click', () => {
+    clearSelection();
+    showTopics();
+  });
+}
+
+// トピックをクリック → その政体を強調して寄る
+el.panel.addEventListener('click', (e) => {
+  const btn = e.target.closest?.('.topic-btn');
+  if (!btn) return;
+  const name = btn.dataset.polity;
+  if (!name) return;
+  focusPolity(name);
+});
+
+/**
+ * 名前で政体を探し、強調して地図を寄せる。
+ * 同名の feature が複数あるときは最も広いものに寄る。
+ */
+function focusPolity(name) {
+  const feats = map.querySourceFeatures(ERA_SOURCE, {
+    filter: ['==', ['get', 'NAME'], name],
+  });
+  if (!feats.length) return false;
+
+  // querySourceFeatures はタイル単位で同じ feature を複数返すことがある。
+  // 面積が最大のものを代表として選ぶ。
+  let best = feats[0];
+  for (const f of feats) {
+    if ((f.properties?._area ?? 0) > (best.properties?._area ?? 0)) best = f;
+  }
+
+  const bbox = boundsOfFeatures(feats.filter((f) => f.properties?.NAME === name));
+  if (bbox) map.fitBounds(bbox, { padding: 80, maxZoom: 5, duration: 800 });
+
+  // 描画中の feature から id を取って強調する（feature-state には id が要る）
+  const rendered = map.queryRenderedFeatures({ layers: [ERA_FILL_LAYER] })
+    .filter((f) => f.properties?.NAME === name);
+  if (rendered.length) select(rendered[0].id);
+
+  showPolity(best.properties);
+  openSheet();
+  return true;
+}
+
+/** feature 群を覆う [[w,s],[e,n]]。 */
+function boundsOfFeatures(features) {
+  let w = Infinity;
+  let s2 = Infinity;
+  let e2 = -Infinity;
+  let n = -Infinity;
+  const visit = (coords) => {
+    if (typeof coords[0] === 'number') {
+      const [x, y] = coords;
+      if (x < w) w = x;
+      if (x > e2) e2 = x;
+      if (y < s2) s2 = y;
+      if (y > n) n = y;
+      return;
+    }
+    for (const c of coords) visit(c);
+  };
+  for (const f of features) {
+    if (f.geometry?.coordinates) visit(f.geometry.coordinates);
+  }
+  return Number.isFinite(w) ? [[w, s2], [e2, n]] : null;
 }
 
 // 出来事の点を版図より優先して拾う（点の方が小さく、狙ってクリックされるため）
@@ -217,6 +308,7 @@ map.on('click', EVENTS_LAYER, (e) => {
   if (!f) return;
   clearSelection();
   renderEventPanel(el.panel, f.properties, formatYear);
+  prependBackLink(el.panel).addEventListener('click', showTopics);
   openSheet();
 });
 
@@ -227,7 +319,7 @@ map.on('click', ERA_FILL_LAYER, (e) => {
   const feature = e.features?.[0];
   if (!feature) return;
   select(feature.id);
-  renderPanel(el.panel, feature.properties, dicts);
+  showPolity(feature.properties);
   openSheet();
 });
 
@@ -241,9 +333,22 @@ el.borders.addEventListener('change', () => {
   setBordersVisible(map, el.borders.checked);
 });
 
-// --- モバイル: シートを閉じる ---
+// --- モバイル: シートの開閉 ---
 el.sheetClose.addEventListener('click', () => {
   el.sheet.classList.remove('is-open');
+  el.sheetHandle.setAttribute('aria-expanded', 'false');
+});
+
+// ハンドル（「この時代のトピック」）でシートを開閉する
+el.sheetHandle.addEventListener('click', () => {
+  const open = el.sheet.classList.toggle('is-open');
+  el.sheetHandle.setAttribute('aria-expanded', String(open));
+});
+
+// --- 凡例（モバイルでは畳める） ---
+el.legendToggle.addEventListener('click', () => {
+  const collapsed = el.legend.classList.toggle('is-collapsed');
+  el.legendToggle.setAttribute('aria-expanded', String(!collapsed));
 });
 
 // --- 起動 ---
@@ -260,26 +365,48 @@ async function loadJson(path, fallback) {
 }
 
 /**
- * 下地の地名ラベルを日本語にする。
- * OpenMapTiles の place/poi などは name:ja を持っているので、
- * 全 symbol レイヤーの text-field を name:ja 優先に差し替える。
- * name:ja が無い地物は name:latin → name の順にフォールバックする。
- * @returns {number} 差し替えたレイヤー数
+ * 下地の地名ラベルを日本語にし、かつ「脇役」に落とす。
+ *
+ * このサイトの主役は歴史上の政体名であって現代の地名ではない。
+ * 下地のラベルを黒・通常サイズのまま残すと、政体名と同じ重さで competing してしまう。
+ * そこで日本語化と同時に、小さく・薄い灰色・細い縁取りにして後ろへ下げる。
+ * さらに都市名は世界表示では邪魔なだけなので、ズーム4以上でしか出さない。
+ *
+ * @returns {{localised: number, demoted: number, cityLayers: number}}
  */
 function localiseBasemapLabels() {
-  let changed = 0;
+  let localised = 0;
+  let demoted = 0;
+  let cityLayers = 0;
+
   for (const layer of map.getStyle().layers) {
     if (layer.type !== 'symbol') continue;
     if (!layer.layout || layer.layout['text-field'] === undefined) continue;
+
     map.setLayoutProperty(layer.id, 'text-field', [
       'coalesce',
       ['get', 'name:ja'],
       ['get', 'name:latin'],
       ['get', 'name'],
     ]);
-    changed += 1;
+    localised += 1;
+
+    // 国名は少し大きめ、それ以外は小さく
+    const isCountry = /country/.test(layer.id);
+    map.setLayoutProperty(layer.id, 'text-size', isCountry ? 11 : 9.5);
+    map.setPaintProperty(layer.id, 'text-color', '#8a8a8a');
+    map.setPaintProperty(layer.id, 'text-halo-color', 'rgba(255,255,255,0.7)');
+    map.setPaintProperty(layer.id, 'text-halo-width', 0.8);
+    demoted += 1;
+
+    // 都市・町・村・水域名・道路名は世界表示では出さない
+    if (/city|town|village|water_name|waterway|highway|poi|label_other/.test(layer.id)) {
+      const minzoom = Math.max(BASEMAP_DETAIL_MIN_ZOOM, layer.minzoom ?? 0);
+      map.setLayerZoomRange(layer.id, minzoom, layer.maxzoom ?? 24);
+      cityLayers += 1;
+    }
   }
-  return changed;
+  return { localised, demoted, cityLayers };
 }
 
 /** 下地の最初の symbol(ラベル)レイヤー ID。版図の塗りをこの下に入れる。 */
@@ -289,7 +416,7 @@ function firstSymbolLayerId() {
 }
 
 map.on('load', async () => {
-  localisedLayers = localiseBasemapLabels();
+  basemapLabelStats = localiseBasemapLabels();
 
   // 版図の塗りは下地のラベルより下に入れる。上に載せると
   // 不透明度 0.55 の塗りが地名を覆って読めなくなる。
@@ -304,16 +431,18 @@ map.on('load', async () => {
     if (geo) addBorderLayer(map, geo, el.borders.checked);
   });
 
-  const [namesJa, modern, rule, events] = await Promise.all([
+  const [namesJa, modern, rule, events, topics] = await Promise.all([
     loadJson('data/names.ja.json', {}),
     loadJson('data/modern.json', {}),
     loadJson('data/nonstate.json', { patterns: [], exceptions: [], explicit: [] }),
     loadJson('data/events.json', []),
+    loadJson('data/topics.json', {}),
   ]);
   dicts.namesJa = namesJa;
   dicts.modern = modern;
   nonStateRule = rule;
   allEvents = events;
+  allTopics = topics;
 
   // ?era=<id or index> で初期断面を指定できる（スクリーンショット用）
   const params = new URLSearchParams(location.search);
@@ -342,7 +471,11 @@ window.imperia = {
   jumpToTypedYear,
   get events() { return allEvents; },
   get nonStateRule() { return nonStateRule; },
+  focusPolity,
+  showTopics,
+  get topics() { return allTopics; },
   get shownIndex() { return shownIndex; },
   get selectedId() { return selectedId; },
-  get localisedLayers() { return localisedLayers; },
+  get localisedLayers() { return basemapLabelStats.localised; },
+  get basemapLabelStats() { return basemapLabelStats; },
 };

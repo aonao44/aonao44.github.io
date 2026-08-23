@@ -228,14 +228,15 @@ export function addEraLabelLayer(map) {
     source: ERA_LABEL_SOURCE,
     layout: {
       'text-field': ['get', '_label'],
-      'text-font': ['Noto Sans Regular'],
+      // 太字。政体名がこの地図の主役なので、下地の現代地名より重く見せる
+      'text-font': ['Noto Sans Bold'],
       // 面積(km^2)で字の大きさを変える。極端に差がつかないよう幅は抑える
       'text-size': [
         'interpolate', ['linear'], ['get', '_area'],
-        50000, 10,
-        500000, 12,
-        3000000, 15,
-        12000000, 19,
+        50000, 12,
+        500000, 14,
+        3000000, 17,
+        12000000, 22,
       ],
       'text-allow-overlap': false,
       'text-ignore-placement': false,
@@ -249,8 +250,8 @@ export function addEraLabelLayer(map) {
       // 「今の国名」と「当時の政体名」がひと目で区別できる。
       // 非国家は控えめの灰色にして、国家名を先に読ませる。
       'text-color': ['case', ['get', '_nonstate'], '#78787d', ['coalesce', ['get', '_stroke'], '#1a1a1c']],
-      'text-halo-color': 'rgba(255,255,255,0.92)',
-      'text-halo-width': 1.4,
+      'text-halo-color': 'rgba(255,255,255,0.95)',
+      'text-halo-width': 1.8,
       'text-opacity': ['case', ['get', '_nonstate'], 0.8, 1],
     },
   });

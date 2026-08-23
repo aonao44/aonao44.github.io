@@ -355,12 +355,51 @@ const mobile = await browser.newContext({ ...devices['iPhone 13'] });
   if (!r.sheetOpened.open) fail(r, 'tapping the handle did not open the sheet');
   if (r.sheetOpened.topics < 4) fail(r, `sheet opened with ${r.sheetOpened.topics} topics`);
 
-  // 凡例はモバイルでは畳める
-  r.legendMobile = await page.evaluate(() => {
+  // 凡例のチェックは、報告された既定状態＝シートが畳まれている状態で行う。
+  // シートを開けば下半分は覆われるが、それはボトムシートとして当然の挙動。
+  await page.locator('#sheet-close').tap();
+  await page.waitForTimeout(400);
+
+  // 凡例はモバイルでは既定で畳まれ、開いてもシートのハンドルに被らない
+  const legendState = () => page.evaluate(() => {
+    const legend = document.getElementById('legend');
     const toggle = document.getElementById('legend-toggle');
-    return { toggleVisible: getComputedStyle(toggle).display !== 'none' };
+    const handle = document.getElementById('sheet-handle');
+    const lb = legend.getBoundingClientRect();
+    const hb = handle.getBoundingClientRect();
+    // 矩形が重なっているか
+    const intersects = lb.left < hb.right && lb.right > hb.left
+      && lb.top < hb.bottom && lb.bottom > hb.top;
+    return {
+      toggleVisible: getComputedStyle(toggle).display !== 'none',
+      bodyVisible: getComputedStyle(document.getElementById('legend-body')).display !== 'none',
+      expanded: legend.classList.contains('is-expanded'),
+      intersects,
+      onScreen: lb.top >= 0 && lb.bottom <= window.innerHeight,
+      legendBottom: Math.round(lb.bottom),
+      handleTop: Math.round(hb.top),
+      gap: Math.round(hb.top - lb.bottom),
+    };
   });
-  if (!r.legendMobile.toggleVisible) fail(r, 'the legend has no collapse control on mobile');
+
+  r.legendCollapsed = await legendState();
+  if (!r.legendCollapsed.toggleVisible) fail(r, 'the legend has no collapse control on mobile');
+  if (r.legendCollapsed.bodyVisible) fail(r, 'the legend should start collapsed on mobile');
+  if (r.legendCollapsed.intersects) fail(r, 'collapsed legend overlaps the sheet handle');
+
+  // 開いた状態でもハンドルと重ならず、画面内に収まっていること
+  await page.locator('#legend-toggle').tap();
+  await page.waitForTimeout(350);
+  r.legendExpanded = await legendState();
+  if (!r.legendExpanded.bodyVisible) fail(r, 'tapping 凡例 did not expand it');
+  if (r.legendExpanded.intersects) {
+    fail(r, `expanded legend overlaps the sheet handle (legend bottom ${r.legendExpanded.legendBottom}, handle top ${r.legendExpanded.handleTop})`);
+  }
+  if (!r.legendExpanded.onScreen) {
+    fail(r, `expanded legend runs off screen (bottom ${r.legendExpanded.legendBottom})`);
+  }
+  await page.locator('#legend-toggle').tap();
+  await page.waitForTimeout(250);
 
   // 版図をタップするとシートが開く
   const target = await page.evaluate(() => {
@@ -445,7 +484,8 @@ for (const r of results) {
     console.log(`      117 -> ${r.snapped.label} (hint: ${r.snapped.hint}) | 紀元前500 -> ${r.exact.label} (hint empty: ${!r.exact.hint}) | bad input flagged: ${r.bad.invalid}, map unmoved: ${r.bad.shown === r.exact.shown}`);
   }
   if (r.sheet) {
-    console.log(`      sheet collapsed=${!r.sheet.open} handle="${r.sheet.handleText}" -> tap opens with ${r.sheetOpened.topics} topics | legend collapsible=${r.legendMobile.toggleVisible}`);
+    console.log(`      sheet collapsed=${!r.sheet.open} handle="${r.sheet.handleText}" -> tap opens with ${r.sheetOpened.topics} topics`);
+    console.log(`      legend: starts collapsed=${!r.legendCollapsed.bodyVisible}, expanded overlaps handle=${r.legendExpanded.intersects}, gap=${r.legendExpanded.gap}px, on screen=${r.legendExpanded.onScreen}`);
   }
   if (r.afterDrag) {
     console.log(`      touch slider -> index=${r.afterDrag.index} label=${r.afterDrag.label} box=${JSON.stringify(r.sliderBox)}`);

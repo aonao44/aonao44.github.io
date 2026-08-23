@@ -345,10 +345,11 @@ el.sheetHandle.addEventListener('click', () => {
   el.sheetHandle.setAttribute('aria-expanded', String(open));
 });
 
-// --- 凡例（モバイルでは畳める） ---
+// --- 凡例（モバイルでは既定で畳まれ、トグルで開く） ---
+// 開閉は is-expanded で表す。デスクトップでは CSS 側で常に開いた見た目になる。
 el.legendToggle.addEventListener('click', () => {
-  const collapsed = el.legend.classList.toggle('is-collapsed');
-  el.legendToggle.setAttribute('aria-expanded', String(!collapsed));
+  const expanded = el.legend.classList.toggle('is-expanded');
+  el.legendToggle.setAttribute('aria-expanded', String(expanded));
 });
 
 // --- 起動 ---

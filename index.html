@@ -209,7 +209,7 @@
 
   /* --- モバイル: パネルを下からのシートにする --- */
   @media (max-width: 767px) {
-    :root { --bar-h: 88px; }
+    :root { --bar-h: 88px; --sheet-handle-h: 44px; }
 
     #map { inset: 0 0 var(--bar-h) 0; }
 
@@ -225,7 +225,7 @@
       padding: 20px 20px 24px;
       /* 既定ではハンドルの高さぶんだけ見せておく。
          「この時代のトピック」を押すと開く */
-      transform: translateY(calc(100% - 44px));
+      transform: translateY(calc(100% - var(--sheet-handle-h)));
       transition: transform .22s ease;
     }
     #panel.is-open { transform: translateY(0); }
@@ -233,7 +233,7 @@
 
     #sheet-handle {
       width: 100%;
-      height: 44px;
+      height: var(--sheet-handle-h);
       margin: -20px 0 4px;
       background: none; border: 0;
       font: inherit; font-size: 13px; font-weight: 600;
@@ -266,17 +266,21 @@
       /* 指で掴めるだけの高さを確保する */
       height: 32px;
     }
-    /* 凡例はモバイルでは畳んでおく（地図を広く使う） */
+    /* モバイルでは凡例を左上（ズームコントロールの下）に移す。
+       下に置くとシートを開いた時に覆われて読めなくなり、畳んでいても
+       「この時代のトピック」ハンドルと取り合いになるため。 */
     #legend {
-      left: 8px; right: 8px; max-width: none;
-      bottom: calc(var(--bar-h) + 8px);
-      padding: 8px 10px;
+      top: 96px; bottom: auto;
+      left: 8px; right: auto;
+      max-width: calc(100% - 16px);
+      padding: 7px 10px;
     }
     #legend-toggle { display: block; }
-    #legend-toggle::after { content: ' ▾'; }
-    #legend.is-collapsed #legend-body { display: none; }
-    #legend.is-collapsed #legend-toggle::after { content: ' ▸'; }
-    #legend-body { margin-top: 7px; }
+    #legend-toggle::after { content: ' ▸'; }
+    /* 既定は畳んだ状態。開いた時だけ本体を出す */
+    #legend-body { display: none; margin-top: 7px; }
+    #legend.is-expanded #legend-body { display: block; }
+    #legend.is-expanded #legend-toggle::after { content: ' ▾'; }
 
     #year-format-hint { display: none; }
 
@@ -317,7 +321,7 @@
   </div>
 
   <div id="legend">
-    <button id="legend-toggle" aria-expanded="true" aria-controls="legend-body">凡例</button>
+    <button id="legend-toggle" aria-expanded="false" aria-controls="legend-body">凡例</button>
     <ul id="legend-body">
       <li><span class="lg-swatch"></span>色 = 政体ごとの識別色（意味はなく、同じ政体は年代をまたいで同じ色）</li>
       <li><span class="lg-swatch lg-faint"></span>薄い文字/塗り = 国家でない文化圏（狩猟採集民・部族など）</li>

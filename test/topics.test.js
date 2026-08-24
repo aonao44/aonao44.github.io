@@ -6,6 +6,7 @@ import { dirname, join, resolve } from 'node:path';
 
 import { ERA_IDS, ERAS, formatYear } from '../src/eras.js';
 import { renderTopics } from '../src/panel.js';
+import { citedYears } from './year-utils.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = (p) => JSON.parse(readFileSync(join(root, p), 'utf8'));
@@ -92,9 +93,7 @@ test('topic bodies do not mention a year far from their era', () => {
   for (const [id, list] of Object.entries(topics)) {
     for (const t of list) {
       const text = `${t.title_ja} ${t.body_ja}`;
-      // 「紀元前3000年」は 前+3000。数字の途中から拾わないよう直前が数字でないことを要求する
-      const years = [...text.matchAll(/(?<![0-9])(前)?([0-9]{1,4})年/g)]
-        .map((m) => (m[1] ? -Number(m[2]) : Number(m[2])));
+      const years = citedYears(text);
       for (const y of years) {
         if (Math.abs(y - yearOf[id]) > 60) offenders.push(`${id}(${yearOf[id]}): ${y} in "${t.title_ja}"`);
       }

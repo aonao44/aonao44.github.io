@@ -6,6 +6,7 @@ import { dirname, join, resolve } from 'node:path';
 
 import { ERA_IDS, ERAS, formatYear, indexOfEra } from '../src/eras.js';
 import { buildEraJumpModel, buildPanelModel, renderTopics } from '../src/panel.js';
+import { citedYears } from './year-utils.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = (p) => JSON.parse(readFileSync(join(root, p), 'utf8'));
@@ -52,9 +53,7 @@ test('an overview does not cite a year far outside its era', () => {
   const offenders = [];
   for (const id of ERA_IDS) {
     const t = overviews[id];
-    // 「紀元前3000年」は 前+3000。数字の途中から拾わないよう直前が数字でないことを要求する
-    const years = [...t.matchAll(/(?<![0-9])(前)?([0-9]{1,4})年/g)]
-      .map((m) => (m[1] ? -Number(m[2]) : Number(m[2])));
+    const years = citedYears(t);
     for (const y of years) {
       if (Math.abs(y - yearOf[id]) > 60) offenders.push(`${id}(${yearOf[id]}) cites ${y}`);
     }
@@ -71,16 +70,20 @@ test('polity-info covers a useful number of polities and only real ones', () => 
   assert.deepEqual(unknown, [], 'every described polity must exist somewhere in the era data');
 });
 
-test('every polity entry has a summary and a period', () => {
+test('every polity entry has a summary; a period is optional', () => {
   const allowed = new Set(['summary_ja', 'period_ja', 'capital_ja', 'name_ja']);
   for (const [k, v] of Object.entries(polityInfo)) {
     assert.equal(typeof v.summary_ja, 'string', `${k}: summary_ja`);
-    assert.ok(len(v.summary_ja) >= 40 && len(v.summary_ja) <= 220, `${k}: summary is ${len(v.summary_ja)} chars`);
-    assert.equal(typeof v.period_ja, 'string', `${k}: period_ja`);
-    assert.ok(v.period_ja.trim(), `${k}: empty period`);
+    // 長さの厳密な検査は coverage.test.js 側に集約した（長い尾は短い記述が正しい）
+    assert.ok(len(v.summary_ja) >= 25, `${k}: summary is only ${len(v.summary_ja)} chars`);
+    // period_ja は任意。無名の政体では「年代を捏造しない」ことの方が大事なので、
+    // 省略が正しい振る舞いになる（長い尾の大半は省略されている）。
+    if (v.period_ja !== undefined) {
+      assert.ok(typeof v.period_ja === 'string' && v.period_ja.trim(), `${k}: bad period_ja`);
+    }
     const stray = Object.keys(v).filter((x) => !allowed.has(x));
     assert.deepEqual(stray, [], `${k}: unexpected fields`);
-    for (const opt of ['capital_ja', 'name_ja']) {
+    for (const opt of ['period_ja', 'capital_ja', 'name_ja']) {
       if (v[opt] !== undefined) assert.ok(typeof v[opt] === 'string' && v[opt].trim(), `${k}: ${opt}`);
     }
   }

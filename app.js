@@ -554,6 +554,8 @@ window.imperia = {
   get nonStateRule() { return nonStateRule; },
   focusPolity,
   showTopics,
+  eraIndexOf: indexOfEra,
+  currentEraId: () => (shownIndex >= 0 ? eraAt(shownIndex).id : null),
   get topics() { return allTopics; },
   get shownIndex() { return shownIndex; },
   get selectedId() { return selectedId; },

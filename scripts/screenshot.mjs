@@ -322,6 +322,65 @@ for (const era of ERAS) {
   await page.close();
 }
 
+// ---------- 無名の政体にも来歴が出るか ----------
+// 有名どころだけ書いて終わっていないことの確認。断面をまたいで3つ抜き取る。
+{
+  const r = { era: 'minor-polities', problems: [], errors: [] };
+  const page = await context.newPage();
+  page.on('pageerror', (e) => r.errors.push(String(e)));
+  page.on('console', (m) => { if (m.type() === 'error') r.errors.push(m.text()); });
+
+  await page.goto(`${base}/index.html?era=bc500`, { waitUntil: 'load' });
+  await waitReady(page);
+
+  r.checked = [];
+  for (const eraId of ['bc500', '800', '1600']) {
+    await page.evaluate((id) => {
+      const i = window.imperia.eraIndexOf(id);
+      return window.imperia.goTo(i);
+    }, eraId);
+    await page.waitForFunction((id) => window.imperia.currentEraId() === id, eraId, { timeout: 20000 });
+    await page.waitForTimeout(1200);
+
+    // その断面に居る政体のうち、有名でないものを1つ選ぶ（面積が中位のもの）
+    const target = await page.evaluate(() => {
+      const feats = window.imperia.map.querySourceFeatures('era')
+        .filter((f) => f.properties?.NAME)
+        .sort((a, b) => (b.properties._area ?? 0) - (a.properties._area ?? 0));
+      const names = [...new Set(feats.map((f) => f.properties.NAME))];
+      // 上位10は有名どころなので避け、中ほどから採る
+      return names[Math.min(names.length - 1, Math.floor(names.length * 0.6))] ?? null;
+    });
+    if (!target) { fail(r, `no polity found in era ${eraId}`); continue; }
+
+    const shown = await page.evaluate((name) => {
+      window.imperia.focusPolity(name);
+      return name;
+    }, target);
+    await page.waitForTimeout(900);
+
+    const got = await page.evaluate(() => ({
+      name: document.querySelector('[data-testid="panel-name"]')?.textContent ?? null,
+      summary: document.querySelector('[data-testid="polity-summary"]')?.textContent ?? null,
+      jump: document.querySelector('[data-testid="era-jump-label"]')?.textContent ?? null,
+    }));
+    r.checked.push({ eraId, name: shown, ja: got.name, chars: got.summary ? Array.from(got.summary).length : 0 });
+
+    if (!got.name) fail(r, `${eraId}/${shown}: no name in the panel`);
+    if (!got.summary) fail(r, `${eraId}/${shown}: minor polity has no history shown`);
+    else if (Array.from(got.summary).length < 25) {
+      fail(r, `${eraId}/${shown}: history is only ${Array.from(got.summary).length} characters`);
+    }
+    if (!got.jump) fail(r, `${eraId}/${shown}: no era-jump control`);
+  }
+
+  r.shot = join(outDir, 'imperia-minor-polity.png');
+  await page.screenshot({ path: r.shot });
+  if (r.errors.length) fail(r, `console errors: ${r.errors.slice(0, 2).join(' | ')}`);
+  results.push(r);
+  await page.close();
+}
+
 // ---------- 年を打ち込んで飛ぶ ----------
 {
   const r = { era: 'year-input', problems: [], errors: [] };
@@ -554,6 +613,11 @@ for (const r of results) {
     if (r.jumped) console.log(`      era jump -> index ${r.jumped.index} (${r.jumped.label}), still selected: ${r.jumped.name} id=${r.jumped.selected}`);
     if (r.topicClicked) console.log(`      topic click "${r.topicClicked}" -> panel ${JSON.stringify(r.topicPanelName)}, highlighted id=${r.topicSelectedId}, back link OK`);
     console.log(`      nonstate sample=${JSON.stringify(r.nonstateSample)}`);
+  }
+  if (r.checked) {
+    for (const c of r.checked) {
+      console.log(`      ${c.eraId}: ${c.name} -> ${c.ja} (${c.chars} chars of history)`);
+    }
   }
   if (r.snapped) {
     console.log(`      117 -> ${r.snapped.label} (hint: ${r.snapped.hint}) | 紀元前500 -> ${r.exact.label} (hint empty: ${!r.exact.hint}) | bad input flagged: ${r.bad.invalid}, map unmoved: ${r.bad.shown === r.exact.shown}`);

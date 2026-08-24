@@ -117,9 +117,18 @@ OpenMapTiles の地物は `name:ja` を持っているので、これで「Deuts
 
 ## 政体の来歴
 
-`data/polity-info.json` に主要293政体の `{summary_ja, period_ja, capital_ja?, name_ja?}`。
-政体の詳細パネルで、名前と「現在の国」のあいだに出る。未登録の政体では
-この欄が丸ごと省かれるだけで、従来どおりの表示になる。
+`data/polity-info.json` に **全2548政体** の `{summary_ja, period_ja?, capital_ja?, name_ja?}`。
+政体の詳細パネルで、名前と「現在の国」のあいだに出る。
+
+記述は二段構え。主要293件は「起こり→最盛期→衰亡」を3〜4文で追う。残り2255件は
+1〜3文で「それが何で、いつ栄え、どうなったか」に絞る。狩猟採集民や考古学的文化には
+王朝の弧を当てはめず、社会の性格・分布・知られている特徴を書く。現存する民族を
+「滅亡した」と書かない。
+
+**`period_ja` は任意で、実際に2548件中1633件では省いている。** 無名の集団に
+それらしい年代を付けるのは捏造であり、曖昧なまま置く方が正しいため。
+「確かな一般論 > 怪しい具体」を規則にしてある（`scripts/`外の作成指示は
+scratchpad に置いたが、方針は本節が正）。
 
 `name_ja` は `names.ja.json` の訳を上書きする。断面の年代と矛盾する訳を直すための
 逃げ道で、例えば `Manchu Empire`（1650〜1914年の断面に登場）は「後金」（1616〜1636年の
@@ -206,10 +215,10 @@ data/modern-borders.geojson   Natural Earth 110m 国境線
 data/names.ja.json            NAME → 日本語名（全2548件）
 data/modern.json              NAME → 現在の国（面積上位216件）
 data/nonstate.json            非国家判定の規則
-data/events.json              主要な出来事110件
+data/events.json              主要な出来事387件
 data/topics.json              断面ごとのトピック（48断面 × 4〜7件）
 data/overviews.json           断面ごとの概説（48断面 × 200〜300字）
-data/polity-info.json         政体の来歴（293件）
+data/polity-info.json         政体の来歴（全2548件）
 data/name-eras.json           NAME → 登場する断面（生成物）
 src/nonstate.js               非国家判定
 src/labelpoint.js             政体名ラベルの代表点計算

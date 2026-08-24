@@ -43,13 +43,18 @@ export function buildPanelModel(properties, dicts = {}) {
   // SUBJECTO は自分自身を指していることが多いので、その場合は宗主なしとみなす
   const subjectEn = subjectRaw && subjectRaw !== nameEn ? subjectRaw : null;
 
+  const info = nameEn ? (dicts.polityInfo?.[nameEn] ?? null) : null;
+  // polity-info 側に name_ja の上書きがあればそれを優先する
+  const nameJa = info?.name_ja ?? japaneseName(nameEn, namesJa);
+
   return {
     nameEn,
-    nameJa: japaneseName(nameEn, namesJa),
-    hasTranslation: Boolean(nameEn && namesJa[nameEn]),
+    nameJa,
+    hasTranslation: Boolean(nameEn && (info?.name_ja || namesJa[nameEn])),
     subjectEn,
     subjectJa: japaneseName(subjectEn, namesJa),
     modern: modernCountries(nameEn, modern),
+    info,
   };
 }
 
@@ -83,6 +88,11 @@ export function renderPanel(el, properties, dicts = {}) {
   if (m.hasTranslation) {
     parts.push(`<p class="panel-name-en">${escapeHtml(m.nameEn)}</p>`);
   }
+
+  // 来歴（起こり→最盛期→衰亡）と、登場する断面のナビゲーション
+  parts.push(polityInfoHtml(m.info));
+  parts.push(eraJumpHtml(dicts.eraJump ?? null));
+
   parts.push(
     `<dl class="panel-facts">`
     + `<dt>現在の国</dt><dd data-testid="panel-modern">${escapeHtml(m.modern)}</dd>`,
@@ -131,9 +141,17 @@ export function renderEventPanel(el, ev, formatYear) {
  * @param {Array<{title_ja:string,body_ja:string,polity?:string,wiki_url:string}>} topics
  * @param {Record<string,string>} [namesJa] polity の日本語名引き
  */
-export function renderTopics(el, eraLabel, topics = [], namesJa = {}) {
+export function renderTopics(el, eraLabel, topics = [], namesJa = {}, overview = '') {
+  const overviewHtml = overview
+    ? `<section class="overview" data-testid="era-overview">`
+      + '<h3 class="overview-title">この時代の世界</h3>'
+      + `<p class="overview-body">${escapeHtml(overview)}</p>`
+      + '</section>'
+    : '';
+
   if (!topics.length) {
     el.innerHTML = `<p class="panel-kicker">${escapeHtml(eraLabel)}</p>`
+      + overviewHtml
       + '<p class="panel-hint">この年代のトピックはまだ登録されていません。'
       + '地図上の政体をクリックすると詳細が出ます。</p>';
     return 0;
@@ -152,7 +170,9 @@ export function renderTopics(el, eraLabel, topics = [], namesJa = {}) {
       + '</li>';
   });
 
-  el.innerHTML = `<p class="panel-kicker" data-testid="topics-era">${escapeHtml(eraLabel)}のトピック</p>`
+  el.innerHTML = `<p class="panel-kicker" data-testid="topics-era">${escapeHtml(eraLabel)}</p>`
+    + overviewHtml
+    + '<h3 class="topics-title">この時代のトピック</h3>'
     + `<ul class="topics" data-testid="topics-list">${items.join('')}</ul>`;
   return topics.length;
 }
@@ -165,4 +185,82 @@ export function prependBackLink(el) {
   back.textContent = '← トピック一覧';
   el.prepend(back);
   return back;
+}
+
+/**
+ * 政体が登場する断面の情報を組み立てる。
+ *
+ * 注意: 元データの NAME は表記が揺れる（Bantu / Bantou など）。ここでは名寄せを
+ * 一切しないので、同じ政体が別表記に分かれていれば別々に数えられる。
+ *
+ * @param {string|null} name
+ * @param {Record<string,string[]>} nameEras data/name-eras.json
+ * @param {string|null} currentEraId
+ * @param {(id:string)=>number} yearOfEra 断面 ID -> 年
+ * @param {(y:number)=>string} formatYear
+ */
+export function buildEraJumpModel(name, nameEras = {}, currentEraId = null, yearOfEra = () => 0, formatYear = String) {
+  const eras = name ? (nameEras[name] ?? []) : [];
+  if (!eras.length) return null;
+
+  const first = eras[0];
+  const last = eras[eras.length - 1];
+  const at = currentEraId ? eras.indexOf(currentEraId) : -1;
+
+  // 現在の断面がこの政体の登場断面でない場合でも、前後を年で決められるようにする
+  const currentYear = currentEraId ? yearOfEra(currentEraId) : null;
+  const prev = at > 0
+    ? eras[at - 1]
+    : [...eras].reverse().find((id) => currentYear !== null && yearOfEra(id) < currentYear) ?? null;
+  const next = at >= 0 && at < eras.length - 1
+    ? eras[at + 1]
+    : eras.find((id) => currentYear !== null && yearOfEra(id) > currentYear) ?? null;
+
+  const rangeLabel = first === last
+    ? formatYear(yearOfEra(first))
+    : `${formatYear(yearOfEra(first))}〜${formatYear(yearOfEra(last))}`;
+
+  return {
+    eras,
+    count: eras.length,
+    first,
+    last,
+    prev,
+    next,
+    atFirst: currentEraId === first,
+    atLast: currentEraId === last,
+    rangeLabel,
+    label: `${rangeLabel}（${eras.length}断面）`,
+  };
+}
+
+/** 政体の来歴ブロック（あれば）。 */
+function polityInfoHtml(info) {
+  if (!info) return '';
+  const meta = [info.period_ja, info.capital_ja ? `都: ${info.capital_ja}` : null]
+    .filter(Boolean)
+    .map(escapeHtml)
+    .join(' ・ ');
+  return (meta ? `<p class="polity-period" data-testid="polity-period">${meta}</p>` : '')
+    + (info.summary_ja
+      ? `<p class="polity-summary" data-testid="polity-summary">${escapeHtml(info.summary_ja)}</p>`
+      : '');
+}
+
+/** 登場断面のナビゲーション。 */
+function eraJumpHtml(jump) {
+  if (!jump) return '';
+  const btn = (action, target, text, disabled) => (
+    `<button class="era-jump-btn" data-era-jump="${action}"`
+    + `${target ? ` data-era-target="${escapeHtml(target)}"` : ''}`
+    + `${disabled ? ' disabled' : ''}>${text}</button>`
+  );
+  return '<div class="era-jump" data-testid="era-jump">'
+    + `<p class="era-jump-label" data-testid="era-jump-label">登場する断面: ${escapeHtml(jump.label)}</p>`
+    + '<div class="era-jump-buttons">'
+    + btn('first', jump.first, '◀ 最初', jump.atFirst)
+    + btn('prev', jump.prev, '◀', !jump.prev)
+    + btn('next', jump.next, '▶', !jump.next)
+    + btn('last', jump.last, '▶ 最後', jump.atLast)
+    + '</div></div>';
 }

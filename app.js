@@ -8,7 +8,7 @@ import {
 } from 'https://cdn.jsdelivr.net/npm/maplibre-gl@6.5.0/dist/maplibre-gl.mjs';
 
 import {
-  ERA_COUNT, eraAt, labelAt, formatYear, EraStore,
+  ERA_COUNT, ERA_IDS, eraAt, labelAt, formatYear, indexOfEra, EraStore,
 } from './src/eras.js';
 import {
   addEraLayers, setEraData, addBorderLayer, setBordersVisible,
@@ -16,7 +16,7 @@ import {
   ERA_FILL_LAYER, ERA_SOURCE, EVENTS_LAYER,
 } from './src/layers.js';
 import {
-  renderPanel, renderEventPanel, renderTopics, prependBackLink,
+  renderPanel, renderEventPanel, renderTopics, prependBackLink, buildEraJumpModel,
 } from './src/panel.js';
 import { resolveYearInput } from './src/yearinput.js';
 import { eventsForEra } from './src/events.js';
@@ -47,6 +47,11 @@ const dicts = { namesJa: {}, modern: {} };
 let nonStateRule = { patterns: [], exceptions: [], explicit: [] };
 let allEvents = [];
 let allTopics = {};
+let allOverviews = {};
+let polityInfo = {};
+let nameEras = {};
+/** 断面を移った直後に選び直したい政体名（登場断面ジャンプ用）。 */
+let pendingSelectName = null;
 /** 下地ラベルの日本語化・格下げの結果（テスト用）。 */
 let basemapLabelStats = { localised: 0, demoted: 0, cityLayers: 0 };
 
@@ -58,6 +63,8 @@ let requestSeq = 0;
 let layersReady = false;
 /** feature-state で強調中のポリゴン id。 */
 let selectedId = null;
+/** 強調中の政体名（断面をまたいで選択を持ち越すのに使う）。 */
+let selectedPolityName = null;
 
 // 何も選んでいない間はトピック一覧を出す（起動直後は断面未確定なので空）
 el.panel.innerHTML = '';
@@ -101,6 +108,7 @@ el.toastRetry.addEventListener('click', () => {
 
 // --- 選択の強調 ---
 function clearSelection() {
+  selectedPolityName = null;
   if (selectedId === null) return;
   map.setFeatureState({ source: ERA_SOURCE, id: selectedId }, { selected: false });
   selectedId = null;
@@ -138,7 +146,16 @@ async function showEra(index) {
     setEraData(map, geojson, nonStateRule, dicts.namesJa);
     setEventData(map, eventsForEra(index, allEvents));
     shownIndex = index;
-    // 断面が変われば選択は解除されるので、既定表示のトピック一覧に戻す
+
+    // 登場断面ジャンプの直後は、同じ政体を選び直して詳細を出したままにする
+    const carry = pendingSelectName;
+    pendingSelectName = null;
+    if (carry && reselectPolity(carry)) {
+      hideToast();
+      return;
+    }
+
+    // それ以外は既定表示のトピック一覧に戻す
     showTopics();
     hideToast();
   } catch (err) {
@@ -227,12 +244,28 @@ function openSheet() {
 /** 現在の断面のトピック一覧をパネルに出す（既定表示）。 */
 function showTopics() {
   const era = eraAt(shownIndex < 0 ? Number(el.slider.value) : shownIndex);
-  renderTopics(el.panel, formatYear(era.year), allTopics[era.id] ?? [], dicts.namesJa);
+  renderTopics(
+    el.panel,
+    formatYear(era.year),
+    allTopics[era.id] ?? [],
+    dicts.namesJa,
+    allOverviews[era.id] ?? '',
+  );
 }
+
+/** 断面 ID -> 年。 */
+const yearOfEra = (id) => {
+  const i = indexOfEra(id);
+  return i >= 0 ? eraAt(i).year : 0;
+};
 
 /** 政体の詳細を出す。トピック一覧へ戻れるようにする。 */
 function showPolity(properties) {
-  renderPanel(el.panel, properties, dicts);
+  const name = typeof properties?.NAME === 'string' ? properties.NAME.trim() : null;
+  const currentEraId = shownIndex >= 0 ? eraAt(shownIndex).id : null;
+  const eraJump = buildEraJumpModel(name, nameEras, currentEraId, yearOfEra, formatYear);
+  selectedPolityName = name;
+  renderPanel(el.panel, properties, { ...dicts, polityInfo, eraJump });
   const back = prependBackLink(el.panel);
   back.addEventListener('click', () => {
     clearSelection();
@@ -247,6 +280,19 @@ el.panel.addEventListener('click', (e) => {
   const name = btn.dataset.polity;
   if (!name) return;
   focusPolity(name);
+});
+
+// 登場する断面へジャンプ（政体は選んだまま持ち越す）
+el.panel.addEventListener('click', (e) => {
+  const btn = e.target.closest?.('.era-jump-btn');
+  if (!btn || btn.disabled) return;
+  const target = btn.dataset.eraTarget;
+  if (!target) return;
+  const index = indexOfEra(target);
+  if (index < 0) return;
+  // 今表示している政体名を覚えておき、移動先で選び直す
+  pendingSelectName = selectedPolityName;
+  goTo(index);
 });
 
 /**
@@ -276,6 +322,34 @@ function focusPolity(name) {
 
   showPolity(best.properties);
   openSheet();
+  return true;
+}
+
+/**
+ * 断面を移った直後に、同じ名前の政体を選び直して詳細を出す。
+ * その断面に居なければ false を返す（呼び出し側がトピック一覧に戻す）。
+ * @param {string} name
+ * @returns {boolean}
+ */
+function reselectPolity(name) {
+  const feats = map.querySourceFeatures(ERA_SOURCE).filter((f) => f.properties?.NAME === name);
+  if (!feats.length) return false;
+
+  let best = feats[0];
+  for (const f of feats) {
+    if ((f.properties?._area ?? 0) > (best.properties?._area ?? 0)) best = f;
+  }
+
+  // 強調は描画済み feature の id が要る。まだ描かれていなければ次の idle で拾う
+  const highlight = () => {
+    const rendered = map.queryRenderedFeatures({ layers: [ERA_FILL_LAYER] })
+      .filter((f) => f.properties?.NAME === name);
+    if (rendered.length) select(rendered[0].id);
+  };
+  highlight();
+  map.once('idle', highlight);
+
+  showPolity(best.properties);
   return true;
 }
 
@@ -432,13 +506,19 @@ map.on('load', async () => {
     if (geo) addBorderLayer(map, geo, el.borders.checked);
   });
 
-  const [namesJa, modern, rule, events, topics] = await Promise.all([
+  const [namesJa, modern, rule, events, topics, overviews, info, eras] = await Promise.all([
     loadJson('data/names.ja.json', {}),
     loadJson('data/modern.json', {}),
     loadJson('data/nonstate.json', { patterns: [], exceptions: [], explicit: [] }),
     loadJson('data/events.json', []),
     loadJson('data/topics.json', {}),
+    loadJson('data/overviews.json', {}),
+    loadJson('data/polity-info.json', {}),
+    loadJson('data/name-eras.json', {}),
   ]);
+  allOverviews = overviews;
+  polityInfo = info;
+  nameEras = eras;
   dicts.namesJa = namesJa;
   dicts.modern = modern;
   nonStateRule = rule;

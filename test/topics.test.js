@@ -92,10 +92,9 @@ test('topic bodies do not mention a year far from their era', () => {
   for (const [id, list] of Object.entries(topics)) {
     for (const t of list) {
       const text = `${t.title_ja} ${t.body_ja}`;
-      const years = [
-        ...[...text.matchAll(/前(\d{1,4})年/g)].map((m) => -Number(m[1])),
-        ...[...text.matchAll(/(?<!前)(\d{3,4})年/g)].map((m) => Number(m[1])),
-      ];
+      // 「紀元前3000年」は 前+3000。数字の途中から拾わないよう直前が数字でないことを要求する
+      const years = [...text.matchAll(/(?<![0-9])(前)?([0-9]{1,4})年/g)]
+        .map((m) => (m[1] ? -Number(m[2]) : Number(m[2])));
       for (const y of years) {
         if (Math.abs(y - yearOf[id]) > 60) offenders.push(`${id}(${yearOf[id]}): ${y} in "${t.title_ja}"`);
       }
@@ -138,7 +137,8 @@ test('renderTopics lists every topic with its Japanese polity name', () => {
     { title_ja: '王莽', body_ja: '本文2', wiki_url: 'https://ja.wikipedia.org/wiki/Y' },
   ], { 'Roman Empire': 'ローマ帝国' });
   assert.equal(n, 2);
-  assert.match(el.innerHTML, /紀元前1年のトピック/);
+  assert.match(el.innerHTML, /紀元前1年/);
+  assert.match(el.innerHTML, /この時代のトピック/);
   assert.match(el.innerHTML, /アウグストゥス/);
   assert.match(el.innerHTML, /ローマ帝国/, 'polity shown in Japanese');
   assert.match(el.innerHTML, /data-polity="Roman Empire"/, 'raw NAME kept for map lookup');

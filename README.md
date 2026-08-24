@@ -109,6 +109,40 @@ OpenMapTiles の地物は `name:ja` を持っているので、これで「Deuts
 > 元データには末尾に空白が付いた NAME (`"Pomeranian culture "`) が混ざっている。
 > 対訳表のキーは trim 済みなので、`decorateEra` で NAME を trim して正規化している。
 
+## この時代の世界（概説）
+
+`data/overviews.json` に48断面ぶんの 200〜300字の叙述を持たせている。トピック一覧の
+先頭、断面名の直下に出る。その年に「どの勢力が伸び、どこが傾き、地域どうしが
+どうつながっていたか」を地域横断で書いてある。
+
+## 政体の来歴
+
+`data/polity-info.json` に主要293政体の `{summary_ja, period_ja, capital_ja?, name_ja?}`。
+政体の詳細パネルで、名前と「現在の国」のあいだに出る。未登録の政体では
+この欄が丸ごと省かれるだけで、従来どおりの表示になる。
+
+`name_ja` は `names.ja.json` の訳を上書きする。断面の年代と矛盾する訳を直すための
+逃げ道で、例えば `Manchu Empire`（1650〜1914年の断面に登場）は「後金」（1616〜1636年の
+国号）ではなく「清」と表示する。
+
+## 登場する断面へ飛ぶ
+
+`scripts/build-name-eras.mjs` が `data/name-eras.json`（NAME → 登場する断面 ID の配列）を
+生成する。政体の詳細パネルに「登場する断面: 紀元前1年〜200年（3断面）」と出し、
+◀ 最初 / ◀ / ▶ / ▶ 最後 で断面を移動する。移動先にその政体が居れば選択と強調を
+持ち越し、居なければトピック一覧に戻る。
+
+```sh
+node scripts/build-name-eras.mjs   # data/eras/*.geojson を作り直したら再実行する
+```
+
+> **表記揺れは統合していない。** 元データには `Bantu` / `Bantou`、
+> `Saharan Pastoral Nomads` / `Saharan pastoral nomads`、
+> `United States` / `United States of America` のような別表記が混在する。
+> これらは別々の政体として索引されるので、「登場する断面」が実際の存続期間より
+> 短く出ることがある。機械的に名寄せすると実際には別物の政体まで束ねてしまうため、
+> あえて統合していない。
+
 ## 断面ごとのトピック
 
 `data/topics.json` に、48断面それぞれ 4〜7 件の「その年代に世界で何が起きていたか」を
@@ -174,6 +208,9 @@ data/modern.json              NAME → 現在の国（面積上位216件）
 data/nonstate.json            非国家判定の規則
 data/events.json              主要な出来事110件
 data/topics.json              断面ごとのトピック（48断面 × 4〜7件）
+data/overviews.json           断面ごとの概説（48断面 × 200〜300字）
+data/polity-info.json         政体の来歴（293件）
+data/name-eras.json           NAME → 登場する断面（生成物）
 src/nonstate.js               非国家判定
 src/labelpoint.js             政体名ラベルの代表点計算
 src/events.js                 断面に対応する出来事の選別

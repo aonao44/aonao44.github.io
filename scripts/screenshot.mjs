@@ -154,12 +154,38 @@ for (const era of ERAS) {
   // --- トピック一覧（何も選んでいない既定表示） ---
   r.topics = await page.evaluate(() => ({
     header: document.querySelector('[data-testid="topics-era"]')?.textContent ?? '',
+    heading: document.querySelector('.topics-title')?.textContent ?? '',
     count: document.querySelectorAll('[data-testid="topics-list"] .topic').length,
     linked: document.querySelectorAll('.topic-btn[data-polity]').length,
     first: document.querySelector('.topic-title')?.textContent ?? '',
   }));
   if (r.topics.count < 4) fail(r, `only ${r.topics.count} topics shown for this era`);
-  if (!r.topics.header.includes('トピック')) fail(r, 'topics header missing');
+
+  // --- この時代の世界（概説）---
+  r.overview = await page.evaluate(() => {
+    const node = document.querySelector('[data-testid="era-overview"]');
+    if (!node) return { present: false };
+    const body = node.querySelector('.overview-body')?.textContent ?? '';
+    return {
+      present: true,
+      chars: Array.from(body).length,
+      aboveTopics: (() => {
+        const list = document.querySelector('[data-testid="topics-list"]');
+        return list ? Boolean(node.compareDocumentPosition(list) & Node.DOCUMENT_POSITION_FOLLOWING) : false;
+      })(),
+      head: body.slice(0, 28),
+    };
+  });
+  if (!r.overview.present) fail(r, 'no era overview shown');
+  else {
+    if (r.overview.chars < 150 || r.overview.chars > 350) {
+      fail(r, `overview is ${r.overview.chars} characters`);
+    }
+    if (!r.overview.aboveTopics) fail(r, 'the overview is not above the topic list');
+  }
+  // 見出しは「年」のカマシ + 「この時代のトピック」の小見出しに分かれている
+  if (!r.topics.header.includes('年')) fail(r, `era kicker missing: ${r.topics.header}`);
+  if (!r.topics.heading.includes('トピック')) fail(r, `topics heading missing: ${r.topics.heading}`);
 
   // --- アサート5: 出来事が描画されている ---
   r.events = await page.evaluate(() => ({
@@ -210,6 +236,52 @@ for (const era of ERAS) {
     if (r.selectedId === null || r.selectedId === undefined) {
       fail(r, 'clicked polygon was not highlighted (no feature-state set)');
     }
+  }
+
+  // --- 政体の来歴と登場断面ジャンプ（100年で確認）---
+  if (era === '100') {
+    await page.evaluate(() => window.imperia.focusPolity('Roman Empire'));
+    await page.waitForTimeout(1800);
+    r.polity = await page.evaluate(() => ({
+      name: document.querySelector('[data-testid="panel-name"]')?.textContent ?? null,
+      period: document.querySelector('[data-testid="polity-period"]')?.textContent ?? null,
+      summary: (document.querySelector('[data-testid="polity-summary"]')?.textContent ?? ''),
+      jump: document.querySelector('[data-testid="era-jump-label"]')?.textContent ?? null,
+      buttons: [...document.querySelectorAll('.era-jump-btn')]
+        .map((b) => ({ action: b.dataset.eraJump, target: b.dataset.eraTarget, disabled: b.disabled })),
+    }));
+    if (r.polity.name !== 'ローマ帝国') fail(r, `expected ローマ帝国, got ${r.polity.name}`);
+    if (!r.polity.period) fail(r, 'no period shown for the polity');
+    if (Array.from(r.polity.summary).length < 40) fail(r, 'polity summary missing or too short');
+    if (!r.polity.jump || !/断面）/.test(r.polity.jump)) fail(r, `era-jump label missing: ${r.polity.jump}`);
+    if (r.polity.buttons.length !== 4) fail(r, `expected 4 era-jump buttons, got ${r.polity.buttons.length}`);
+
+    // ▶ 最後 を押すと断面が移り、政体は選択されたまま
+    const before = await page.evaluate(() => window.imperia.shownIndex);
+    await page.locator('.era-jump-btn[data-era-jump="last"]').click();
+    await page.waitForTimeout(2200);
+    r.jumped = await page.evaluate(() => ({
+      index: window.imperia.shownIndex,
+      label: document.getElementById('year-label').textContent,
+      name: document.querySelector('[data-testid="panel-name"]')?.textContent ?? null,
+      selected: window.imperia.selectedId,
+    }));
+    if (r.jumped.index === before) fail(r, 'the era-jump button did not change the era');
+    if (r.jumped.name !== 'ローマ帝国') fail(r, 'the polity was not kept selected across the jump');
+    if (r.jumped.selected === null || r.jumped.selected === undefined) {
+      fail(r, 'the polity was not highlighted after the jump');
+    }
+
+    // 元の断面に戻してスクリーンショットを撮る
+    await page.evaluate(() => {
+      window.imperia.map.jumpTo({ center: [20, 25], zoom: 1.6 });
+      window.imperia.goTo(12);
+    });
+    await page.waitForTimeout(2000);
+    await page.evaluate(() => window.imperia.focusPolity('Roman Empire'));
+    await page.waitForTimeout(1500);
+    await page.evaluate(() => window.imperia.map.jumpTo({ center: [20, 25], zoom: 1.6 }));
+    await page.waitForTimeout(1200);
   }
 
   // --- トピックから政体へ、そして戻れること（bc1 で確認）---
@@ -477,6 +549,9 @@ for (const r of results) {
     console.log(`      polity labels: ${r.eraLabels.count} rendered, ${r.eraLabels.japanese} japanese, dupes=${r.eraLabels.duplicated.length}, e.g. ${JSON.stringify(r.eraLabels.sample.slice(0, 4))}`);
     console.log(`      hierarchy: basemap ${r.basemap.sampleSize}px ${r.basemap.sampleColour} vs polity ${r.basemap.polityMinSize}px ${JSON.stringify(r.basemap.polityFont)}, city labels from zoom ${r.basemap.cityMinZoom}`);
     console.log(`      legend: ${r.legend.items} entries visible=${r.legend.visible} | topics: ${r.topics.count} (${r.topics.linked} linked) "${r.topics.first}"`);
+    if (r.overview?.present) console.log(`      overview: ${r.overview.chars} chars, above topics=${r.overview.aboveTopics} — "${r.overview.head}…"`);
+    if (r.polity) console.log(`      polity: ${r.polity.name} | ${r.polity.period} | ${r.polity.jump} | buttons=${r.polity.buttons.map((b) => b.action + (b.disabled ? '(off)' : '')).join(',')}`);
+    if (r.jumped) console.log(`      era jump -> index ${r.jumped.index} (${r.jumped.label}), still selected: ${r.jumped.name} id=${r.jumped.selected}`);
     if (r.topicClicked) console.log(`      topic click "${r.topicClicked}" -> panel ${JSON.stringify(r.topicPanelName)}, highlighted id=${r.topicSelectedId}, back link OK`);
     console.log(`      nonstate sample=${JSON.stringify(r.nonstateSample)}`);
   }

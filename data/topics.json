@@ -1,0 +1,2111 @@
+{
+ "100": [
+  {
+   "title_ja": "ローマ帝国、五賢帝時代の最大版図",
+   "body_ja": "トラヤヌス帝のもとローマ帝国はダキアやメソポタミア方面へ領土を広げ、地中海世界は最盛期の安定を迎えていた。",
+   "polity": "Roman Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/トラヤヌス"
+  },
+  {
+   "title_ja": "後漢、班超による西域経営",
+   "body_ja": "後漢の班超は西域都護として中央アジアの諸国を服属させ、シルクロード交易路の安全確保に努めた。",
+   "polity": "Han",
+   "wiki_url": "https://ja.wikipedia.org/wiki/班超"
+  },
+  {
+   "title_ja": "クシャーナ朝、カニシカ王前夜の拡大",
+   "body_ja": "中央アジアから北インドにかけてクシャーナ朝が勢力を広げ、仏教とヘレニズム文化が融合するガンダーラ美術の土壌が育まれていた。",
+   "polity": "Kushan Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/クシャーナ朝"
+  },
+  {
+   "title_ja": "パルティア、ローマとメソポタミアで対峙",
+   "body_ja": "パルティアはトラヤヌス帝の東方遠征を受けてメソポタミア領土の一部を失うなど、ローマとの攻防が続いていた。",
+   "polity": "Parthian Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/パルティア"
+  },
+  {
+   "title_ja": "倭国、弥生時代のクニグニ分立",
+   "body_ja": "日本列島では弥生時代の稲作社会が発展し、後漢書に記される「倭の奴国」など小国家が分立して中国と通交していた。",
+   "polity": "Yayoi",
+   "wiki_url": "https://ja.wikipedia.org/wiki/倭の奴国"
+  },
+  {
+   "title_ja": "モチェ文化、ペルー北部の神権国家形成",
+   "body_ja": "モチェ文化は太陽と月のワカ(神殿)を中心に階層的な神権国家を形成し、精巧な肖像土器を生み出した。",
+   "polity": "Moche",
+   "wiki_url": "https://ja.wikipedia.org/wiki/モチェ文化"
+  },
+  {
+   "title_ja": "アクスム王国、紅海とインド洋交易で成長",
+   "body_ja": "エチオピア高原のアクスム王国は紅海の港アドゥリスを拠点に、ローマとインドを結ぶ交易で富を蓄え地域大国へと成長した。",
+   "polity": "Axum",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アクスム王国"
+  }
+ ],
+ "200": [
+  {
+   "title_ja": "後漢の衰退と黄巾の乱",
+   "body_ja": "宦官・外戚の抗争で政治が乱れた後漢は184年に黄巾の乱が起こり、群雄割拠の時代へと向かっていった。",
+   "polity": "Han",
+   "wiki_url": "https://ja.wikipedia.org/wiki/黄巾の乱"
+  },
+  {
+   "title_ja": "ローマ帝国、軍人皇帝時代前夜の動揺",
+   "body_ja": "セウェルス朝のもとローマは軍の発言力が強まり、財政難と国境防衛の負担が帝国の安定を徐々に揺るがし始めていた。",
+   "polity": "Roman Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/セウェルス朝"
+  },
+  {
+   "title_ja": "パルティア、サーサーン朝台頭前の混乱",
+   "body_ja": "パルティアは内紛で弱体化し、まもなくイラン南部のサーサーン家の台頭によって王朝交代を迎えることになる。",
+   "polity": "Parthian Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/パルティア"
+  },
+  {
+   "title_ja": "三韓、朝鮮半島南部の小国連合",
+   "body_ja": "朝鮮半島南部では辰韓・弁韓・馬韓の三韓が小国連合を形成し、後の新羅や百済、伽耶へとつながる基盤が築かれていた。",
+   "polity": "Silla",
+   "wiki_url": "https://ja.wikipedia.org/wiki/三韓"
+  },
+  {
+   "title_ja": "チョーラ朝、南インドの海上交易国家",
+   "body_ja": "南インドのチョーラ朝は東南アジアとの海上交易を担い、タミル文学が花開くサンガム時代の中心勢力の一つだった。",
+   "polity": "Chola",
+   "wiki_url": "https://ja.wikipedia.org/wiki/チョーラ朝"
+  },
+  {
+   "title_ja": "アクスム王国、紅海交易の拠点として発展",
+   "body_ja": "アクスム王国はローマとインド洋世界を結ぶ紅海交易で富を蓄え、独自の貨幣を鋳造するアフリカの大国へと成長した。",
+   "polity": "Axum",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アクスム王国"
+  },
+  {
+   "title_ja": "モチェ文化、灌漑農業と巨大建造物",
+   "body_ja": "モチェ文化は大規模な灌漑水路網を築いて砂漠地帯を農地に変え、太陽のワカなど巨大な日干し煉瓦建造物を残した。",
+   "polity": "Moche",
+   "wiki_url": "https://ja.wikipedia.org/wiki/モチェ文化"
+  }
+ ],
+ "300": [
+  {
+   "title_ja": "ディオクレティアヌス、四帝分治制を導入",
+   "body_ja": "3世紀の危機を収拾したディオクレティアヌス帝は帝国を東西に分け、正帝と副帝が分担統治するテトラルキアを開始した。",
+   "polity": "Rome (Diocletianus)",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ディオクレティアヌス"
+  },
+  {
+   "title_ja": "西晋、中国を再統一するも内紛の兆し",
+   "body_ja": "西晋は280年に呉を滅ぼして三国時代を終わらせたが、まもなく皇族同士の八王の乱に至る内部対立の火種を抱えていた。",
+   "polity": "Jin",
+   "wiki_url": "https://ja.wikipedia.org/wiki/西晋"
+  },
+  {
+   "title_ja": "グプタ朝、北インド統一への序章",
+   "body_ja": "チャンドラグプタ1世がガンジス川流域で勢力を固め、やがて北インドの黄金時代を築くグプタ朝の基礎が築かれつつあった。",
+   "polity": "Gupta Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/グプタ朝"
+  },
+  {
+   "title_ja": "ガーナ王国、西アフリカの交易国家として台頭",
+   "body_ja": "西アフリカのサヘル地帯ではガーナ王国が金とサハラ縦断交易路の支配を通じて勢力を強め、地域の交易国家として台頭した。",
+   "polity": "Empire of Ghana",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ガーナ王国 (西アフリカ)"
+  },
+  {
+   "title_ja": "高句麗、楽浪郡と対峙し半島北部で拡大",
+   "body_ja": "高句麗は中国王朝の出先機関だった楽浪郡と対立しながら領土を広げ、朝鮮半島北部からの勢力拡大を進めていた。",
+   "polity": "Koguryo",
+   "wiki_url": "https://ja.wikipedia.org/wiki/高句麗"
+  },
+  {
+   "title_ja": "モチェ文化、ペルー北部海岸の最盛期",
+   "body_ja": "モチェ文化はワカ・デル・ソルなど巨大な神殿建築と精緻な金属工芸を発展させ、階層的な祭祀国家として最盛期を迎えていた。",
+   "polity": "Moche",
+   "wiki_url": "https://ja.wikipedia.org/wiki/モチェ文化"
+  },
+  {
+   "title_ja": "劉淵、匈奴系の漢(趙)を建て華北へ進出",
+   "body_ja": "南匈奴の血を引く劉淵は304年に漢(のち趙)を建国し、西晋の混乱に乗じて華北へ進出する五胡十六国時代の先駆けとなった。",
+   "polity": "Han Zhao",
+   "wiki_url": "https://ja.wikipedia.org/wiki/劉淵"
+  }
+ ],
+ "400": [
+  {
+   "title_ja": "西ローマ帝国、ゲルマン人の侵入に揺れる",
+   "body_ja": "ゲルマン諸部族の圧力が強まる中、西ローマ帝国は410年の西ゴート人によるローマ略奪を目前に控え、統治基盤が揺らいでいた。",
+   "polity": "Western Roman Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/西ローマ帝国"
+  },
+  {
+   "title_ja": "フン人、西進とゲルマン諸族への圧迫",
+   "body_ja": "中央アジア起源とされるフン人はヨーロッパへ西進し、ゴート人など周辺のゲルマン諸族を圧迫して大移動時代の引き金となった。",
+   "polity": "Hunnic Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/フン族"
+  },
+  {
+   "title_ja": "五胡十六国、華北の分裂と諸民族の興亡",
+   "body_ja": "西晋崩壊後の華北では匈奴・鮮卑・羌など五胡と呼ばれる諸民族が次々に王朝を建て、分裂と興亡を繰り返す時代が続いていた。",
+   "polity": "Sixteen Kingdoms",
+   "wiki_url": "https://ja.wikipedia.org/wiki/五胡十六国時代"
+  },
+  {
+   "title_ja": "グプタ朝、チャンドラグプタ2世の最盛期",
+   "body_ja": "チャンドラグプタ2世の治世に北インドは政治的安定と文化的繁栄を迎え、カーリダーサらの文学が花開く黄金時代となった。",
+   "polity": "Gupta Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/チャンドラグプタ2世"
+  },
+  {
+   "title_ja": "サーサーン朝ペルシア、東西交易路を掌握",
+   "body_ja": "サーサーン朝ペルシアはローマと東方交易路をめぐり対峙しつつ、ゾロアスター教を国教として中央集権的な統治を進めた。",
+   "polity": "Persia",
+   "wiki_url": "https://ja.wikipedia.org/wiki/サーサーン朝"
+  },
+  {
+   "title_ja": "ガーナ王国、サハラ交易で西アフリカに拡大",
+   "body_ja": "西アフリカのガーナ王国は金と塩を軸としたサハラ縦断交易を掌握し、地域随一の交易国家として勢力を広げていった。",
+   "polity": "Empire of Ghana",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ガーナ王国 (西アフリカ)"
+  },
+  {
+   "title_ja": "モチェ文化、ペルー北部海岸の神殿都市",
+   "body_ja": "モチェ文化はワカ・デル・ソルなど巨大な日干し煉瓦のピラミッドを築き、灌漑農業を基盤とする神権国家の最盛期を迎えていた。",
+   "polity": "Moche",
+   "wiki_url": "https://ja.wikipedia.org/wiki/モチェ文化"
+  }
+ ],
+ "500": [
+  {
+   "title_ja": "北魏の漢化政策",
+   "body_ja": "北魏の孝文帝は494年に都を洛陽へ移し、鮮卑の姓や服装を改めて漢文化への同化を進める大規模な改革を断行した。",
+   "polity": "Toba Wei",
+   "wiki_url": "https://ja.wikipedia.org/wiki/北魏"
+  },
+  {
+   "title_ja": "グプタ朝の衰退",
+   "body_ja": "グプタ朝はエフタル(白匈奴)の侵入を受けて弱体化し、5世紀末から6世紀にかけて北インドの統一的支配は崩れていった。",
+   "polity": "Gupta Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/グプタ朝"
+  },
+  {
+   "title_ja": "マズダク教運動",
+   "body_ja": "サーサーン朝のカワード1世の治下、マズダクが財産と妻の共有を説く急進的な社会運動を起こし、貴族層と対立した。",
+   "polity": "Sasanian Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/マズダク教"
+  },
+  {
+   "title_ja": "アクスム王国の紅海交易",
+   "body_ja": "アクスム王国はキリスト教を国教とし、紅海を挟みインドとローマ帝国を結ぶ交易で栄え、対岸のヒムヤル王国と勢力を競った。",
+   "polity": "Axum",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アクスム王国"
+  },
+  {
+   "title_ja": "テオドリック大王のイタリア統治",
+   "body_ja": "東ゴート王テオドリックはイタリアを支配し、ローマの行政制度を残しつつゴート人とローマ人の共存を図る体制を築いた。",
+   "polity": "Ostrogoths",
+   "wiki_url": "https://ja.wikipedia.org/wiki/テオドリック大王"
+  },
+  {
+   "title_ja": "扶南の海上交易網",
+   "body_ja": "東南アジアの扶南王国はメコン川下流のオケオ港を拠点に、インドと中国を結ぶ海上交易で富を築き繁栄した。",
+   "polity": "Funan",
+   "wiki_url": "https://ja.wikipedia.org/wiki/扶南"
+  },
+  {
+   "title_ja": "倭の五王と大陸外交",
+   "body_ja": "倭国の大王たちは中国の南朝へ使者を送り称号を求める一方、朝鮮半島の百済・加耶諸国と結び、古墳文化を発展させた。",
+   "polity": "Yamato",
+   "wiki_url": "https://ja.wikipedia.org/wiki/倭の五王"
+  }
+ ],
+ "600": [
+  {
+   "title_ja": "隋による中国再統一",
+   "body_ja": "隋の文帝は南北朝の分裂を終わらせて中国を統一し、煬帝の代には大運河の建設が進められ南北を結ぶ大動脈となった。",
+   "polity": "Sui Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/隋"
+  },
+  {
+   "title_ja": "突厥の東西分裂",
+   "body_ja": "モンゴル高原の遊牧国家突厥は内紛により東西に分裂し、東突厥は隋・唐と、西突厥は中央アジアの交易路で勢力を競った。",
+   "polity": "Göktürks",
+   "wiki_url": "https://ja.wikipedia.org/wiki/突厥"
+  },
+  {
+   "title_ja": "ホスロー2世の対ビザンツ戦争",
+   "body_ja": "サーサーン朝のホスロー2世は東ローマ帝国と長期の戦争を続け、シリアやエジプトへの侵攻で王朝は最大版図に迫った。",
+   "polity": "Sasanian Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ホスロー2世"
+  },
+  {
+   "title_ja": "東ローマ帝国とバルカンの動揺",
+   "body_ja": "東ローマ帝国はマウリキウス帝の下でバルカン半島のアヴァール人・スラヴ人の侵入に苦しみ、帝位をめぐる内乱も頻発した。",
+   "polity": "Eastern Roman Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/東ローマ帝国"
+  },
+  {
+   "title_ja": "アクスム王国の交易衰退",
+   "body_ja": "アクスム王国は紅海交易の縮小とともに徐々に力を失い、内陸の高原地帯へと勢力の中心を移していった。",
+   "polity": "Axum",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アクスム王国"
+  },
+  {
+   "title_ja": "テオティワカンの繁栄",
+   "body_ja": "メソアメリカの巨大都市テオティワカンは太陽のピラミッドを中心に栄え、当時世界有数の人口を抱える都市文明を築いた。",
+   "polity": "Teotihuacàn",
+   "wiki_url": "https://ja.wikipedia.org/wiki/テオティワカン"
+  },
+  {
+   "title_ja": "チャールキヤ朝の台頭",
+   "body_ja": "デカン高原ではチャールキヤ朝が勢力を伸ばし、南インドの諸勢力と抗争しながら地域の有力王朝へと成長していった。",
+   "polity": "Chalukyas",
+   "wiki_url": "https://ja.wikipedia.org/wiki/チャールキヤ朝"
+  }
+ ],
+ "700": [
+  {
+   "title_ja": "則天武后と武周革命",
+   "body_ja": "唐の皇后であった則天武后は自ら皇帝に即位して国号を周と改め、中国史上唯一の女性皇帝として権力を握った。",
+   "wiki_url": "https://ja.wikipedia.org/wiki/則天武后"
+  },
+  {
+   "title_ja": "ウマイヤ朝の版図拡大",
+   "body_ja": "ウマイヤ朝はイベリア半島への進出とインダス川流域シンドの征服を進め、三大陸にまたがる広大な版図を築いた。",
+   "polity": "Umayyad Caliphate",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ウマイヤ朝"
+  },
+  {
+   "title_ja": "突厥第二可汗国の復興",
+   "body_ja": "唐の支配下にあった突厥はイルテリシュ可汗のもとで独立を回復し、ビルゲ可汗とトニュクックの下で草原に再び勢力を築いた。",
+   "polity": "Göktürks",
+   "wiki_url": "https://ja.wikipedia.org/wiki/突厥"
+  },
+  {
+   "title_ja": "吐蕃の中央アジア進出",
+   "body_ja": "チベット高原に興った吐蕃は唐と西域の支配権を争い、安西四鎮をめぐる攻防を繰り返しながら勢力を拡大した。",
+   "polity": "Tufan Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/吐蕃"
+  },
+  {
+   "title_ja": "アクスム王国の後退",
+   "body_ja": "イスラームの拡大により紅海交易の主導権を失ったアクスム王国は、エチオピア高原の内陸部へと勢力を縮小させた。",
+   "polity": "Axum",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アクスム王国"
+  },
+  {
+   "title_ja": "アラブ軍のシンド征服",
+   "body_ja": "ウマイヤ朝の武将がインダス川流域のシンド地方を征服し、南アジアへのイスラーム勢力進出の足がかりとなった。",
+   "polity": "Kingdom of Sind",
+   "wiki_url": "https://ja.wikipedia.org/wiki/シンド"
+  },
+  {
+   "title_ja": "ティカルの復興と最盛期",
+   "body_ja": "マヤ文明の都市ティカルはハサウ・チャン・カウィール1世のもとでカラクムルに勝利し、古典期マヤの中心として繁栄した。",
+   "polity": "Maya states",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ティカル"
+  }
+ ],
+ "800": [
+  {
+   "title_ja": "カール大帝の戴冠",
+   "body_ja": "800年、フランク王カール大帝はローマ教皇レオ3世から皇帝の冠を受け、西ヨーロッパに新たな帝国の枠組みが生まれた。",
+   "polity": "Carolingian Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/カール大帝"
+  },
+  {
+   "title_ja": "ハールーン・アッラシードとバグダード",
+   "body_ja": "アッバース朝のカリフ、ハールーン・アッラシードの治世に首都バグダードは学問と商業で栄え、イスラーム文化の黄金期を迎えた。",
+   "polity": "Abbasid Caliphate",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ハールーン・アッラシード"
+  },
+  {
+   "title_ja": "安史の乱後の唐の分権化",
+   "body_ja": "安史の乱を経た唐は中央の統制力を弱め、各地の節度使が軍事・財政の実権を握る地方分権的な体制へと移行していった。",
+   "polity": "Tang Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/安史の乱"
+  },
+  {
+   "title_ja": "吐蕃の最大版図",
+   "body_ja": "吐蕃はシルクロードのオアシス都市を支配下に置き、唐やアッバース朝と中央アジアの覇権を争う地域大国となった。",
+   "polity": "Tibetan Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/吐蕃"
+  },
+  {
+   "title_ja": "シュリーヴィジャヤの海上交易",
+   "body_ja": "スマトラを拠点とする仏教国シュリーヴィジャヤはマラッカ海峡を押さえ、インドと中国を結ぶ海上交易路を支配した。",
+   "polity": "Srivijaya Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/シュリーヴィジャヤ王国"
+  },
+  {
+   "title_ja": "ガーナ王国の金・塩交易",
+   "body_ja": "西アフリカのガーナ王国はサハラ砂漠を越える金と塩の交易路を掌握し、サヘル地帯有数の富裕な王国として栄えた。",
+   "polity": "Ghana",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ガーナ王国"
+  },
+  {
+   "title_ja": "古典期マヤの最盛期",
+   "body_ja": "マヤの都市国家群は人口と建築の面で最盛期を迎えたが、9世紀には資源の枯渇や戦乱により多くの都市が放棄されていく。",
+   "polity": "Maya city-states",
+   "wiki_url": "https://ja.wikipedia.org/wiki/マヤ文明"
+  }
+ ],
+ "900": [
+  {
+   "title_ja": "唐の滅亡と五代十国",
+   "body_ja": "黄巣の乱で疲弊した唐は907年に滅亡し、中国は節度使出身の武将たちが割拠する五代十国の分裂時代へ突入した。",
+   "polity": "Tang Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/唐"
+  },
+  {
+   "title_ja": "契丹の統一と遼の建国",
+   "body_ja": "契丹の耶律阿保機は諸部族を統一して907年に皇帝を称し、モンゴル高原から満州にまたがる遼を建国した。",
+   "polity": "Khitans",
+   "wiki_url": "https://ja.wikipedia.org/wiki/耶律阿保機"
+  },
+  {
+   "title_ja": "サーマーン朝とブハラの文化",
+   "body_ja": "中央アジアのサーマーン朝はブハラを都にペルシア語文学と学問を保護し、イラン系イスラーム文化の中心地を築いた。",
+   "polity": "Samanid Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/サーマーン朝"
+  },
+  {
+   "title_ja": "アンコール王朝の成立期",
+   "body_ja": "クメール王ヤショーヴァルマン1世は都ヤショダラプラを築き、後のアンコール文明につながる寺院建築の伝統を確立した。",
+   "polity": "Khmer Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/クメール王朝"
+  },
+  {
+   "title_ja": "キエフ・ルーシの成立",
+   "body_ja": "リューリク朝のもとスラヴ人とヴァリャーグ人が結びつき、ドニエプル川を通じてビザンツと結ぶキエフ・ルーシ国家が形成された。",
+   "polity": "Kyivan Rus",
+   "wiki_url": "https://ja.wikipedia.org/wiki/キエフ大公国"
+  },
+  {
+   "title_ja": "アグラブ朝の北アフリカ支配",
+   "body_ja": "アグラブ朝はカイラワーンを都に北アフリカのイフリーキヤを支配し、シチリア島への侵攻を進めイスラーム勢力を拡大した。",
+   "polity": "Aghlabid Emirate",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アグラブ朝"
+  },
+  {
+   "title_ja": "ティワナク文明の最盛期",
+   "body_ja": "アンデス高地のティティカカ湖畔で栄えたティワナク文明は宗教的・政治的中心として周辺地域に強い影響力を持った。",
+   "polity": "Tiahuanaco Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ティワナク"
+  }
+ ],
+ "1000": [
+  {
+   "title_ja": "宋代の経済と技術革新",
+   "body_ja": "宋は科挙官僚制を整備し、火薬や活字印刷などの技術革新と商業の発展により空前の経済的繁栄を実現した。",
+   "polity": "Song Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/宋(王朝)"
+  },
+  {
+   "title_ja": "ガズナ朝のインド侵入",
+   "body_ja": "アフガニスタンに興ったガズナ朝の君主マフムードは北インドへ度重なる遠征を行い、トルコ系イスラーム勢力の影響を広げた。",
+   "polity": "Ghaznavid Emirate",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ガズナ朝"
+  },
+  {
+   "title_ja": "ファーティマ朝とカイロ建設",
+   "body_ja": "シーア派のファーティマ朝はエジプトを征服してカイロを建設し、アズハル学院を中心に学問と交易で繁栄した。",
+   "polity": "Fatimid Caliphate",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ファーティマ朝"
+  },
+  {
+   "title_ja": "オットー3世の帝国理念",
+   "body_ja": "神聖ローマ皇帝オットー3世はローマ帝国の再興を掲げ、教皇権と結びついた普遍的な帝国支配の理想を追求した。",
+   "polity": "Holy Roman Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/オットー3世"
+  },
+  {
+   "title_ja": "チョーラ朝の海上遠征",
+   "body_ja": "南インドのチョーラ朝はラージャラージャ1世のもとで海軍を強化し、セイロン島やインド洋交易圏への影響力を拡大した。",
+   "polity": "Chola state",
+   "wiki_url": "https://ja.wikipedia.org/wiki/チョーラ朝"
+  },
+  {
+   "title_ja": "グレート・ジンバブエの興隆",
+   "body_ja": "南部アフリカの石造都市グレート・ジンバブエは内陸の金と沿岸のインド洋交易を結ぶ拠点として発展を始めた。",
+   "polity": "Great Zimbabwe",
+   "wiki_url": "https://ja.wikipedia.org/wiki/グレート・ジンバブエ"
+  },
+  {
+   "title_ja": "ティワナク文明の衰退",
+   "body_ja": "長らくアンデス高地の中心であったティワナク文明は、この頃から都市の求心力を失い衰退へと向かい始めた。",
+   "polity": "Tiahuanaco Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ティワナク"
+  }
+ ],
+ "1100": [
+  {
+   "title_ja": "セルジューク朝とアナトリア進出",
+   "body_ja": "マラーズギルドの戦いでビザンツ軍を破ったセルジューク朝はアナトリアへ進出し、後にルーム・セルジューク朝が成立した。",
+   "polity": "Seljuk Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/セルジューク朝"
+  },
+  {
+   "title_ja": "王安石の新法改革",
+   "body_ja": "宋の宰相王安石は財政再建と富国強兵を目指す新法を断行したが、旧法党との激しい対立を招き改革は曲折を経た。",
+   "polity": "Song Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/王安石"
+  },
+  {
+   "title_ja": "ムラービト朝の西イスラーム統合",
+   "body_ja": "ベルベル人のムラービト朝はサハラ以南からイベリア半島に及ぶ領域を統一し、都マラケシュを拠点に勢力を広げた。",
+   "polity": "Almoravid dynasty",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ムラービト朝"
+  },
+  {
+   "title_ja": "十字軍とフランス王権",
+   "body_ja": "教皇ウルバヌス2世の呼びかけで始まった第1回十字軍にフランスの諸侯が多く参加し、カペー朝の王権も徐々に強まっていった。",
+   "polity": "Kingdom of France",
+   "wiki_url": "https://ja.wikipedia.org/wiki/第1回十字軍"
+  },
+  {
+   "title_ja": "アンコール・ワットの建設開始",
+   "body_ja": "クメール王スールヤヴァルマン2世はヒンドゥー教寺院アンコール・ワットの造営を始め、王権と宗教権威を一体化させた。",
+   "polity": "Khmer Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アンコールワット"
+  },
+  {
+   "title_ja": "モンゴル諸部族の抗争",
+   "body_ja": "統一以前のモンゴル高原ではメルキトやタタルなどの諸部族が互いに抗争を繰り返し、後の統一への地ならしが進んでいた。",
+   "polity": "Mongols",
+   "wiki_url": "https://ja.wikipedia.org/wiki/モンゴル高原"
+  },
+  {
+   "title_ja": "チョーラ朝のインド洋交易支配",
+   "body_ja": "シュリーヴィジャヤ遠征を経たチョーラ朝は、ベンガル湾からインド洋にかけての海上交易で強い影響力を保ち続けた。",
+   "polity": "Cholas",
+   "wiki_url": "https://ja.wikipedia.org/wiki/チョーラ朝"
+  }
+ ],
+ "1200": [
+  {
+   "title_ja": "チンギス・ハンのモンゴル統一",
+   "body_ja": "1206年、テムジンはモンゴル高原の諸部族を統一してチンギス・ハンを名乗り、ユーラシアを席巻する大征服を開始した。",
+   "polity": "Mongol Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/チンギス・カン"
+  },
+  {
+   "title_ja": "デリー・スルタン朝の成立",
+   "body_ja": "クトゥブッディーン・アイバクが1206年にデリーで即位し、北インドに初のトルコ系イスラーム王朝が成立した。",
+   "polity": "Sultanate of Delhi",
+   "wiki_url": "https://ja.wikipedia.org/wiki/デリー・スルターン朝"
+  },
+  {
+   "title_ja": "ジャヤーヴァルマン7世とバイヨン寺院",
+   "body_ja": "クメール王ジャヤーヴァルマン7世はアンコール・トムとバイヨン寺院を築き、大乗仏教を国家の柱に据えた。",
+   "polity": "Khmer Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ジャヤーヴァルマン7世"
+  },
+  {
+   "title_ja": "ムワッヒド朝とラス・ナバスの戦い",
+   "body_ja": "マグリブとイベリア半島を支配したムワッヒド朝は、ラス・ナバス・デ・トロサの戦いでキリスト教連合軍に大敗を喫した。",
+   "polity": "Almohad Caliphate",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ムワッヒド朝"
+  },
+  {
+   "title_ja": "第4回十字軍とコンスタンティノープル陥落",
+   "body_ja": "第4回十字軍はビザンツ帝国の都コンスタンティノープルを占領してラテン帝国を建てたが、ビザンツ勢力はニカイアで存続した。",
+   "polity": "Byzantine Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/第4回十字軍"
+  },
+  {
+   "title_ja": "南宋の海上交易繁栄",
+   "body_ja": "南宋は陸路を金に阻まれ海上交易に活路を求め、陶磁器や絹を輸出する海のシルクロードを通じた経済繁栄を築いた。",
+   "polity": "Song Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/南宋"
+  },
+  {
+   "title_ja": "チチェン・イツァとマヤパン同盟",
+   "body_ja": "古典期マヤの衰退後、後古典期のユカタン半島ではチチェン・イツァが栄え、その後マヤパンを中心とする都市同盟が台頭した。",
+   "polity": "Mesoamerican city-states and chiefdoms",
+   "wiki_url": "https://ja.wikipedia.org/wiki/チチェン・イッツァ"
+  }
+ ],
+ "1279": [
+  {
+   "title_ja": "元による南宋征服",
+   "body_ja": "1279年、崖山の戦いでクビライ率いる元軍が南宋最後の勢力を破り、モンゴル帝国の下で中国全土を統一する征服王朝が確立した。",
+   "polity": "Great Khanate",
+   "wiki_url": "https://ja.wikipedia.org/wiki/クビライ"
+  },
+  {
+   "title_ja": "マムルーク朝のモンゴル撃退",
+   "body_ja": "エジプトを支配するマムルーク朝は、シリア方面からのモンゴル軍の侵攻を退け、イスラム世界の中心としての地位を保った。",
+   "polity": "Mamluke Sultanate",
+   "wiki_url": "https://ja.wikipedia.org/wiki/マムルーク朝"
+  },
+  {
+   "title_ja": "ジョチ・ウルスとルーシ諸公国",
+   "body_ja": "キプチャク草原を支配するジョチ・ウルス(金帳汗国)は、ノヴゴロドなどロシアの諸公国から貢納を取り立て、支配を続けていた。",
+   "polity": "Khanate of the Golden Horde",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ジョチ・ウルス"
+  },
+  {
+   "title_ja": "デリー・スルタン朝の統治",
+   "body_ja": "北インドではデリー・スルタン朝のバルバンがモンゴルの侵入を防ぎつつ、中央集権的な支配体制を固めていた。",
+   "polity": "Sultanate of Delhi",
+   "wiki_url": "https://ja.wikipedia.org/wiki/デリー・スルタン朝"
+  },
+  {
+   "title_ja": "マリ帝国の隆盛",
+   "body_ja": "西アフリカではマリ帝国がサハラ交易を通じて金と塩の交易を支配し、イスラム文化圏との結びつきを強めていた。",
+   "polity": "Mali",
+   "wiki_url": "https://ja.wikipedia.org/wiki/マリ帝国"
+  },
+  {
+   "title_ja": "元寇に備える鎌倉幕府",
+   "body_ja": "鎌倉幕府は1274年の文永の役に続き、元(モンゴル帝国)による再度の侵攻に備え、御家人を動員して防備を固めていた。",
+   "polity": "Shogun Japan (Kamakura)",
+   "wiki_url": "https://ja.wikipedia.org/wiki/元寇"
+  },
+  {
+   "title_ja": "ビザンツ帝国の復興",
+   "body_ja": "ミカエル8世パレオロゴスの下でコンスタンティノープルを奪回したビザンツ帝国は、西欧勢力との対立の中で再建を進めていた。",
+   "polity": "Byzantine Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ミカエル8世パレオロゴス"
+  }
+ ],
+ "1300": [
+  {
+   "title_ja": "イルハン朝ガザン・ハンの改宗",
+   "body_ja": "イルハン朝の君主ガザン・ハンはイスラム教に改宗し、1299年にはマムルーク朝からシリアを奪う遠征を行った。",
+   "polity": "Ilkhanate",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ガザン・ハン"
+  },
+  {
+   "title_ja": "マムルーク朝とモンゴルの攻防",
+   "body_ja": "マムルーク朝はイルハン朝の侵攻を退け、シリア・エジプトにおけるイスラム勢力の防波堤としての役割を維持した。",
+   "polity": "Mamluke Sultanate",
+   "wiki_url": "https://ja.wikipedia.org/wiki/マムルーク朝"
+  },
+  {
+   "title_ja": "デリー・スルタン朝の拡大",
+   "body_ja": "アラー・ウッディーン・ハルジーが即位したデリー・スルタン朝は、モンゴルの侵入を撃退しつつ南インドへの遠征を進めた。",
+   "polity": "Sultanate of Delhi",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アラーウッディーン・ハルジー"
+  },
+  {
+   "title_ja": "元とカイドゥの抗争",
+   "body_ja": "中央アジアのオゴタイ家カイドゥは元朝への反乱を続け、テムル・カアン即位後もモンゴル帝国内部の分裂が続いていた。",
+   "polity": "Great Khanate",
+   "wiki_url": "https://ja.wikipedia.org/wiki/カイドゥ"
+  },
+  {
+   "title_ja": "鎌倉幕府と得宗専制",
+   "body_ja": "元寇を経た鎌倉幕府では北条氏得宗家への権力集中が進み、御家人統制を強める得宗専制体制が確立していった。",
+   "polity": "Shogun Japan (Kamakura)",
+   "wiki_url": "https://ja.wikipedia.org/wiki/得宗専制"
+  },
+  {
+   "title_ja": "アンコールを訪れた周達観",
+   "body_ja": "元の使節周達観がクメール王国の都アンコールを訪れ、その繁栄と風俗を記録した『真臘風土記』を著した。",
+   "polity": "Khmer Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/真臘風土記"
+  },
+  {
+   "title_ja": "ビザンツ帝国とカタルーニャ会社",
+   "body_ja": "アンドロニコス2世治下のビザンツ帝国は、小アジアで台頭するトルコ人勢力に対抗するためカタルーニャ人の傭兵集団を雇い入れた。",
+   "polity": "Byzantine Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/カタルーニャ会社"
+  }
+ ],
+ "1400": [
+  {
+   "title_ja": "ティムールの西アジア遠征",
+   "body_ja": "中央アジアに興ったティムール朝はデリーやシリアへ遠征し、1402年のアンカラの戦いではオスマン帝国のバヤズィト1世を捕虜とした。",
+   "polity": "Timurid Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ティムール"
+  },
+  {
+   "title_ja": "オスマン帝国とアンカラの戦い",
+   "body_ja": "バルカン半島とコンスタンティノープル包囲を進めたオスマン帝国のバヤズィト1世は、ティムール軍に大敗し解体の危機を迎えた。",
+   "polity": "Ottoman Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/バヤズィト1世"
+  },
+  {
+   "title_ja": "デリー・スルタン朝の衰退",
+   "body_ja": "1398年のティムールによる侵攻でデリーは徹底的に略奪され、デリー・スルタン朝の権威は大きく揺らいだ。",
+   "polity": "Sultanate of Delhi",
+   "wiki_url": "https://ja.wikipedia.org/wiki/デリー・スルタン朝"
+  },
+  {
+   "title_ja": "白帳ハン国とトクタミシュ",
+   "body_ja": "ジョチ・ウルス系の白帳ハン国では、トクタミシュがティムールと対立し、キプチャク草原の覇権をめぐる争いが続いていた。",
+   "polity": "White Horde",
+   "wiki_url": "https://ja.wikipedia.org/wiki/トクタミシュ"
+  },
+  {
+   "title_ja": "北元とモンゴル高原の情勢",
+   "body_ja": "明に追われてモンゴル高原に退いた北元はなお可汗の系譜を保ち、遊牧諸勢力の間で覇権争いが続いていた。",
+   "polity": "Great Khanate",
+   "wiki_url": "https://ja.wikipedia.org/wiki/北元"
+  },
+  {
+   "title_ja": "グレート・ジンバブエの交易網",
+   "body_ja": "南部アフリカのグレート・ジンバブエ王国は金や象牙の交易でインド洋沿岸のスワヒリ都市群と結びつき、繁栄を極めていた。",
+   "polity": "Great Zimbabwe",
+   "wiki_url": "https://ja.wikipedia.org/wiki/グレートジンバブエ遺跡"
+  },
+  {
+   "title_ja": "百年戦争下のフランス王国",
+   "body_ja": "シャルル6世の統治下、精神疾患による混乱に乗じてイングランドの侵攻を受けたフランスは百年戦争の苦境にあった。",
+   "polity": "France",
+   "wiki_url": "https://ja.wikipedia.org/wiki/シャルル6世 (フランス王)"
+  }
+ ],
+ "1492": [
+  {
+   "title_ja": "コロンブスの大西洋横断",
+   "body_ja": "1492年、カスティーリャ王室の支援を受けたコロンブスが大西洋を横断してカリブ海の島々に到達し、新大陸との接触が始まった。",
+   "polity": "Castille",
+   "wiki_url": "https://ja.wikipedia.org/wiki/クリストファー・コロンブス"
+  },
+  {
+   "title_ja": "グラナダ陥落とレコンキスタ完成",
+   "body_ja": "同じ1492年、カスティーリャはイベリア半島最後のイスラム王朝ナスル朝の都グラナダを陥落させ、レコンキスタを完了した。",
+   "polity": "Castille",
+   "wiki_url": "https://ja.wikipedia.org/wiki/グラナダ陥落"
+  },
+  {
+   "title_ja": "セファルディムのオスマン帝国移住",
+   "body_ja": "スペインから追放されたユダヤ教徒(セファルディム)の多くが、寛容な統治で知られるオスマン帝国のバヤズィト2世の下に移住した。",
+   "polity": "Ottoman Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/セファルディム"
+  },
+  {
+   "title_ja": "明の弘治帝による統治",
+   "body_ja": "中国では弘治帝が官僚腐敗の是正と儒教的統治の立て直しに努め、「弘治中興」と呼ばれる比較的安定した治世を築いていた。",
+   "polity": "Ming Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/弘治帝"
+  },
+  {
+   "title_ja": "ソンガイ帝国の台頭",
+   "body_ja": "西アフリカではソンガイ帝国がマリ帝国に代わって台頭し、トンブクトゥを中心に交易とイスラム学問の中心地としての地位を固めつつあった。",
+   "polity": "Songhai",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ソンガイ王国"
+  },
+  {
+   "title_ja": "ヴィジャヤナガル王国の繁栄",
+   "body_ja": "南インドのヒンドゥー王朝ヴィジャヤナガル王国は、周辺のイスラム諸王朝と対抗しながら文化的繁栄を続けていた。",
+   "polity": "Vijayanagara",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ヴィジャヤナガル王国"
+  },
+  {
+   "title_ja": "モスクワ大公国の勢力拡大",
+   "body_ja": "イヴァン3世治下のモスクワ大公国はモンゴルのくびきから脱し、ロシア諸公国の統合を進めて中央集権国家の基盤を築いていた。",
+   "polity": "Grand Duchy of Moscow",
+   "wiki_url": "https://ja.wikipedia.org/wiki/イヴァン3世"
+  }
+ ],
+ "1500": [
+  {
+   "title_ja": "アステカ帝国の最盛期",
+   "body_ja": "メソアメリカではアステカ帝国が三都市同盟を核に勢力を拡大し、モクテスマ2世の下で最盛期を迎えようとしていた。",
+   "polity": "Aztec Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アステカ"
+  },
+  {
+   "title_ja": "インカ帝国のアンデス支配",
+   "body_ja": "ワイナ・カパックの統治下、インカ帝国はアンデス山脈沿いに領土を広げ、道路網を用いた広域統治体制を完成させていた。",
+   "polity": "Inca Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ワイナ・カパック"
+  },
+  {
+   "title_ja": "ソンガイ帝国とアスキア朝",
+   "body_ja": "アスキア・ムハンマド1世が開いたアスキア朝の下、ソンガイ帝国はメッカ巡礼を通じてイスラム世界との結びつきを強めた。",
+   "polity": "Songhai",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アスキア・ムハンマド1世"
+  },
+  {
+   "title_ja": "ポルトガルのインド航路とマムルーク朝",
+   "body_ja": "ヴァスコ・ダ・ガマのインド到達によって紅海経由の香辛料交易に依存するマムルーク朝の経済的地位は脅かされ始めた。",
+   "polity": "Mamluke Sultanate",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ヴァスコ・ダ・ガマ"
+  },
+  {
+   "title_ja": "明の弘治から正徳への移行",
+   "body_ja": "中国では弘治帝の治世が終わり、若い正徳帝が即位したことで、明朝の政治にはやがて宦官が台頭する時代が訪れつつあった。",
+   "polity": "Ming Chinese Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/正徳帝"
+  },
+  {
+   "title_ja": "ローディー朝支配下の北インド",
+   "body_ja": "北インドではアフガン系のローディー朝がデリー・スルタン朝を統治し、シカンダル・ローディーが領土拡大を進めていた。",
+   "polity": "Sultanate of Delhi",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ローディー朝"
+  },
+  {
+   "title_ja": "マクシミリアン1世の婚姻外交",
+   "body_ja": "神聖ローマ皇帝マクシミリアン1世は子女の政略結婚を通じて、ハプスブルク家の勢力をヨーロッパ各地に広げていった。",
+   "polity": "Holy Roman Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/マクシミリアン1世 (神聖ローマ皇帝)"
+  }
+ ],
+ "1530": [
+  {
+   "title_ja": "バーブルによるムガル帝国建国",
+   "body_ja": "1526年のパーニーパットの戦いに勝利したバーブルはムガル帝国を建国し、1530年には子フマーユーンが跡を継いだ。",
+   "polity": "Mughal Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/バーブル"
+  },
+  {
+   "title_ja": "スレイマン1世とウィーン包囲",
+   "body_ja": "オスマン帝国の君主スレイマン1世は1529年にウィーンを包囲し、ヨーロッパにオスマンの脅威を強く印象づけた。",
+   "polity": "Ottoman Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/スレイマン1世"
+  },
+  {
+   "title_ja": "サファヴィー朝タフマースブ1世の治世",
+   "body_ja": "サファヴィー朝の君主タフマースブ1世はオスマン帝国との戦いを続けながら、イラン高原における王朝の基盤を固めていた。",
+   "polity": "Safavid Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/タフマースブ1世"
+  },
+  {
+   "title_ja": "アダルとエチオピアの戦争",
+   "body_ja": "イスラム勢力アダル・スルタン国の指導者アフマド・グラーニュはエチオピア高原への聖戦を開始し、キリスト教王国を圧迫した。",
+   "polity": "Adal",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アフマド・イブン・イブラーヒーム・アル=ガーズィー"
+  },
+  {
+   "title_ja": "インカ帝国の内戦",
+   "body_ja": "ワイナ・カパックの死後、インカ帝国ではアタワルパとワスカルの兄弟が皇位を争う内戦が起こり、帝国は分裂状態に陥っていた。",
+   "polity": "Inca Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アタワルパ"
+  },
+  {
+   "title_ja": "ヌエバ・エスパーニャ副王領の成立",
+   "body_ja": "アステカ帝国征服後のメキシコにはヌエバ・エスパーニャ副王領が置かれ、スペインによる植民地統治体制が整えられていった。",
+   "polity": "Vice Royalty of New Spain",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ヌエバ・エスパーニャ"
+  },
+  {
+   "title_ja": "モスクワ大公国とカザン・ハン国",
+   "body_ja": "ヴァシーリー3世治下のモスクワ大公国は、タタール系のカザン・ハン国と対立しながらロシア東方への勢力拡大を図っていた。",
+   "polity": "Tsardom of Muscovy",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ヴァシーリー3世"
+  }
+ ],
+ "1600": [
+  {
+   "title_ja": "関ヶ原の戦いと徳川家康",
+   "body_ja": "1600年、関ヶ原の戦いで徳川家康が石田三成方を破り、以後の徳川政権樹立への道を開いた。",
+   "polity": "Japan (Warring States)",
+   "wiki_url": "https://ja.wikipedia.org/wiki/関ヶ原の戦い"
+  },
+  {
+   "title_ja": "文禄・慶長の役後の朝鮮",
+   "body_ja": "豊臣秀吉による二度の侵攻(文禄・慶長の役)を退けた朝鮮王朝は、明の援軍を得て国土の復興に取り組んでいた。",
+   "polity": "Korea",
+   "wiki_url": "https://ja.wikipedia.org/wiki/文禄・慶長の役"
+  },
+  {
+   "title_ja": "オスマン帝国とハプスブルクの長期戦争",
+   "body_ja": "オスマン帝国はハンガリー方面でハプスブルク家と1593年から続く長期戦争を戦い、財政と軍事に大きな負担を抱えていた。",
+   "polity": "Ottoman Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/オスマン・ハプスブルク戦争"
+  },
+  {
+   "title_ja": "サファヴィー朝アッバース1世の改革",
+   "body_ja": "サファヴィー朝の君主アッバース1世は軍制改革を進め、都をイスファハーンに移して王朝の最盛期を築きつつあった。",
+   "polity": "Safavid Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アッバース1世"
+  },
+  {
+   "title_ja": "ムガル皇帝アクバルの統治",
+   "body_ja": "ムガル帝国の皇帝アクバルは異教徒融和策「ディーネ・イラーヒー」を掲げ、多宗教社会インドの統合的支配を進めた。",
+   "polity": "Mughal Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アクバル"
+  },
+  {
+   "title_ja": "モロッコによるソンガイ帝国征服",
+   "body_ja": "1591年、モロッコ軍がトンディビの戦いでソンガイ帝国を破り、サハラ交易路の支配権を奪って西アフリカの勢力図を塗り替えた。",
+   "polity": "Watassid Morocco",
+   "wiki_url": "https://ja.wikipedia.org/wiki/トンディビの戦い"
+  },
+  {
+   "title_ja": "ヌエバ・エスパーニャの銀鉱経済",
+   "body_ja": "メキシコのサカテカス銀山などを擁するヌエバ・エスパーニャ副王領は、銀の産出によってスペイン本国の財政を支えていた。",
+   "polity": "Vice Royalty of New Spain",
+   "wiki_url": "https://ja.wikipedia.org/wiki/サカテカス"
+  }
+ ],
+ "1650": [
+  {
+   "title_ja": "清による中国統一",
+   "body_ja": "1644年に北京を占領した清は、順治帝の下で南明勢力の抵抗を退けながら中国全土の支配を確立しつつあった。",
+   "polity": "Manchu Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/順治帝"
+  },
+  {
+   "title_ja": "徳川幕府の鎖国政策",
+   "body_ja": "徳川幕府は1630年代に一連の鎖国令を発し、オランダと中国を除く外国との交流を厳しく制限する体制を固めていた。",
+   "polity": "Tokugawa Shogunate",
+   "wiki_url": "https://ja.wikipedia.org/wiki/鎖国"
+  },
+  {
+   "title_ja": "シャー・ジャハーンとタージ・マハル",
+   "body_ja": "ムガル皇帝シャー・ジャハーンは亡き妃のためタージ・マハルの建設を進め、ムガル建築の頂点を築きつつあった。",
+   "polity": "Mughal Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/タージ・マハル"
+  },
+  {
+   "title_ja": "オスマン帝国とクレタ戦争",
+   "body_ja": "オスマン帝国はヴェネツィアとの間でクレタ島の支配をめぐる長期戦争を戦い、地中海における覇権を争っていた。",
+   "polity": "Ottoman Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/クレタ戦争"
+  },
+  {
+   "title_ja": "サファヴィー朝アッバース2世の治世",
+   "body_ja": "サファヴィー朝のアッバース2世はイスファハーンを中心に文化的繁栄を築き、ヨーロッパ諸国とも活発に交易を行った。",
+   "polity": "Safavid Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アッバース2世"
+  },
+  {
+   "title_ja": "イングランド内戦とチャールズ1世処刑",
+   "body_ja": "ピューリタン革命によりチャールズ1世が処刑され、クロムウェル指導下の共和政(コモンウェルス)がイングランドで成立した。",
+   "polity": "England and Ireland",
+   "wiki_url": "https://ja.wikipedia.org/wiki/チャールズ1世 (イングランド王)"
+  },
+  {
+   "title_ja": "ペルー副王領とポトシ銀山",
+   "body_ja": "ペルー副王領のポトシ銀山は世界有数の産銀量を誇り、その銀が大西洋交易を通じてヨーロッパ経済に大きな影響を与えていた。",
+   "polity": "Vice Royalty of Peru",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ポトシ"
+  }
+ ],
+ "1700": [
+  {
+   "title_ja": "清の康熙帝、三藩と台湾を平定",
+   "body_ja": "清朝の康熙帝は三藩の乱を鎮め鄭氏台湾を征服して支配を固め、モンゴル・チベット方面への勢力拡大を進めていた。",
+   "polity": "Manchu Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/康熙帝"
+  },
+  {
+   "title_ja": "ムガル帝国、アウラングゼーブの南進",
+   "body_ja": "ムガル皇帝アウラングゼーブはデカン高原でマラーター勢力と長期の戦争を続け、帝国は領土的に最大だが財政は疲弊していた。",
+   "polity": "Mughal Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アウラングゼーブ"
+  },
+  {
+   "title_ja": "カルロヴィッツ条約後のオスマン帝国",
+   "body_ja": "1699年のカルロヴィッツ条約でハンガリーを失ったオスマン帝国は、ヨーロッパでの守勢に転じ国内改革の必要に迫られていた。",
+   "polity": "Ottoman Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/カルロヴィッツ条約"
+  },
+  {
+   "title_ja": "サファヴィー朝ペルシアの衰退",
+   "body_ja": "サファヴィー朝は中央集権が弛み、アフガン人の反乱が各地に広がって、後の王朝崩壊につながる混乱の兆しが表れていた。",
+   "polity": "Safavid Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/サファヴィー朝"
+  },
+  {
+   "title_ja": "元禄文化と鎖国下の徳川日本",
+   "body_ja": "徳川幕府は鎖国政策を維持しつつ、上方を中心に元禄文化が花開き、町人による浮世草子や歌舞伎が隆盛していた。",
+   "polity": "Tokugawa Shogunate",
+   "wiki_url": "https://ja.wikipedia.org/wiki/元禄文化"
+  },
+  {
+   "title_ja": "ピョートル大帝と大北方戦争の開始",
+   "body_ja": "ロシアのピョートル大帝は西欧化改革を進め、1700年にスウェーデンと大北方戦争を開始しバルト海進出を目指した。",
+   "polity": "Tsardom of Muscovy",
+   "wiki_url": "https://ja.wikipedia.org/wiki/大北方戦争"
+  },
+  {
+   "title_ja": "ゴンダールを都とするエチオピア帝国",
+   "body_ja": "エチオピア帝国はゴンダールに都を置き、正教会文化を育みながら皇帝権力と地方領主との勢力均衡を保っていた。",
+   "polity": "Ethiopia",
+   "wiki_url": "https://ja.wikipedia.org/wiki/エチオピア帝国"
+  }
+ ],
+ "1715": [
+  {
+   "title_ja": "ルイ14世死去とフランス摂政期",
+   "body_ja": "太陽王ルイ14世が1715年に死去し、幼少のルイ15世に代わりオルレアン公フィリップが摂政となり財政再建を試みた。",
+   "polity": "France",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ルイ14世"
+  },
+  {
+   "title_ja": "康熙帝晩期と清朝の最盛期",
+   "body_ja": "清の康熙帝は長期の治世の終盤を迎え、イエズス会宣教師を用いた暦法整備や地図作成など文化事業を通じて統治を安定させていた。",
+   "polity": "Manchu Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/康熙帝"
+  },
+  {
+   "title_ja": "アウラングゼーブ没後のムガル帝国動揺",
+   "body_ja": "1707年のアウラングゼーブ没後、ムガル帝国では皇位継承争いが続き、有力貴族が実権を握り中央権力は弱体化した。",
+   "polity": "Mughal Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ムガル帝国"
+  },
+  {
+   "title_ja": "オスマン帝国のモレア半島再征服",
+   "body_ja": "オスマン帝国はアフメト3世のもと1714年にヴェネツィアとの戦争を再開し、ギリシアのモレア半島を奪還して勢力を回復した。",
+   "polity": "Ottoman Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アフメト3世"
+  },
+  {
+   "title_ja": "北米植民地とヤマシー戦争",
+   "body_ja": "1715年、ヤマシー族など南東部の先住民連合がサウスカロライナ植民地に対して蜂起し、イギリス植民地社会に大きな衝撃を与えた。",
+   "polity": "British American colonies",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ヤマシー戦争"
+  },
+  {
+   "title_ja": "海舶互市新例と徳川幕府の貿易統制",
+   "body_ja": "徳川幕府は儒学者新井白石の主導で1715年に海舶互市新例を発し、長崎における清・オランダとの貿易額を制限して金銀流出を防いだ。",
+   "polity": "Tokugawa shogunate",
+   "wiki_url": "https://ja.wikipedia.org/wiki/海舶互市新例"
+  },
+  {
+   "title_ja": "崩壊に向かうサファヴィー朝",
+   "body_ja": "サファヴィー朝ペルシアは中央権力の弱体化が進み、アフガン人ギルザイ族の自立傾向が強まり王朝滅亡が迫っていた。",
+   "polity": "Safavid Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/サファヴィー朝"
+  }
+ ],
+ "1783": [
+  {
+   "title_ja": "パリ条約とアメリカ合衆国の独立承認",
+   "body_ja": "1783年のパリ条約でイギリスはアメリカ合衆国の独立を正式に承認し、ミシシッピ川以東の広大な領土が新国家に帰属した。",
+   "polity": "United States of America",
+   "wiki_url": "https://ja.wikipedia.org/wiki/パリ条約_(1783年)"
+  },
+  {
+   "title_ja": "乾隆帝治下の清朝と四庫全書",
+   "body_ja": "清の乾隆帝は中央アジアへの遠征で領土を最大に広げる一方、大規模な叢書『四庫全書』を編纂させ文化事業にも力を注いだ。",
+   "polity": "Qing Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/乾隆帝"
+  },
+  {
+   "title_ja": "第一次マラーター戦争とサルバーイ条約",
+   "body_ja": "マラーター同盟は東インド会社と戦った第一次マラーター戦争を1782年のサルバーイ条約で終結させ、インド最大勢力の地位を保った。",
+   "polity": "Maratha Confederacy",
+   "wiki_url": "https://ja.wikipedia.org/wiki/第一次マラーター戦争"
+  },
+  {
+   "title_ja": "トゥパク・アマル2世の反乱鎮圧",
+   "body_ja": "ペルー副王領では先住民指導者トゥパク・アマル2世が植民地支配に対する大規模な蜂起を起こしたが、1783年までに鎮圧された。",
+   "polity": "Vice-Royalty of Peru",
+   "wiki_url": "https://ja.wikipedia.org/wiki/トゥパク・アマル2世"
+  },
+  {
+   "title_ja": "ワッハーブ運動の台頭とネジド",
+   "body_ja": "アラビア半島中央部ネジドではイブン・サウード家とワッハーブ派が結び、厳格な信仰復興運動を掲げて勢力を急速に拡大していた。",
+   "polity": "Nejd",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ワッハーブ派"
+  },
+  {
+   "title_ja": "田沼意次の政治と天明の飢饉",
+   "body_ja": "江戸幕府では田沼意次が商業重視の改革を進めたが、1782年から天明の大飢饉が始まり各地で一揆や打ちこわしが頻発した。",
+   "polity": "Japan",
+   "wiki_url": "https://ja.wikipedia.org/wiki/天明の大飢饉"
+  },
+  {
+   "title_ja": "ゴルカ朝によるネパール統一の進展",
+   "body_ja": "プリトビ・ナラヤン・シャハが開いたゴルカ朝はカトマンズ盆地の征服後も周辺の小王国を次々に併合し、統一を着実に進めていた。",
+   "polity": "Nepal",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ゴルカ朝"
+  }
+ ],
+ "1800": [
+  {
+   "title_ja": "ナポレオンの統領政府樹立",
+   "body_ja": "1799年のブリュメール18日のクーデターでナポレオン・ボナパルトが権力を掌握し、第一統領として事実上の独裁体制を築いた。",
+   "polity": "France",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ブリュメールのクーデター"
+  },
+  {
+   "title_ja": "白蓮教徒の乱と清朝支配の動揺",
+   "body_ja": "清朝では1796年に始まった白蓮教徒の乱が各地に広がり、乾隆帝から嘉慶帝への代替わりの中で王朝の統治力の陰りが露呈した。",
+   "polity": "Qing Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/白蓮教徒の乱"
+  },
+  {
+   "title_ja": "ランジート・シングとシク王国の成立",
+   "body_ja": "パンジャーブではランジート・シングが1799年にラホールを占領し、諸勢力を統合してシク王国を建設し北西インドの覇権を握った。",
+   "polity": "Sikhs",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ランジート・シング"
+  },
+  {
+   "title_ja": "ガージャール朝によるペルシア統一",
+   "body_ja": "ペルシアでは1796年に即位したファトフ・アリー・シャーのもとガージャール朝が中央集権化を進め、テヘランを都に統治を固めた。",
+   "polity": "Persia",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ガージャール朝"
+  },
+  {
+   "title_ja": "鎖国下の日本と異国船への警戒",
+   "body_ja": "江戸幕府は寛政の改革後も鎖国を維持しつつ、ロシア船の来航を機に蝦夷地の海防を強化し北方防備への関心を高めていた。",
+   "polity": "Japan",
+   "wiki_url": "https://ja.wikipedia.org/wiki/鎖国"
+  },
+  {
+   "title_ja": "アシャンティ王国の拡大と黄金貿易",
+   "body_ja": "西アフリカのアシャンティ王国はアカン人の諸勢力を統合し、金や奴隷を沿岸のヨーロッパ商人に取引することで強大な国力を築いていた。",
+   "polity": "Asante",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アシャンティ王国"
+  },
+  {
+   "title_ja": "アメリカ大統領選挙とジェファソンの当選",
+   "body_ja": "1800年の大統領選挙で共和派のトマス・ジェファソンが当選し、連邦派から民主共和派への平和的な政権交代が実現した。",
+   "polity": "United States of America",
+   "wiki_url": "https://ja.wikipedia.org/wiki/トマス・ジェファーソン"
+  }
+ ],
+ "1815": [
+  {
+   "title_ja": "ウィーン会議と正統主義の国際秩序",
+   "body_ja": "ナポレオン戦争終結後の1815年、列強はウィーンに集いメッテルニヒ主導で正統主義に基づく勢力均衡の国際秩序を作り上げた。",
+   "polity": "Austrian Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ウィーン会議"
+  },
+  {
+   "title_ja": "ワーテルローの戦いとナポレオン失脚",
+   "body_ja": "1815年、イギリス・プロイセン連合軍がワーテルローでナポレオンを破り、フランス皇帝は最終的に権力を失い流刑に処された。",
+   "polity": "United Kingdom of Great Britain and Ireland",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ワーテルローの戦い"
+  },
+  {
+   "title_ja": "ウスマン・ダン・フォディオとフラニ帝国",
+   "body_ja": "西アフリカではウスマン・ダン・フォディオのジハードによりソコト・カリフ国を中心とするフラニ帝国が成立し、ハウサ諸国を統合した。",
+   "polity": "Fulani Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ソコト・カリフ国"
+  },
+  {
+   "title_ja": "東インド会社によるインド支配の拡大",
+   "body_ja": "イギリス東インド会社はマラーター諸侯との抗争を通じて勢力を広げ、インド亜大陸における実質的な支配領域を急速に拡大していた。",
+   "polity": "British East India Company",
+   "wiki_url": "https://ja.wikipedia.org/wiki/イギリス東インド会社"
+  },
+  {
+   "title_ja": "嘉慶帝時代の清朝と阿片流入の始まり",
+   "body_ja": "清朝では嘉慶帝のもと白蓮教徒の乱を鎮圧した後も社会不安がくすぶり、広州貿易を通じたアヘンの流入が次第に問題化し始めていた。",
+   "polity": "Manchu Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/嘉慶帝"
+  },
+  {
+   "title_ja": "ラダマ1世によるマダガスカル統一",
+   "body_ja": "マダガスカルではメリナ王国のラダマ1世がイギリスの支援で軍を近代化し、島内の諸王国を征服して統一を推し進めていた。",
+   "polity": "Expansionist Kingdom of Merina",
+   "wiki_url": "https://ja.wikipedia.org/wiki/メリナ王国"
+  },
+  {
+   "title_ja": "文化文政期の江戸と異国船打払令前夜",
+   "body_ja": "徳川日本は文化文政期の町人文化が爛熟する一方、フェートン号事件など外国船の来航が相次ぎ、幕府は海防強化を迫られていた。",
+   "polity": "Japan",
+   "wiki_url": "https://ja.wikipedia.org/wiki/フェートン号事件"
+  }
+ ],
+ "1880": [
+  {
+   "title_ja": "明治日本の近代化と西南戦争後",
+   "body_ja": "明治政府は西南戦争で士族反乱を鎮圧した後、殖産興業と富国強兵を推し進め、自由民権運動の高まりの中で立憲体制の準備を始めていた。",
+   "polity": "Imperial Japan",
+   "wiki_url": "https://ja.wikipedia.org/wiki/明治維新"
+  },
+  {
+   "title_ja": "洋務運動と清朝の近代化模索",
+   "body_ja": "清朝は西太后の摂政のもと洋務運動を進めて西洋技術による軍備近代化を図ったが、根本的な体制改革には至らず列強の圧力が強まっていた。",
+   "polity": "Manchu Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/洋務運動"
+  },
+  {
+   "title_ja": "英領インドと第二次アフガン戦争",
+   "body_ja": "イギリス領インドは1878年からの第二次アフガン戦争を通じてアフガニスタンへの影響力拡大を図り、インド帝国としての統治を強化していた。",
+   "polity": "British Raj",
+   "wiki_url": "https://ja.wikipedia.org/wiki/第二次アフガン戦争"
+  },
+  {
+   "title_ja": "西アフリカ最大のイスラーム国家ソコト",
+   "body_ja": "ソコト・カリフ国はハウサランドを中心に広大な領域を統治するイスラーム国家として繁栄を保ち、欧州勢力の本格的な進出にはまだ直面していなかった。",
+   "polity": "Sokoto Caliphate",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ソコト・カリフ国"
+  },
+  {
+   "title_ja": "ベルリン会議とオスマン帝国の領土喪失",
+   "body_ja": "露土戦争後の1878年、ベルリン会議で列強がオスマン帝国領の再編を協議し、バルカン半島での領土喪失と欧州列強の介入が加速した。",
+   "polity": "Ottoman Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ベルリン会議_(1878年)"
+  },
+  {
+   "title_ja": "ザンジバル・スルタン国と東アフリカ交易",
+   "body_ja": "ザンジバル・スルタン国はスルタン・バルガシュのもと象牙や丁子交易で栄えたが、奴隷貿易廃止を求めるイギリスの圧力が強まっていた。",
+   "polity": "Sultinate of Zanzibar",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ザンジバル・スルタン国"
+  },
+  {
+   "title_ja": "アルゼンチンの砂漠の征服と国土統合",
+   "body_ja": "アルゼンチン政府は1878年から「砂漠の征服」と呼ばれる軍事作戦を進め、パンパの先住民を制圧して国家統合と農牧地拡大を図った。",
+   "polity": "Argentina",
+   "wiki_url": "https://ja.wikipedia.org/wiki/砂漠の征服"
+  }
+ ],
+ "1900": [
+  {
+   "title_ja": "義和団事件と清朝の危機",
+   "body_ja": "1900年、排外主義を掲げる義和団が北京の外国公使館を包囲し、清朝もこれに同調したため、列強は8カ国連合軍を派遣し鎮圧した。",
+   "polity": "Manchu Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/義和団の乱"
+  },
+  {
+   "title_ja": "日清戦争後の日本と大陸進出",
+   "body_ja": "日清戦争に勝利した日本は台湾を領有し列強の一角として認められ、朝鮮半島や満州をめぐりロシアとの対立を深めつつあった。",
+   "polity": "Imperial Japan",
+   "wiki_url": "https://ja.wikipedia.org/wiki/日清戦争"
+  },
+  {
+   "title_ja": "カーゾン総督期の英領インド",
+   "body_ja": "英領インドでは1899年に着任したカーゾン総督のもと行政効率化が進められる一方、深刻な飢饉が発生し数百万人が犠牲となった。",
+   "polity": "British Raj",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ジョージ・カーゾン"
+  },
+  {
+   "title_ja": "サモリ・トゥーレの抵抗とその終焉",
+   "body_ja": "西アフリカの指導者サモリ・トゥーレはフランスの侵攻に対し長年抵抗を続けたが、1898年に捕縛され帝国は崩壊に至った。",
+   "polity": "First Samori Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/サモリ・トゥーレ"
+  },
+  {
+   "title_ja": "アブデュルハミト2世の専制と青年トルコ",
+   "body_ja": "オスマン帝国はスルタン・アブデュルハミト2世の専制統治下にあったが、改革を求める青年トルコ人運動が国内外で勢力を強めつつあった。",
+   "polity": "Ottoman Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アブデュルハミト2世"
+  },
+  {
+   "title_ja": "ガージャール朝ペルシアと列強の利権競争",
+   "body_ja": "ペルシアのガージャール朝はロシアとイギリスへの利権譲渡と借款で財政難に陥り、タバコ・ボイコット運動など民衆の反発も強まっていた。",
+   "polity": "Persia",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ガージャール朝"
+  },
+  {
+   "title_ja": "ポルフィリオ・ディアスとメキシコの近代化",
+   "body_ja": "メキシコでは独裁者ポルフィリオ・ディアスのもと鉄道建設や外資導入による近代化が進む一方、大土地所有制が農民の困窮を深めていた。",
+   "polity": "Mexico",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ポルフィリオ・ディアス"
+  }
+ ],
+ "1914": [
+  {
+   "title_ja": "サラエボ事件と第一次世界大戦の開戦",
+   "body_ja": "1914年6月、オーストリア皇太子フランツ・フェルディナントがサラエボで暗殺され、これを機に列強が相次いで参戦し世界大戦へと発展した。",
+   "polity": "Austro-Hungarian Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/サラエボ事件"
+  },
+  {
+   "title_ja": "辛亥革命後の中国と袁世凱政権",
+   "body_ja": "1911年の辛亥革命で清朝が倒れ中華民国が成立すると、実力者袁世凱が大総統として権力を握り、各地では軍閥の台頭も始まっていた。",
+   "wiki_url": "https://ja.wikipedia.org/wiki/袁世凱"
+  },
+  {
+   "title_ja": "第一次世界大戦とインド兵の動員",
+   "body_ja": "イギリスは第一次世界大戦の勃発に伴い英領インドから多数の兵士を動員し、ヨーロッパや中東の戦線に派遣して帝国の戦争遂行を支えさせた。",
+   "polity": "British Raj",
+   "wiki_url": "https://ja.wikipedia.org/wiki/インド帝国"
+  },
+  {
+   "title_ja": "オスマン帝国の同盟国側での参戦",
+   "body_ja": "青年トルコ人政権下のオスマン帝国は1914年秋にドイツ側で参戦し、コーカサスや中東の戦線で連合国と戦うこととなった。",
+   "polity": "Ottoman Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/第一次世界大戦"
+  },
+  {
+   "title_ja": "日本のドイツへの宣戦と青島占領",
+   "body_ja": "日英同盟を理由に日本は1914年8月にドイツへ宣戦布告し、中国の膠州湾租借地の青島や南洋諸島のドイツ領を占領した。",
+   "polity": "Empire of Japan",
+   "wiki_url": "https://ja.wikipedia.org/wiki/青島の戦い"
+  },
+  {
+   "title_ja": "ベルギー領コンゴの資源収奪体制",
+   "body_ja": "1908年にベルギー国家が直轄統治に移したコンゴでは、レオポルド2世時代の過酷な搾取への批判を受けつつも、ゴムや鉱物資源の収奪が続いていた。",
+   "polity": "Belgian Congo",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ベルギー領コンゴ"
+  },
+  {
+   "title_ja": "メキシコ革命の激化とウエルタ政権崩壊",
+   "body_ja": "メキシコ革命はビリャやサパタらの勢力が台頭する中で激化し、1914年には独裁的なウエルタ政権が崩壊してカランサ派が実権を握った。",
+   "polity": "Mexico",
+   "wiki_url": "https://ja.wikipedia.org/wiki/メキシコ革命"
+  }
+ ],
+ "1920": [
+  {
+   "title_ja": "ポーランド・ソビエト戦争",
+   "body_ja": "1920年、赤軍はワルシャワ目前まで進撃したが、ポーランド軍の反撃により撃退された。ロシア内戦は激化し、対ソ干渉戦争も続いていた。",
+   "polity": "USSR",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ポーランド・ソビエト戦争"
+  },
+  {
+   "title_ja": "軍閥割拠の中国",
+   "body_ja": "清朝崩壊後の中国では中央政府の力が弱まり、各地の軍閥が勢力を争う内戦状態が続いていた。直隷派と皖派の対立が深まっていた。",
+   "polity": "Chinese Warlords",
+   "wiki_url": "https://ja.wikipedia.org/wiki/軍閥時代"
+  },
+  {
+   "title_ja": "ガンディーの非協力運動",
+   "body_ja": "ガンディーが1920年に非協力運動を開始し、イギリス製品の不買や公職辞退を呼びかけた。インド独立運動が大衆運動へと発展した。",
+   "polity": "British Raj",
+   "wiki_url": "https://ja.wikipedia.org/wiki/非暴力・不服従"
+  },
+  {
+   "title_ja": "エジプト独立運動の高揚",
+   "body_ja": "1919年革命後もサアド・ザグルール率いるワフド党が独立を求めて交渉を続け、ミルナー使節団との協議が難航していた。",
+   "polity": "Egypt",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ワフド党"
+  },
+  {
+   "title_ja": "メキシコ革命末期の政変",
+   "body_ja": "1920年、カランサ大統領が暗殺され、アグアプリエタ革命を経てオブレゴンが政権を掌握し、長期化した革命に一区切りをつけた。",
+   "polity": "Mexico",
+   "wiki_url": "https://ja.wikipedia.org/wiki/メキシコ革命"
+  },
+  {
+   "title_ja": "アラブ王国の崩壊",
+   "body_ja": "1920年、マイサルーンの戦いでファイサルのアラブ王国がフランス軍に敗れ、シリアはフランスの委任統治下に置かれた。",
+   "polity": "Syria (France)",
+   "wiki_url": "https://ja.wikipedia.org/wiki/マイサルーンの戦い"
+  },
+  {
+   "title_ja": "カップ一揆とヴァイマル共和国",
+   "body_ja": "1920年、右派勢力によるカップ一揆が起こったが、労働者のゼネストにより鎮圧され、成立間もないヴァイマル共和国の不安定さが露呈した。",
+   "polity": "Germany",
+   "wiki_url": "https://ja.wikipedia.org/wiki/カップ一揆"
+  }
+ ],
+ "1930": [
+  {
+   "title_ja": "世界恐慌の深刻化",
+   "body_ja": "1929年の株価大暴落を受け、1930年には失業者が急増し銀行が相次いで破綻した。フーヴァー政権はスムート・ホーリー関税法を成立させたが不況は悪化した。",
+   "polity": "United States",
+   "wiki_url": "https://ja.wikipedia.org/wiki/世界恐慌"
+  },
+  {
+   "title_ja": "塩の行進",
+   "body_ja": "1930年、ガンディーは塩税に抗議しダンディーまで約380キロを行進した。この塩の行進は市民的不服従運動を全インドに広げた。",
+   "polity": "British Raj",
+   "wiki_url": "https://ja.wikipedia.org/wiki/塩の行進"
+  },
+  {
+   "title_ja": "中原大戦",
+   "body_ja": "1930年、閻錫山・馮玉祥らの軍閥連合が蒋介石の国民政府に反旗を翻し、中国北部を戦場とする中原大戦が勃発した。",
+   "polity": "Chinese Warlords",
+   "wiki_url": "https://ja.wikipedia.org/wiki/中原大戦"
+  },
+  {
+   "title_ja": "ナチ党の躍進",
+   "body_ja": "世界恐慌の打撃を受けた1930年9月の国会選挙で、ヒトラー率いるナチ党が議席を急増させ、一躍第二党に躍進した。",
+   "polity": "Germany",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ナチス・ドイツ"
+  },
+  {
+   "title_ja": "ハイレ・セラシエの皇帝即位",
+   "body_ja": "1930年、ハイレ・セラシエ1世がエチオピア皇帝に即位し、中央集権化と近代化を進める改革を本格化させた。",
+   "polity": "Ethiopia",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ハイレ・セラシエ1世"
+  },
+  {
+   "title_ja": "ヴァルガス革命",
+   "body_ja": "1930年、大統領選の結果を不服としたジェトゥリオ・ヴァルガスが武力蜂起し、旧共和政を打倒して政権を握った。",
+   "polity": "Brazil",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ジェトゥリオ・ヴァルガス"
+  },
+  {
+   "title_ja": "レザー・シャーの近代化改革",
+   "body_ja": "レザー・シャーは部族勢力の解体や徴兵制導入を進め、縦断鉄道建設を通じて中央集権的な近代国家の建設を急いでいた。",
+   "polity": "Iran",
+   "wiki_url": "https://ja.wikipedia.org/wiki/レザー・シャー"
+  }
+ ],
+ "1938": [
+  {
+   "title_ja": "オーストリア併合とズデーテン危機",
+   "body_ja": "1938年3月にドイツはオーストリアを併合し、9月にはミュンヘン会談でズデーテン地方の割譲を認めさせ、対外拡張を加速させた。",
+   "polity": "Germany",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アンシュルス"
+  },
+  {
+   "title_ja": "日中戦争の拡大",
+   "body_ja": "1938年、日本軍は武漢作戦を展開して中国内陸部へ戦線を拡大したが、国民政府は重慶へ移転し徹底抗戦の構えを崩さなかった。",
+   "polity": "Empire of Japan",
+   "wiki_url": "https://ja.wikipedia.org/wiki/武漢作戦"
+  },
+  {
+   "title_ja": "抗日民族統一戦線の広がり",
+   "body_ja": "広西派など各地の軍閥勢力も国民革命軍に合流し、日本軍への抵抗のため国共合作を軸とした統一戦線体制が形成されていた。",
+   "polity": "Chinese warlords",
+   "wiki_url": "https://ja.wikipedia.org/wiki/第二次国共合作"
+  },
+  {
+   "title_ja": "イタリア占領下のエチオピア",
+   "body_ja": "亡命したハイレ・セラシエに代わり、イタリアが東アフリカ帝国としてエチオピアを統治したが、各地でアルベニョッチと呼ばれる抵抗運動が続いた。",
+   "polity": "Ethiopia (Italy)",
+   "wiki_url": "https://ja.wikipedia.org/wiki/エチオピア侵攻"
+  },
+  {
+   "title_ja": "サウジアラビアでの石油発見",
+   "body_ja": "1938年、ダンマーム第7号井で商業規模の石油が発見され、後のサウジアラビア経済を支える石油産業の出発点となった。",
+   "polity": "Saudi Arabia",
+   "wiki_url": "https://ja.wikipedia.org/wiki/サウジアラムコ"
+  },
+  {
+   "title_ja": "国民会議派とボースの台頭",
+   "body_ja": "1937年の州選挙で国民会議派が広範に政権を獲得し、1938年にはスバス・チャンドラ・ボースが会議派議長に選出された。",
+   "polity": "British Raj",
+   "wiki_url": "https://ja.wikipedia.org/wiki/スバス・チャンドラ・ボース"
+  },
+  {
+   "title_ja": "メキシコ石油国有化",
+   "body_ja": "1938年、カルデナス大統領は外国石油会社の資産を接収して石油産業を国有化し、国営企業ペメックスの設立へとつながった。",
+   "polity": "Mexico",
+   "wiki_url": "https://ja.wikipedia.org/wiki/メキシコ石油収用"
+  }
+ ],
+ "1945": [
+  {
+   "title_ja": "原爆投下と第二次世界大戦の終結",
+   "body_ja": "1945年8月、アメリカは広島と長崎に原子爆弾を投下した。ヤルタ会談を経て枢軸国が相次いで降伏し、大戦は終結に向かった。",
+   "polity": "United States",
+   "wiki_url": "https://ja.wikipedia.org/wiki/広島市への原子爆弾投下"
+  },
+  {
+   "title_ja": "日本の降伏と占領の開始",
+   "body_ja": "1945年8月15日、昭和天皇の玉音放送により降伏が国民に伝えられ、連合国軍による日本占領が始まった。",
+   "polity": "Japan (USA)",
+   "wiki_url": "https://ja.wikipedia.org/wiki/玉音放送"
+  },
+  {
+   "title_ja": "インド独立運動の再燃",
+   "body_ja": "終戦後、インド国民軍裁判をきっかけに反英感情が高まり、国民会議派とムスリム連盟の対立を抱えつつ独立への機運が強まった。",
+   "polity": "India",
+   "wiki_url": "https://ja.wikipedia.org/wiki/インド国民軍"
+  },
+  {
+   "title_ja": "アラブ連盟の結成",
+   "body_ja": "1945年3月、カイロでエジプトなどアラブ7か国がアラブ連盟を結成し、地域協力とパレスチナ問題への共同対応を掲げた。",
+   "polity": "Egypt",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アラブ連盟"
+  },
+  {
+   "title_ja": "コンゴのウランと原爆開発",
+   "body_ja": "ベルギー領コンゴのシンコロブエ鉱山で採掘されたウランがマンハッタン計画に供給され、原子爆弾の製造を支えていた。",
+   "polity": "Zaire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/シンコロブエ鉱山"
+  },
+  {
+   "title_ja": "ソ連対日参戦と満州侵攻",
+   "body_ja": "1945年8月、ソ連は日ソ中立条約を破棄して対日参戦し、満州に展開する関東軍を短期間で打ち破った。",
+   "polity": "Manchuria",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ソ連対日参戦"
+  },
+  {
+   "title_ja": "解放後のフランスと女性参政権",
+   "body_ja": "ドイツ占領から解放されたフランスでは、ド・ゴール率いる臨時政府のもと、女性が初めて投票権を行使する選挙が実施された。",
+   "polity": "France",
+   "wiki_url": "https://ja.wikipedia.org/wiki/フランスにおける女性参政権"
+  }
+ ],
+ "1960": [
+  {
+   "title_ja": "アフリカの年",
+   "body_ja": "1960年、ナイジェリアなど17か国が独立を達成し、アフリカ大陸の政治地図が大きく塗り替えられた。",
+   "polity": "Nigeria",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アフリカの年"
+  },
+  {
+   "title_ja": "コンゴ動乱",
+   "body_ja": "独立直後のコンゴでは軍の反乱や州の分離独立が相次ぎ、首相ルムンバと国連軍が介入するコンゴ動乱が始まった。",
+   "polity": "Congo",
+   "wiki_url": "https://ja.wikipedia.org/wiki/コンゴ動乱"
+  },
+  {
+   "title_ja": "U2撃墜事件と東西対立",
+   "body_ja": "1960年、アメリカの偵察機U2がソ連上空で撃墜され、予定されていたパリ首脳会談は決裂し、冷戦の緊張が再燃した。",
+   "polity": "USSR",
+   "wiki_url": "https://ja.wikipedia.org/wiki/U-2撃墜事件"
+  },
+  {
+   "title_ja": "大躍進政策の破綻と中ソ対立",
+   "body_ja": "毛沢東の大躍進政策は深刻な飢饉を招き、1960年にはソ連が技術者を引き揚げるなど中ソ対立も表面化した。",
+   "polity": "China",
+   "wiki_url": "https://ja.wikipedia.org/wiki/大躍進政策"
+  },
+  {
+   "title_ja": "南ベトナム解放民族戦線の結成",
+   "body_ja": "1960年12月、南ベトナムでゴ・ディン・ジエム政権に対抗する解放戦線（ベトコン）が結成され、戦争が本格化していった。",
+   "polity": "Vietnam",
+   "wiki_url": "https://ja.wikipedia.org/wiki/南ベトナム解放民族戦線"
+  },
+  {
+   "title_ja": "OPECの結成",
+   "body_ja": "1960年9月、バグダードでイラクやサウジアラビアなど産油5か国が石油輸出国機構（OPEC）を結成した。",
+   "polity": "Iraq",
+   "wiki_url": "https://ja.wikipedia.org/wiki/石油輸出国機構"
+  },
+  {
+   "title_ja": "インダス水系条約の締結",
+   "body_ja": "1960年、世界銀行の仲介によりインドとパキスタンがインダス水系の水利用を定める条約に調印し、水資源紛争の枠組みができた。",
+   "polity": "Pakistan",
+   "wiki_url": "https://ja.wikipedia.org/wiki/インダス川水利条約"
+  }
+ ],
+ "1994": [
+  {
+   "title_ja": "アパルトヘイトの終焉",
+   "body_ja": "1994年4月、南アフリカ初の全人種参加選挙が実施され、ネルソン・マンデラが大統領に選出されアパルトヘイト体制が終わった。",
+   "polity": "South Africa",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ネルソン・マンデラ"
+  },
+  {
+   "title_ja": "第一次チェチェン紛争の勃発",
+   "body_ja": "1994年12月、エリツィン政権は独立を求めるチェチェンへ軍を派遣し、第一次チェチェン紛争が始まった。",
+   "polity": "Russia",
+   "wiki_url": "https://ja.wikipedia.org/wiki/第一次チェチェン紛争"
+  },
+  {
+   "title_ja": "NAFTA発効とサパティスタ蜂起",
+   "body_ja": "1994年1月、北米自由貿易協定（NAFTA）が発効した同日、チアパス州でサパティスタ民族解放軍が武装蜂起した。",
+   "polity": "Mexico",
+   "wiki_url": "https://ja.wikipedia.org/wiki/サパティスタ民族解放軍"
+  },
+  {
+   "title_ja": "ルワンダ難民危機",
+   "body_ja": "1994年のルワンダ虐殺から逃れた大量の難民がザイール東部に流入し、ゴマ周辺に巨大な難民キャンプが形成された。",
+   "polity": "Zaire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ルワンダ虐殺"
+  },
+  {
+   "title_ja": "三峡ダム建設の本格着工",
+   "body_ja": "1994年12月、長江中流域で三峡ダムの本体工事が正式に始まり、世界最大級の水力発電・治水事業が本格始動した。",
+   "polity": "China",
+   "wiki_url": "https://ja.wikipedia.org/wiki/三峡ダム"
+  },
+  {
+   "title_ja": "カイロ協定とパレスチナ自治",
+   "body_ja": "1994年5月、カイロでイスラエルとPLOがガザ・ジェリコ先行自治協定に調印し、アラファトがガザへ帰還して自治政府が発足した。",
+   "polity": "Egypt",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ガザ・ジェリコ先行自治協定"
+  },
+  {
+   "title_ja": "インド経済自由化の進展",
+   "body_ja": "1991年に始まった経済自由化政策が1994年には本格化し、通信・IT分野の規制緩和がバンガロールのソフトウェア産業成長を後押しした。",
+   "polity": "India",
+   "wiki_url": "https://ja.wikipedia.org/wiki/インドの経済"
+  }
+ ],
+ "2000": [
+  {
+   "title_ja": "プーチン政権の発足",
+   "body_ja": "2000年5月、ウラジーミル・プーチンがロシア大統領に就任し、第二次チェチェン紛争を継続しつつ中央集権化を進めた。",
+   "polity": "Russia",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ウラジーミル・プーチン"
+  },
+  {
+   "title_ja": "ブッシュ対ゴアの大統領選挙",
+   "body_ja": "2000年の米大統領選挙はフロリダ州の再集計をめぐり大混乱となり、最終的に連邦最高裁の判断でブッシュの勝利が確定した。",
+   "polity": "United States",
+   "wiki_url": "https://ja.wikipedia.org/wiki/2000年アメリカ合衆国大統領選挙"
+  },
+  {
+   "title_ja": "民主化移行期のインドネシア",
+   "body_ja": "スハルト退陣後、ワヒド政権下のインドネシアは民主化改革を進める一方、東ティモールの分離をめぐる混乱を経験していた。",
+   "polity": "Indonesia",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アブドゥルラフマン・ワヒド"
+  },
+  {
+   "title_ja": "ジンバブエの急進的土地改革",
+   "body_ja": "2000年、ムガベ政権は白人所有農場を強制収用する急進的な土地改革を開始し、経済混乱と国際的な批判を招いた。",
+   "polity": "Zimbabwe",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ジンバブエの土地改革"
+  },
+  {
+   "title_ja": "シャルム・エル・シェイク・サミット",
+   "body_ja": "第二次インティファーダの激化を受け、2000年10月にエジプトで緊急首脳会談が開かれ、イスラエルとパレスチナの沈静化が図られた。",
+   "polity": "Egypt",
+   "wiki_url": "https://ja.wikipedia.org/wiki/第二次インティファーダ"
+  },
+  {
+   "title_ja": "中国のWTO加盟交渉合意",
+   "body_ja": "2000年、中国はアメリカとのWTO加盟交渉で合意に達し、翌年の正式加盟に向けて市場開放路線を確定させた。",
+   "polity": "China",
+   "wiki_url": "https://ja.wikipedia.org/wiki/世界貿易機関"
+  },
+  {
+   "title_ja": "ムシャラフ軍事政権の統治",
+   "body_ja": "1999年のクーデターで実権を握ったムシャラフ将軍は、2000年も最高執行者として軍主導の統治体制を続けていた。",
+   "polity": "Pakistan",
+   "wiki_url": "https://ja.wikipedia.org/wiki/パルヴェーズ・ムシャラフ"
+  }
+ ],
+ "2010": [
+  {
+   "title_ja": "アラブの春の始まり",
+   "body_ja": "2010年12月、チュニジアで青年の焼身自殺をきっかけに反政府デモが拡大し、後にアラブ世界全体へ波及する「アラブの春」が始まった。",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アラブの春"
+  },
+  {
+   "title_ja": "医療保険改革と原油流出事故",
+   "body_ja": "2010年、オバマ政権は医療保険制度改革法を成立させる一方、メキシコ湾では大規模な原油流出事故が発生し対応に追われた。",
+   "polity": "United States",
+   "wiki_url": "https://ja.wikipedia.org/wiki/患者保護並びに医療費負担適正化法"
+  },
+  {
+   "title_ja": "米軍戦闘部隊のイラク撤退",
+   "body_ja": "2010年8月、アメリカはイラクからの戦闘部隊撤退を完了し、治安権限をイラク側に移管する新たな段階に移行した。",
+   "polity": "Iraq",
+   "wiki_url": "https://ja.wikipedia.org/wiki/イラク戦争"
+  },
+  {
+   "title_ja": "世界第2位の経済大国に",
+   "body_ja": "2010年、中国の名目GDPが日本を抜いて世界第2位となり、上海万博も開催されるなど国際的な存在感を強めた。",
+   "polity": "China",
+   "wiki_url": "https://ja.wikipedia.org/wiki/中華人民共和国の経済"
+  },
+  {
+   "title_ja": "ジョナサン政権の発足",
+   "body_ja": "大統領ヤラドゥアの死去を受け、2010年グッドラック・ジョナサンが大統領に昇格し、北部ではボコ・ハラムの活動が拡大していた。",
+   "polity": "Nigeria",
+   "wiki_url": "https://ja.wikipedia.org/wiki/グッドラック・ジョナサン"
+  },
+  {
+   "title_ja": "チリ落盤事故と33人の生還",
+   "body_ja": "2010年、サンホセ鉱山の落盤事故で地下に閉じ込められた33人の作業員全員が69日後に無事救出され、世界中が注目した。",
+   "polity": "Chile",
+   "wiki_url": "https://ja.wikipedia.org/wiki/2010年コピアポ鉱山落盤事故"
+  },
+  {
+   "title_ja": "ヤヌコーヴィチ政権の誕生",
+   "body_ja": "2010年2月、ヴィクトル・ヤヌコーヴィチが大統領選挙で勝利し、オレンジ革命後の親欧米路線から路線転換が進んだ。",
+   "polity": "Ukraine",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ヴィクトル・ヤヌコーヴィチ"
+  }
+ ],
+ "bc3000": [
+  {
+   "title_ja": "エジプト上下統一と初期王朝の成立",
+   "body_ja": "ナルメル王が上エジプトと下エジプトを統一し、ナイル川流域に強力な王権国家が誕生した。",
+   "polity": "Egypt",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ナルメル"
+  },
+  {
+   "title_ja": "メソポタミアのウルと楔形文字の発達",
+   "body_ja": "シュメール人の都市国家ウルで王権が確立し、粘土板に刻む楔形文字による記録・行政が発展した。",
+   "polity": "Ur",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ウル"
+  },
+  {
+   "title_ja": "インダス文明の都市形成が始まる",
+   "body_ja": "インダス川流域でハラッパーなど計画都市の建設が進み、初期のインダス文明が形をなし始めた。",
+   "polity": "Indus valley civilization",
+   "wiki_url": "https://ja.wikipedia.org/wiki/インダス文明"
+  },
+  {
+   "title_ja": "ヤムナ文化と印欧語族の拡散",
+   "body_ja": "南ロシアの草原地帯でヤムナ文化の牧畜民が馬と車輪を用いて移動し、印欧語族の拡散が始まった。",
+   "polity": "Yamnaya culture",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ヤムナ文化"
+  },
+  {
+   "title_ja": "日本列島で縄文文化が定着",
+   "body_ja": "日本列島の縄文人は狩猟採集を基盤に定住し、独特の縄目文様をもつ土器を作り続けていた。",
+   "polity": "Jōmon",
+   "wiki_url": "https://ja.wikipedia.org/wiki/縄文時代"
+  },
+  {
+   "title_ja": "南米ノルテ・チコで最古級の都市文明",
+   "body_ja": "アンデス地方の海岸部ノルテ・チコでは、カラルなど大規模な神殿都市が築かれ、アメリカ最古級の文明が興った。",
+   "polity": "Norte Chico",
+   "wiki_url": "https://ja.wikipedia.org/wiki/カラル遺跡"
+  },
+  {
+   "title_ja": "オーストロネシア語族の海洋拡散が始まる",
+   "body_ja": "台湾や華南を起源とするオーストロネシア語族が航海技術を発達させ、東南アジア島嶼部への拡散を開始した。",
+   "polity": "Austronesians",
+   "wiki_url": "https://ja.wikipedia.org/wiki/オーストロネシア語族"
+  }
+ ],
+ "bc2000": [
+  {
+   "title_ja": "中国最古の王朝、夏の成立",
+   "body_ja": "黄河中流域で中国最初の王朝とされる夏が成立し、青銅器の使用や世襲王権の萌芽が見られるようになった。",
+   "polity": "Xia",
+   "wiki_url": "https://ja.wikipedia.org/wiki/夏 (三代)"
+  },
+  {
+   "title_ja": "エジプト中王国、テーベにより再統一",
+   "body_ja": "第一中間期の分裂を経て、テーベの王メンチュヘテプ2世が上下エジプトを再統一し、中王国時代が始まった。",
+   "polity": "Egypt",
+   "wiki_url": "https://ja.wikipedia.org/wiki/メンチュヘテプ2世"
+  },
+  {
+   "title_ja": "インダス文明が最盛期を迎える",
+   "body_ja": "モヘンジョダロやハラッパーなどの計画都市が栄え、インダス文明は都市化と交易網の最盛期を迎えた。",
+   "polity": "Indus valley civilization",
+   "wiki_url": "https://ja.wikipedia.org/wiki/インダス文明"
+  },
+  {
+   "title_ja": "シンタシュタ文化、戦車を発明",
+   "body_ja": "ウラル南部のシンタシュタ文化で軽量なスポーク車輪の戦車が発明され、後の印欧語族の軍事技術に影響を与えた。",
+   "polity": "Sintashta",
+   "wiki_url": "https://ja.wikipedia.org/wiki/シンタシュタ文化"
+  },
+  {
+   "title_ja": "アナトリアに印欧語族が定着し始める",
+   "body_ja": "小アジアに印欧語族系の人々が移り住み始め、後にヒッタイト王国を築く諸集団の基盤が形成されつつあった。",
+   "polity": "Hittites",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ヒッタイト"
+  },
+  {
+   "title_ja": "クレタ島でミノア文明の宮殿時代が開始",
+   "body_ja": "エーゲ海のクレタ島でクノッソスなどの宮殿が建設され始め、ヨーロッパ最古の高度な文明ミノア文明が発展した。",
+   "polity": "Minoan",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ミノア文明"
+  },
+  {
+   "title_ja": "アンデスのノルテ・チコ文明が最盛期",
+   "body_ja": "南米ペルーの海岸地帯では、ノルテ・チコの神殿都市群が築かれ、漁労と農耕を基盤とする社会が繁栄した。",
+   "polity": "Norte Chico",
+   "wiki_url": "https://ja.wikipedia.org/wiki/カラル遺跡"
+  }
+ ],
+ "bc1500": [
+  {
+   "title_ja": "ヴェーダ期アーリヤ人がインドに進出",
+   "body_ja": "中央アジア方面からアーリヤ人がインド亜大陸北西部に進入し、ヴェーダ讃歌を伝えるヴェーダ時代が始まった。",
+   "polity": "Vedic Aryans",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ヴェーダ"
+  },
+  {
+   "title_ja": "中国で殷（商）王朝が青銅器文明を築く",
+   "body_ja": "黄河流域に成立した殷王朝は甲骨文字による占いを行い、精巧な青銅器を用いる高度な文明を発展させた。",
+   "polity": "Sinic",
+   "wiki_url": "https://ja.wikipedia.org/wiki/殷"
+  },
+  {
+   "title_ja": "ヒッタイト古王国がアナトリアで台頭",
+   "body_ja": "小アジアを拠点とするヒッタイト古王国が勢力を広げ、鉄器の利用や法典編纂など先進的な国家体制を築いた。",
+   "polity": "Hittites",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ヒッタイト"
+  },
+  {
+   "title_ja": "エジプト新王国、ハトシェプストの治世",
+   "body_ja": "新王国時代のエジプトでは女王ハトシェプストが即位し、プント遠征など交易と建築事業で繁栄を誇った。",
+   "polity": "Egypt",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ハトシェプスト"
+  },
+  {
+   "title_ja": "ヌビアのクシュがエジプトの支配下に",
+   "body_ja": "ナイル川上流のクシュ地方はエジプト新王国の軍事遠征により征服され、金や象牙を貢納する属領となった。",
+   "polity": "Kush",
+   "wiki_url": "https://ja.wikipedia.org/wiki/クシュ"
+  },
+  {
+   "title_ja": "イラン高原でエラム中期王国が発展",
+   "body_ja": "ザグロス山脈西麓のエラムはメソポタミアと交流しつつ独自の中期エラム王国を形成し、スサを中心に繁栄した。",
+   "polity": "Elam",
+   "wiki_url": "https://ja.wikipedia.org/wiki/エラム"
+  },
+  {
+   "title_ja": "縄文文化、日本列島で独自の発展を続ける",
+   "body_ja": "日本列島では縄文人が狩猟・漁労・採集を組み合わせた生活を営み、地域色豊かな土器文化を育んでいた。",
+   "polity": "Late Jomon culture",
+   "wiki_url": "https://ja.wikipedia.org/wiki/縄文時代"
+  }
+ ],
+ "bc1000": [
+  {
+   "title_ja": "イスラエルにダビデ・ソロモン王国が成立",
+   "body_ja": "ダビデ王がエルサレムを都に定めて王国を統一し、子のソロモンの代に神殿建設など最盛期を迎えた。",
+   "polity": "Kingdom of David and Solomon",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ダビデ"
+  },
+  {
+   "title_ja": "中国で周が殷を滅ぼし新王朝を開く",
+   "body_ja": "武王が殷の紂王を牧野の戦いで破り、天命思想を掲げる周王朝を建て、封建的な統治体制を敷いた。",
+   "polity": "Zhoa",
+   "wiki_url": "https://ja.wikipedia.org/wiki/周"
+  },
+  {
+   "title_ja": "アナトリアにフリギア王国が形成される",
+   "body_ja": "小アジア中央部でフリギア人が王国を形成し、後のミダス王の時代に向けて勢力を蓄えつつあった。",
+   "polity": "Phrygians",
+   "wiki_url": "https://ja.wikipedia.org/wiki/フリュギア"
+  },
+  {
+   "title_ja": "エジプト、第三中間期の分裂状態に",
+   "body_ja": "新王国崩壊後のエジプトは上下に分裂し、リビア系の王朝や神官勢力が並び立つ不安定な時代を迎えた。",
+   "polity": "Egypt",
+   "wiki_url": "https://ja.wikipedia.org/wiki/エジプト第3中間期"
+  },
+  {
+   "title_ja": "オルメカ文明で巨石人頭像が作られる",
+   "body_ja": "メキシコ湾岸のサン・ロレンソやラ・ベンタでオルメカ文明が繁栄し、有名な巨石人頭像が彫られた。",
+   "polity": "Olmec",
+   "wiki_url": "https://ja.wikipedia.org/wiki/オルメカ文明"
+  },
+  {
+   "title_ja": "インドで後期ヴェーダ時代が展開",
+   "body_ja": "ガンジス川流域に灰色磨研土器文化が広がり、複数の部族国家（ジャナパダ）が形成され始めた。",
+   "polity": "Vedic Aryans",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ヴェーダ"
+  },
+  {
+   "title_ja": "クシュ王国がエジプトから独立",
+   "body_ja": "新王国の後退に伴いヌビアのクシュはエジプトの支配を脱して独立し、ナパタを中心に王国を再建した。",
+   "polity": "Kush",
+   "wiki_url": "https://ja.wikipedia.org/wiki/クシュ"
+  }
+ ],
+ "bc700": [
+  {
+   "title_ja": "アッシリア帝国が最盛期を迎える",
+   "body_ja": "サルゴン2世やセンナケリブの下でアッシリアは軍事力を強化し、中東全域を支配する大帝国へと発展した。",
+   "polity": "Assyria",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アッシリア"
+  },
+  {
+   "title_ja": "ギリシアでポリス社会が形成される",
+   "body_ja": "エーゲ海周辺で多数の都市国家（ポリス）が形成され、地中海各地への植民活動も活発化していった。",
+   "polity": "Greek city-states",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ポリス"
+  },
+  {
+   "title_ja": "クシュ王朝がエジプトを支配（第25王朝）",
+   "body_ja": "ヌビアのクシュ王ピイがエジプトに進軍して征服し、黒いファラオと呼ばれる第25王朝を樹立した。",
+   "polity": "Kush",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ピイ (ファラオ)"
+  },
+  {
+   "title_ja": "スキタイの原型集団が南ロシア草原に出現",
+   "body_ja": "黒海北岸の草原地帯に騎馬遊牧民の文化が形成され、後にスキタイと呼ばれる集団の原型が現れた。",
+   "polity": "Proto-Scythian culture",
+   "wiki_url": "https://ja.wikipedia.org/wiki/スキタイ"
+  },
+  {
+   "title_ja": "中国、春秋時代が始まる",
+   "body_ja": "周の東遷を機に王室の権威が衰え、諸侯が覇を競う春秋時代が幕を開けた。",
+   "polity": "Sinic",
+   "wiki_url": "https://ja.wikipedia.org/wiki/春秋時代"
+  },
+  {
+   "title_ja": "インドでウパニシャッド哲学が発展",
+   "body_ja": "ガンジス川流域の都市化が進む中、輪廻や梵我一如を説くウパニシャッド思想が形づくられていった。",
+   "polity": "Vedic Aryans",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ウパニシャッド"
+  },
+  {
+   "title_ja": "オルメカ文明、ラ・ベンタが中心地に",
+   "body_ja": "メキシコ湾岸のラ・ベンタがオルメカ文明の新たな中心地として栄え、祭祀の場としての性格を強めた。",
+   "polity": "Olmec",
+   "wiki_url": "https://ja.wikipedia.org/wiki/オルメカ文明"
+  }
+ ],
+ "bc500": [
+  {
+   "title_ja": "アケメネス朝ペルシアがダレイオス1世の統治で最盛期",
+   "body_ja": "ダレイオス1世は帝国を多数のサトラップ（州）に分け、王の道や駅伝制を整えて広大な領土を統治した。",
+   "polity": "Achaemenid Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ダレイオス1世"
+  },
+  {
+   "title_ja": "ギリシアでペルシア戦争が勃発",
+   "body_ja": "アケメネス朝の侵攻を受けたギリシア諸ポリスはマラトンの戦いなどで抵抗し、民主政アテネが台頭した。",
+   "polity": "Greek city-states",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ペルシア戦争"
+  },
+  {
+   "title_ja": "インドでブッダが仏教を開く",
+   "body_ja": "マガダ国など新興国家が台頭する中、ガウタマ・シッダールタが悟りを開いて仏教を創始した。",
+   "polity": "Magadha",
+   "wiki_url": "https://ja.wikipedia.org/wiki/釈迦"
+  },
+  {
+   "title_ja": "中国で孔子が儒家思想を説く",
+   "body_ja": "春秋時代の混乱の中、孔子が仁と礼を重んじる思想を説き、後の中国社会に大きな影響を与える儒家が生まれた。",
+   "polity": "Zhou states",
+   "wiki_url": "https://ja.wikipedia.org/wiki/孔子"
+  },
+  {
+   "title_ja": "カルタゴが西地中海の交易を掌握",
+   "body_ja": "フェニキア植民市カルタゴは強力な海軍と商業網を背景に、西地中海の交易と植民地支配で覇権を握った。",
+   "polity": "Carthaginian Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/カルタゴ"
+  },
+  {
+   "title_ja": "ヌビアのメロエ王国、製鉄で栄える",
+   "body_ja": "クシュ王国は都をメロエに移し、豊富な鉄鉱石を活かした製鉄業と交易により繁栄する時代を迎えた。",
+   "polity": "Meroe",
+   "wiki_url": "https://ja.wikipedia.org/wiki/メロエ"
+  },
+  {
+   "title_ja": "北米でアデナ文化が墳丘を築く",
+   "body_ja": "北米東部のアデナ文化は狩猟採集を営みながら、儀礼のための大規模な土製墳丘を各地に築き上げた。",
+   "polity": "Adena Culture",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アデナ文化"
+  }
+ ],
+ "bc400": [
+  {
+   "title_ja": "アケメネス朝ペルシア、ギリシアとの抗争続く",
+   "body_ja": "ペロポネソス戦争後のギリシア諸ポリスに介入しつつ、アケメネス朝は広大な領土を維持し続けていた。",
+   "polity": "Achaemenid Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アケメネス朝"
+  },
+  {
+   "title_ja": "中国で戦国時代が始まる",
+   "body_ja": "晋が韓・魏・趙に分裂したことを機に、周王室の権威はさらに弱まり、諸国が覇を争う戦国時代に入った。",
+   "polity": "Zhou states",
+   "wiki_url": "https://ja.wikipedia.org/wiki/戦国時代 (中国)"
+  },
+  {
+   "title_ja": "モンゴル高原で匈奴の勢力が形成される",
+   "body_ja": "中国北方の草原地帯で騎馬遊牧民の匈奴が力をつけ、中国の諸国と対峙する遊牧国家の原型が現れた。",
+   "polity": "Xiongnu",
+   "wiki_url": "https://ja.wikipedia.org/wiki/匈奴"
+  },
+  {
+   "title_ja": "ケルト人がヨーロッパ各地へ拡大",
+   "body_ja": "ラ・テーヌ文化を担うケルト人が中央ヨーロッパから各地に移動し、イタリア半島にも進出を始めた。",
+   "polity": "Celts",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ケルト人"
+  },
+  {
+   "title_ja": "朝鮮半島に古朝鮮（檀君朝鮮）が発展",
+   "body_ja": "朝鮮半島北部から満州南部にかけて古朝鮮が勢力を広げ、青銅器・鉄器文化を伴う初期国家を形成した。",
+   "polity": "Gojoseon",
+   "wiki_url": "https://ja.wikipedia.org/wiki/古朝鮮"
+  },
+  {
+   "title_ja": "アンデスでチャビン文化が宗教的中心に",
+   "body_ja": "ペルー高地のチャビン・デ・ワンタルが広範な地域から巡礼を集める宗教的中心地として栄えた。",
+   "polity": "Chavin",
+   "wiki_url": "https://ja.wikipedia.org/wiki/チャビン・デ・ワンタル"
+  },
+  {
+   "title_ja": "日本列島で弥生文化が始まる",
+   "body_ja": "大陸から水稲耕作の技術が伝わり、日本列島は狩猟採集中心の縄文文化から農耕を基盤とする弥生文化へ移行し始めた。",
+   "polity": "Yayoi",
+   "wiki_url": "https://ja.wikipedia.org/wiki/弥生時代"
+  }
+ ],
+ "bc323": [
+  {
+   "title_ja": "アレクサンドロス大王の帝国が最大版図で崩御",
+   "body_ja": "マケドニアのアレクサンドロス大王はペルシアを征服し広大な帝国を築いたが、前323年にバビロンで急死した。",
+   "polity": "Empire of Alexander",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アレクサンドロス3世"
+  },
+  {
+   "title_ja": "秦が戦国七雄の中で台頭",
+   "body_ja": "商鞅の変法による富国強兵策を経た秦は、戦国七雄の中で軍事・行政両面で頭角を現しつつあった。",
+   "polity": "Qin",
+   "wiki_url": "https://ja.wikipedia.org/wiki/秦"
+  },
+  {
+   "title_ja": "ローマがイタリア半島で勢力を拡大",
+   "body_ja": "共和政ローマはサムニウム戦争を通じてイタリア中部への支配を広げ、地中海世界での存在感を強めていった。",
+   "polity": "Rome",
+   "wiki_url": "https://ja.wikipedia.org/wiki/サムニウム戦争"
+  },
+  {
+   "title_ja": "カルタゴが西地中海の覇権を維持",
+   "body_ja": "カルタゴはシチリア島などをめぐりギリシア植民市と争いながら、西地中海の交易網を掌握し続けた。",
+   "polity": "Carthaginian Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/カルタゴ"
+  },
+  {
+   "title_ja": "マヤ文明、先古典期の都市が発展",
+   "body_ja": "中米のマヤ地域ではエル・ミラドールなど巨大なピラミッドを備えた都市が先古典期に繁栄していた。",
+   "polity": "Maya chiefdoms and states",
+   "wiki_url": "https://ja.wikipedia.org/wiki/マヤ文明"
+  },
+  {
+   "title_ja": "ヌビアのメロエ王国が製鉄で繁栄",
+   "body_ja": "メロエを都とするクシュ王国は鉄器生産と交易で栄え、独自のメロエ文字を用いる文化を発展させた。",
+   "polity": "Meroe",
+   "wiki_url": "https://ja.wikipedia.org/wiki/メロエ"
+  },
+  {
+   "title_ja": "マウリヤ朝がインド統一に向け建国",
+   "body_ja": "チャンドラグプタがナンダ朝を倒してマウリヤ朝を樹立し、インド亜大陸統一への歩みを開始した。",
+   "polity": "Hindu kingdoms and republics",
+   "wiki_url": "https://ja.wikipedia.org/wiki/マウリヤ朝"
+  }
+ ],
+ "bc300": [
+  {
+   "title_ja": "マウリヤ朝によるインド統一の完成",
+   "body_ja": "チャンドラグプタがナンダ朝を倒し北インドを統一、セレウコス朝との抗争を経てガンジス流域からインダスまで支配を広げた。",
+   "polity": "Mauryan Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/チャンドラグプタ (マウリヤ朝)"
+  },
+  {
+   "title_ja": "秦、商鞅の変法で戦国随一の強国へ",
+   "body_ja": "秦は法家の商鞅による改革で中央集権化と農地開墾を進め、戦国七雄の中で軍事・経済力を強化していった。",
+   "polity": "Qin",
+   "wiki_url": "https://ja.wikipedia.org/wiki/商鞅"
+  },
+  {
+   "title_ja": "ディアドコイ戦争、後継王国の分立",
+   "body_ja": "アレクサンドロス大王の急死後、後継者(ディアドコイ)がイプソスの戦いなどを経て帝国を分割し、セレウコス朝など各地の王国が成立した。",
+   "polity": "Seleucid Kingdom",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ディアドコイ"
+  },
+  {
+   "title_ja": "カルタゴ、西地中海の海上帝国",
+   "body_ja": "フェニキア系のカルタゴはイベリア半島や北アフリカ沿岸に交易網を広げ、ローマと衝突する前夜、西地中海最大の海洋国家として繁栄した。",
+   "polity": "Carthaginian Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/カルタゴ"
+  },
+  {
+   "title_ja": "メロエ王国、鉄器生産とナイル交易",
+   "body_ja": "ナイル川中流のメロエ王国は製鉄技術と象牙・黄金交易で栄え、エジプトとサハラ以南アフリカを結ぶ拠点となった。",
+   "polity": "Meroe",
+   "wiki_url": "https://ja.wikipedia.org/wiki/メロエ王国"
+  },
+  {
+   "title_ja": "モンテ・アルバン、ザポテカ文明の都市",
+   "body_ja": "オアハカ盆地の山上都市モンテ・アルバンはザポテカ人の政治的中心として発展し、独自の文字と暦を用いた記念碑を残した。",
+   "polity": "Monte Albán",
+   "wiki_url": "https://ja.wikipedia.org/wiki/モンテ・アルバン"
+  },
+  {
+   "title_ja": "ケルト人、バルカン半島へ拡大",
+   "body_ja": "中欧を起源とするケルト人諸部族は東方へ移動を続け、後にデルフォイ略奪やガラティア建国に至る拡大期にあった。",
+   "polity": "Celts",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ケルト人"
+  }
+ ],
+ "bc200": [
+  {
+   "title_ja": "劉邦、前漢を建国し中国を再統一",
+   "body_ja": "秦末の動乱を経て劉邦が項羽を破り、前202年に皇帝に即位して前漢を建てた。郡国制により地方を統治した。",
+   "polity": "Han Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/劉邦"
+  },
+  {
+   "title_ja": "冒頓単于、匈奴を統一し北方に覇を唱える",
+   "body_ja": "冒頓単于は東胡や月氏を破って草原地帯を統一し、前200年には白登山で漢の劉邦を包囲する強大な遊牧国家を築いた。",
+   "polity": "Xiongnu",
+   "wiki_url": "https://ja.wikipedia.org/wiki/冒頓単于"
+  },
+  {
+   "title_ja": "ザマの戦い、第二次ポエニ戦争の終結",
+   "body_ja": "ハンニバルのイタリア遠征は失敗に終わり、前202年のザマの戦いでスキピオに敗れたカルタゴは地中海の覇権をローマに譲った。",
+   "polity": "Carthage",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ザマの戦い"
+  },
+  {
+   "title_ja": "グレコ・バクトリア王国、中央アジアへ拡大",
+   "body_ja": "ギリシア系のバクトリア王国はエウテュデモスのもとソグディアナや北西インドへ勢力を伸ばし、ヘレニズム文化を中央アジアに伝えた。",
+   "polity": "Bactria",
+   "wiki_url": "https://ja.wikipedia.org/wiki/グレコ・バクトリア王国"
+  },
+  {
+   "title_ja": "マウリヤ朝、アショーカ王没後に衰退",
+   "body_ja": "仏教を保護したアショーカ王の死後、マウリヤ朝は求心力を失い各地で分裂の兆しを見せ始めた。",
+   "polity": "Mauryan Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/マウリヤ朝"
+  },
+  {
+   "title_ja": "サバア王国、南アラビアの乳香交易で繁栄",
+   "body_ja": "現在のイエメンにあったサバア王国は乳香・没薬の交易路を支配し、灌漑農業とダム建設で豊かな王国を築いた。",
+   "polity": "Saba",
+   "wiki_url": "https://ja.wikipedia.org/wiki/サバア王国"
+  },
+  {
+   "title_ja": "チャビン文化、アンデス精神文化圏の終焉",
+   "body_ja": "アンデス高地の宗教的中心地チャビン・デ・ワンタルは前200年頃までに衰退し、後続の地域文化に影響を残した。",
+   "polity": "Chavin",
+   "wiki_url": "https://ja.wikipedia.org/wiki/チャビン文化"
+  }
+ ],
+ "bc100": [
+  {
+   "title_ja": "張騫の西域派遣、シルクロードが開かれる",
+   "body_ja": "前漢の武帝は匈奴挟撃を狙い張騫を大月氏へ派遣、これを機に中央アジアとの交易路(シルクロード)が本格的に開かれた。",
+   "polity": "Han Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/張騫"
+  },
+  {
+   "title_ja": "漢と匈奴の抗争激化、武帝の遠征",
+   "body_ja": "武帝は衛青・霍去病を派遣して匈奴を攻撃し、モンゴル高原の遊牧国家匈奴は勢力の後退を余儀なくされた。",
+   "polity": "Xiongnu",
+   "wiki_url": "https://ja.wikipedia.org/wiki/匈奴"
+  },
+  {
+   "title_ja": "ユグルタ戦争、ヌミディアとローマの抗争",
+   "body_ja": "ヌミディア王ユグルタはローマの内政介入に抵抗して戦ったが、前105年に捕らえられ、ローマの北アフリカ支配が強まった。",
+   "polity": "Numidia",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ユグルタ戦争"
+  },
+  {
+   "title_ja": "パルティア、ミトリダテス2世のもとで拡大",
+   "body_ja": "ミトリダテス2世はメソポタミアや中央アジアへ領土を広げ、漢の使節とも接触してシルクロード交易の要となった。",
+   "polity": "Parthia",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ミトリダテス2世 (パルティア王)"
+  },
+  {
+   "title_ja": "南越、趙氏政権が漢の冊封下で存続",
+   "body_ja": "秦の遺臣趙佗が建てた南越国は前漢に朝貢しつつ独立を保ち、華南からベトナム北部にかけて勢力を維持した。",
+   "polity": "Nan-Yue",
+   "wiki_url": "https://ja.wikipedia.org/wiki/南越国"
+  },
+  {
+   "title_ja": "シュンガ朝、マウリヤ朝崩壊後の北インド",
+   "body_ja": "将軍プシュヤミトラがマウリヤ朝最後の王を倒してシュンガ朝を開き、バラモン教の復興を進める北インドの新王朝が生まれた。",
+   "polity": "Hindu kingdoms",
+   "wiki_url": "https://ja.wikipedia.org/wiki/シュンガ朝"
+  },
+  {
+   "title_ja": "チャビン衰退後、アンデス沿岸の地域文化",
+   "body_ja": "宗教的中心地チャビンの衰退後、ペルー沿岸部ではパラカスなど独自の織物・土器文化を持つ地域社会が発展した。",
+   "polity": "Chavin",
+   "wiki_url": "https://ja.wikipedia.org/wiki/チャビン文化"
+  }
+ ],
+ "bc1": [
+  {
+   "title_ja": "アウグストゥスによる帝政の確立",
+   "body_ja": "内戦を制したオクタウィアヌスは前27年にアウグストゥスの称号を得て元首政を開始し、地中海世界に「ローマの平和」をもたらした。",
+   "polity": "Roman Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アウグストゥス"
+  },
+  {
+   "title_ja": "前漢末、外戚王莽の台頭",
+   "body_ja": "前漢では皇帝の権威が弱まり外戚の王莽が実権を握るようになり、まもなく新の建国に至る政治的動揺が進んでいた。",
+   "polity": "Han",
+   "wiki_url": "https://ja.wikipedia.org/wiki/王莽"
+  },
+  {
+   "title_ja": "パルティア、対ローマの東方国境で緊張",
+   "body_ja": "パルティアはアルメニアの帰属をめぐりローマと外交・軍事的に対立し、ユーフラテス川を挟む東西勢力の均衡が続いた。",
+   "polity": "Parthian Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/パルティア"
+  },
+  {
+   "title_ja": "ユダヤ、ヘロデ大王のローマ属国統治",
+   "body_ja": "ヘロデ大王はローマの支持を得てエルサレム神殿を大規模に改修するなど、ユダヤをローマの影響下で統治した。",
+   "polity": "Judea",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ヘロデ大王"
+  },
+  {
+   "title_ja": "サータヴァーハナ朝、デカンの交易国家",
+   "body_ja": "インド中南部のデカン高原ではサータヴァーハナ朝が勃興し、ローマとの季節風貿易で香辛料や宝石の交易が栄えた。",
+   "polity": "Satavahanihara",
+   "wiki_url": "https://ja.wikipedia.org/wiki/サータヴァーハナ朝"
+  },
+  {
+   "title_ja": "モチェ文化、アンデス北部沿岸で台頭",
+   "body_ja": "ペルー北部海岸ではモチェ文化が灌漑農業と精巧な土器・金属工芸を発展させ、階層的な祭祀国家を築きつつあった。",
+   "polity": "Moche",
+   "wiki_url": "https://ja.wikipedia.org/wiki/モチェ文化"
+  },
+  {
+   "title_ja": "アクスム王国、紅海交易で台頭",
+   "body_ja": "エチオピア高原のアクスム王国は紅海交易路の要衝として成長を始め、後の東西交易の一大中継地となる基盤を築いた。",
+   "polity": "Axum",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アクスム王国"
+  }
+ ]
+}

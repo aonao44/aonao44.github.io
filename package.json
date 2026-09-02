@@ -1,0 +1,17 @@
+{
+  "name": "imperia",
+  "version": "0.1.0",
+  "description": "世界史の版図を現代地図に重ねて見るサイト",
+  "license": "GPL-3.0-or-later",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "build:data": "./scripts/build-data.sh",
+    "names": "node scripts/extract-names.js",
+    "serve": "python3 -m http.server 8765"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  }
+}

@@ -1,6 +1,8 @@
 // 右パネル: 政体名（日本語/英語）・宗主・現在の国 を描画する。
 // 対訳や modern.json が未登録でもエラーにせずフォールバック表示する（spec）。
 
+import { normalizeSubjects } from './subjects.js';
+
 /** modern.json に未登録の政体の表示。 */
 export const MODERN_FALLBACK = '（未登録）';
 
@@ -40,8 +42,11 @@ export function buildPanelModel(properties, dicts = {}) {
   const modern = dicts.modern ?? {};
   const nameEn = properties?.NAME ?? null;
   const subjectRaw = properties?.SUBJECTO ?? null;
-  // SUBJECTO は自分自身を指していることが多いので、その場合は宗主なしとみなす
-  const subjectEn = subjectRaw && subjectRaw !== nameEn ? subjectRaw : null;
+  // 原典の省略・綴り揺れを既存 NAME に寄せてから、自分自身への参照を除く。
+  // 共同領有権主張は配列のまま複数名を残し、単一政体に誤って潰さない。
+  const subjects = normalizeSubjects(subjectRaw, dicts.subjectAliases)
+    .filter((subject) => subject !== nameEn);
+  const subjectEn = subjects.length ? subjects.join(' / ') : null;
 
   const info = nameEn ? (dicts.polityInfo?.[nameEn] ?? null) : null;
   // polity-info 側に name_ja の上書きがあればそれを優先する
@@ -52,7 +57,9 @@ export function buildPanelModel(properties, dicts = {}) {
     nameJa,
     hasTranslation: Boolean(nameEn && (info?.name_ja || namesJa[nameEn])),
     subjectEn,
-    subjectJa: japaneseName(subjectEn, namesJa),
+    subjectJa: subjects.length
+      ? subjects.map((subject) => japaneseName(subject, namesJa)).join('・')
+      : null,
     modern: modernCountries(nameEn, modern),
     info,
   };
@@ -159,12 +166,15 @@ export function renderTopics(el, eraLabel, topics = [], namesJa = {}, overview =
 
   const items = topics.map((t, i) => {
     const polity = t.polity ? (namesJa[t.polity] ?? t.polity) : null;
+    const title = `<span class="topic-title">${escapeHtml(t.title_ja)}</span>`;
+    const heading = t.polity
+      ? `<button class="topic-btn" data-topic-index="${i}" data-polity="${escapeHtml(t.polity)}">`
+        + title
+        + `<span class="topic-polity">${escapeHtml(polity)}</span>`
+        + '</button>'
+      : `<div class="topic-static" data-topic-index="${i}">${title}</div>`;
     return '<li class="topic">'
-      + `<button class="topic-btn" data-topic-index="${i}"`
-      + `${t.polity ? ` data-polity="${escapeHtml(t.polity)}"` : ''}>`
-      + `<span class="topic-title">${escapeHtml(t.title_ja)}</span>`
-      + (polity ? `<span class="topic-polity">${escapeHtml(polity)}</span>` : '')
-      + '</button>'
+      + heading
       + `<p class="topic-body">${escapeHtml(t.body_ja)}</p>`
       + `<p class="topic-source"><a href="${escapeHtml(t.wiki_url)}" target="_blank" rel="noopener noreferrer">Wikipedia</a></p>`
       + '</li>';

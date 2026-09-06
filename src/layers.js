@@ -40,14 +40,31 @@ export function hashString(str) {
   return h >>> 0;
 }
 
+// 海に予約する色相帯。政体には一切割り当てない。
+// 「青＝海」を地図上で一意に読ませるための取り決めで、ここを空けておかないと
+// 青系の色を引いた政体が海と見分けられなくなる。
+export const WATER_HUE_MIN = 190;
+export const WATER_HUE_MAX = 250;
+const WATER_HUE_SPAN = WATER_HUE_MAX - WATER_HUE_MIN + 1;
+const POLITY_HUE_SPAN = 360 - WATER_HUE_SPAN;
+
+// 黄金比の小数部。ハッシュに掛けて小数部を取ると、剰余より色相が均等に散る。
+// 帯を空けて色相が 299 個に減った分の詰まりを、この分散で取り返している。
+// (実測: 2548 政体で同色相の最大重複が 剰余 21 → 黄金比 16。帯を空ける前の
+//  360 色相版が 15 なので、青を手放しても見分けやすさはほぼ落ちない)
+const GOLDEN_RATIO_CONJUGATE = 0.618033988749895;
+
 /**
  * NAME から色相を決める。同じ NAME なら断面をまたいで必ず同じ色相になる。
+ * 海の色相帯 (WATER_HUE_MIN–WATER_HUE_MAX) は飛ばす。
  * @param {string|null|undefined} name
- * @returns {number} 0–359
+ * @returns {number} 0–359（海の帯を除く）
  */
 export function hueForName(name) {
   if (!name) return 0;
-  return hashString(String(name)) % 360;
+  const spread = (hashString(String(name)) * GOLDEN_RATIO_CONJUGATE) % 1;
+  const hue = Math.floor(spread * POLITY_HUE_SPAN);
+  return hue < WATER_HUE_MIN ? hue : hue + WATER_HUE_SPAN;
 }
 
 // 彩度・明度は固定して色相だけを振る。こうすると隣り合う政体が
@@ -57,8 +74,18 @@ const FILL_LIGHT = 52;
 const STROKE_SAT = 72;
 const STROKE_LIGHT = 28;
 
+// 非国家の文化圏は色相を持たせず無彩色にする。
+// 薄塗り(NONSTATE_FILL_OPACITY)で描くと、シアン寄りの色相を引いた文化圏が
+// 淡いミント色になり海と紛らわしかった。灰なら青と competing しない。
+// 「色相が付いているもの = 政体」「無彩色 = 政体ではない」という読み方にもなる。
+//
+// colorForName に真偽値の第2引数を足さないこと。names.map(colorForName) が
+// インデックスを渡してしまい、2件目以降が黙って非国家扱いになる。
+export const NONSTATE_FILL = `hsl(0, 0%, ${FILL_LIGHT}%)`;
+export const NONSTATE_STROKE = `hsl(0, 0%, ${STROKE_LIGHT}%)`;
+
 /**
- * 政体名から塗り色を決める。
+ * 政体名から塗り色を決める。非国家は NONSTATE_FILL を使う（decorateEra が振り分ける）。
  * @param {string|null|undefined} name
  * @returns {string} hsl() 文字列
  */
@@ -124,14 +151,15 @@ export function decorateEra(geojson, nonStateRule = EMPTY_RULE, namesJa = {}) {
     // 対訳表のキーは trim 済みなので、ここで正規化しないと対訳が引けない。
     const raw = f.properties?.NAME;
     const name = typeof raw === 'string' ? (raw.trim() || null) : (raw ?? null);
+    const nonstate = isNonState(name, compiled);
     return {
       ...f,
       properties: {
         ...f.properties,
         NAME: name,
-        _color: colorForName(name),
-        _stroke: strokeForName(name),
-        _nonstate: isNonState(name, compiled),
+        _color: nonstate ? NONSTATE_FILL : colorForName(name),
+        _stroke: nonstate ? NONSTATE_STROKE : strokeForName(name),
+        _nonstate: nonstate,
         // 地図上に出す政体名。対訳が無ければ英語のまま（spec のフォールバック方針）
         _label: name ? (namesJa[name] ?? name) : '',
         _area: Math.round(geometryArea(f.geometry)),

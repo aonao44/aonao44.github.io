@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 
 import { ERA_IDS, ERAS, formatYear, indexOfEra } from '../src/eras.js';
+import { isDrawableGeometry } from '../src/geojson.js';
 import { buildEraJumpModel, buildPanelModel, renderTopics } from '../src/panel.js';
 import { citedYears } from './year-utils.js';
 
@@ -117,9 +118,9 @@ test('name_ja overrides do not contradict the era range they cover', () => {
 
 // --- name-eras ---
 
-test('name-eras lists every distinct NAME with eras in chronological order', () => {
+test('name-eras lists every distinct drawable NAME with eras in chronological order', () => {
   const names = Object.keys(nameEras);
-  assert.equal(names.length, 2548);
+  assert.equal(names.length, 2546);
   for (const [name, eras] of Object.entries(nameEras)) {
     assert.ok(Array.isArray(eras) && eras.length > 0, `${name}: no eras`);
     assert.equal(new Set(eras).size, eras.length, `${name}: duplicate eras`);
@@ -131,18 +132,23 @@ test('name-eras lists every distinct NAME with eras in chronological order', () 
   }
 });
 
-test('name-eras agrees with the era files for a sample', () => {
-  for (const id of ['bc3000', '100', '1492', '2010']) {
+test('name-eras agrees with drawable geometry in all 48 era files', () => {
+  const expected = {};
+  for (const id of ERA_IDS) {
     const era = readJson(`data/eras/${id}.geojson`);
     const inFile = new Set(
-      era.features.map((f) => f.properties?.NAME)
+      era.features.filter((f) => isDrawableGeometry(f.geometry))
+        .map((f) => f.properties?.NAME)
         .filter((n) => typeof n === 'string' && n.trim())
         .map((n) => n.trim()),
     );
     for (const name of inFile) {
-      assert.ok(nameEras[name]?.includes(id), `${name} missing era ${id}`);
+      (expected[name] ??= []).push(id);
     }
   }
+  assert.deepEqual(nameEras, Object.fromEntries(
+    Object.entries(expected).sort(([a], [b]) => a.localeCompare(b)),
+  ));
 });
 
 test('spelling drift is left unmerged, as documented', () => {

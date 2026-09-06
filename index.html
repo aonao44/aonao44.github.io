@@ -69,11 +69,16 @@
     height: var(--bar-h);
     border-top: 1px solid var(--line);
     background: var(--bg);
-    display: flex; align-items: center; gap: 16px;
+    display: grid;
+    grid-template-columns: auto minmax(80px, 1fr) auto 108px minmax(0, auto) auto;
+    grid-template-areas: "start slider finish jump status year";
+    align-items: center; gap: 16px;
     padding: 0 20px;
     z-index: 6;
   }
-  #year-jump { flex: none; }
+  .bar-start { grid-area: start; }
+  .bar-finish { grid-area: finish; }
+  #year-jump { grid-area: jump; position: relative; width: 108px; min-width: 0; }
   #year-input {
     width: 108px;
     padding: 7px 10px;
@@ -83,7 +88,7 @@
     font-variant-numeric: tabular-nums;
   }
   #year-input::placeholder { color: #a5a5aa; }
-  #year-input:focus {
+  #year-input:focus-visible {
     outline: none;
     border-color: #2f6fd0;
     box-shadow: 0 0 0 3px rgba(47, 111, 208, .15);
@@ -93,16 +98,28 @@
     box-shadow: 0 0 0 3px rgba(192, 57, 43, .12);
   }
   #year-hint {
-    flex: none; font-size: 12px; color: var(--muted);
-    white-space: nowrap;
+    position: absolute;
+    right: 20px;
+    bottom: calc(100% + 10px);
+    max-width: calc(100vw - 40px);
+    padding: 6px 9px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, .96);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
+    font-size: 12px; color: var(--muted);
+    white-space: normal;
   }
-  #era-slider { flex: 1; min-width: 0; }
-  .bar-end { flex: none; font-size: 12px; color: var(--muted); }
+  #year-hint:empty { display: none; }
+  #era-slider { grid-area: slider; width: 100%; min-width: 0; }
+  .bar-end { font-size: 12px; color: var(--muted); white-space: nowrap; }
   #year-label {
-    flex: none; min-width: 130px; text-align: right;
+    grid-area: year; min-width: 130px; text-align: right; white-space: nowrap;
     font-size: 18px; font-variant-numeric: tabular-nums;
   }
-  #loading { flex: none; font-size: 12px; color: var(--muted); min-width: 56px; }
+  #loading {
+    grid-area: status; min-width: 0; font-size: 12px; color: var(--muted);
+    white-space: nowrap;
+  }
 
   /* --- トースト（ロード失敗） --- */
   #toast {
@@ -119,6 +136,7 @@
     background: #4a4a50; color: #fff; border: 0;
     padding: 4px 10px; border-radius: 5px; cursor: pointer; font-size: 12px;
   }
+  #toast button:hover { background: #5b5b62; }
 
   /* --- 凡例 --- */
   #legend {
@@ -148,7 +166,8 @@
     background: hsl(28, 68%, 52%); opacity: .55;
     border: 1px solid hsl(28, 72%, 28%);
   }
-  .lg-swatch.lg-faint { opacity: .15; border-color: #9a9aa0; }
+  /* 非国家は無彩色。src/layers.js の NONSTATE_SAT = 0 に合わせる */
+  .lg-swatch.lg-faint { background: hsl(0, 0%, 52%); opacity: .15; border-color: #9a9aa0; }
   .lg-dot {
     flex: none; width: 11px; height: 11px; margin-top: 3px; border-radius: 50%;
     background: #fdf6e3; border: 2px solid #1c1c1e;
@@ -157,13 +176,28 @@
     flex: none; width: 15px; height: 0; margin-top: 8px;
     border-top: 1px solid #2b2b2e;
   }
+  /* 海。app.js の WATER_FILL_COLOR と同じ色にしておく */
+  .lg-sea {
+    flex: none; width: 13px; height: 13px; margin-top: 2px; border-radius: 3px;
+    background: hsl(205, 62%, 78%); border: 1px solid hsl(205, 45%, 62%);
+  }
 
   #year-format-hint {
-    display: block;
-    margin-top: 3px;
-    font-size: 10.5px; color: var(--muted);
-    white-space: nowrap;
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 10px);
+    width: max-content;
+    max-width: calc(100vw - 28px);
+    padding: 6px 9px;
+    border: 1px solid var(--line); border-radius: 6px;
+    background: rgba(255, 255, 255, .97);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
+    font-size: 10.5px; line-height: 1.45; color: var(--muted);
+    white-space: normal;
+    opacity: 0;
+    pointer-events: none;
   }
+  #year-jump:focus-within #year-format-hint { opacity: 1; }
 
   /* --- この時代の世界（概説） --- */
   .overview {
@@ -223,10 +257,11 @@
   .topics { list-style: none; margin: 12px 0 0; padding: 0; }
   .topic { padding: 12px 0; border-top: 1px solid var(--line); }
   .topic:first-child { border-top: 0; padding-top: 4px; }
-  .topic-btn {
+  .topic-btn, .topic-static {
     display: block; width: 100%; text-align: left;
-    background: none; border: 0; padding: 0; cursor: pointer; font: inherit;
+    background: none; border: 0; padding: 0; font: inherit;
   }
+  .topic-btn { cursor: pointer; }
   .topic-btn:hover .topic-title { text-decoration: underline; }
   .topic-title {
     display: block; font-size: 14px; font-weight: 600; line-height: 1.5;
@@ -247,6 +282,11 @@
     font: inherit; font-size: 12px; color: #2f6fd0;
   }
   .panel-back:hover { text-decoration: underline; }
+
+  :where(button, a, input):focus-visible {
+    outline: 2px solid #2f6fd0;
+    outline-offset: 3px;
+  }
 
   /* 出来事パネル */
   .panel-kicker {
@@ -304,19 +344,21 @@
       background: #f0f0f3; color: var(--ink);
       font-size: 18px; line-height: 1; cursor: pointer;
     }
+    #panel:not(.is-open) #sheet-close { visibility: hidden; }
 
     #panel h1 { display: none; }
 
     /* 下部バーは 2 段にしてスライダーに幅を与える（タッチ操作のため） */
     #bar {
-      flex-wrap: wrap;
-      align-content: center;
-      gap: 6px 12px;
-      padding: 8px 14px;
+      grid-template-columns: 92px minmax(0, 1fr) auto;
+      grid-template-rows: 32px 32px;
+      grid-template-areas:
+        "jump status year"
+        "start slider finish";
+      gap: 6px 8px;
+      padding: 8px 10px;
     }
     #era-slider {
-      order: 10;
-      flex: 1 1 100%;
       /* 指で掴めるだけの高さを確保する */
       height: 32px;
     }
@@ -336,41 +378,47 @@
     #legend.is-expanded #legend-body { display: block; }
     #legend.is-expanded #legend-toggle::after { content: ' ▾'; }
 
-    #year-format-hint { display: none; }
-
-    .bar-end { font-size: 11px; }
+    .bar-end { font-size: 10px; }
     #year-input { width: 92px; }
-    /* ヒントは幅を食うので、モバイルでは折り返して全幅に置く */
-    #year-hint { flex: 1 1 100%; order: 20; font-size: 11px; }
-    #year-label { min-width: 0; font-size: 16px; margin-left: auto; }
+    #year-format-hint { left: 0; right: auto; width: calc(100vw - 20px); }
+    #year-hint { right: 10px; max-width: calc(100vw - 20px); font-size: 11px; }
+    #year-label { min-width: 0; font-size: 14px; }
+    #loading { overflow: hidden; text-overflow: ellipsis; text-align: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #panel { transition: none; }
   }
 </style>
 </head>
 <body>
   <div id="map"></div>
 
-  <aside id="panel">
-    <button id="sheet-handle" aria-expanded="false">この時代のトピック</button>
-    <button id="sheet-close" aria-label="閉じる">×</button>
-    <h1>imperia</h1>
-    <div id="panel-body"></div>
-    <label id="borders-toggle">
-      <input type="checkbox" id="borders-checkbox" checked>
-      現代の国境を表示
-    </label>
+  <aside id="panel" aria-label="時代と政体の詳細">
+    <button id="sheet-handle" aria-expanded="false" aria-controls="sheet-content">この時代のトピック</button>
+    <div id="sheet-content">
+      <button id="sheet-close" aria-label="詳細シートを閉じる">×</button>
+      <h1>imperia</h1>
+      <div id="panel-body"></div>
+      <label id="borders-toggle">
+        <input type="checkbox" id="borders-checkbox" checked>
+        現代の国境を表示
+      </label>
+    </div>
   </aside>
 
   <div id="bar">
-    <span class="bar-end">紀元前3000年</span>
+    <span class="bar-end bar-start">紀元前3000年</span>
     <input type="range" id="era-slider" min="0" max="47" step="1" value="0" aria-label="年代">
-    <span class="bar-end">2010年</span>
+    <span class="bar-end bar-finish">2010年</span>
     <label id="year-jump">
-      <input type="text" id="year-input" inputmode="text" autocomplete="off"
-             placeholder="年で移動" aria-label="年を入力して移動">
+      <input type="text" id="year-input" name="year" inputmode="text" autocomplete="off"
+             placeholder="年で移動…" aria-label="年を入力して移動" aria-invalid="false"
+             aria-describedby="year-format-hint year-hint">
       <span id="year-format-hint">紀元前は「紀元前500」「-500」「BC500」など（紀元前0年はありません）</span>
     </label>
-    <span id="loading"></span>
-    <span id="year-hint"></span>
+    <span id="loading" role="status" aria-live="polite"></span>
+    <span id="year-hint" role="status" aria-live="polite" aria-atomic="true"></span>
     <span id="year-label">紀元前3000年</span>
   </div>
 
@@ -378,13 +426,14 @@
     <button id="legend-toggle" aria-expanded="false" aria-controls="legend-body">凡例</button>
     <ul id="legend-body">
       <li><span class="lg-swatch"></span>色 = 政体ごとの識別色（意味はなく、同じ政体は年代をまたいで同じ色）</li>
-      <li><span class="lg-swatch lg-faint"></span>薄い文字/塗り = 国家でない文化圏（狩猟採集民・部族など）</li>
+      <li><span class="lg-sea"></span>青 = 海。青は海だけに使い、政体には割り当てない（斜体の地名が海洋名）</li>
+      <li><span class="lg-swatch lg-faint"></span>灰色の薄い文字/塗り = 国家でない文化圏（狩猟採集民・部族など）。色が付くのは政体だけ</li>
       <li><span class="lg-dot"></span>○ = 出来事（クリックで詳細）</li>
       <li><span class="lg-line"></span>細い線 = 現代の国境</li>
     </ul>
   </div>
 
-  <div id="toast">
+  <div id="toast" role="alert" aria-live="assertive" aria-atomic="true">
     <span id="toast-msg"></span>
     <button id="toast-retry">再試行</button>
   </div>

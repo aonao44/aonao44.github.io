@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 
 import { ERA_IDS, ERAS, formatYear } from '../src/eras.js';
+import { isDrawableGeometry } from '../src/geojson.js';
 import { renderTopics } from '../src/panel.js';
 import { citedYears } from './year-utils.js';
 
@@ -62,12 +63,13 @@ test('every topic links to Japanese Wikipedia', () => {
   }
 });
 
-test('every polity named by a topic exists in that era file', () => {
+test('every polity named by a topic has drawable geometry in that era file', () => {
   const missing = [];
   for (const id of ERA_IDS) {
     const era = readJson(`data/eras/${id}.geojson`);
     const names = new Set(
       era.features
+        .filter((f) => isDrawableGeometry(f.geometry))
         .map((f) => f.properties?.NAME)
         .filter((n) => typeof n === 'string' && n.trim())
         .map((n) => n.trim()),
@@ -85,6 +87,29 @@ test('most topics are linked to a polity so the map can be driven from the panel
   const all = Object.values(topics).flat();
   const linked = all.filter((t) => t.polity).length;
   assert.ok(linked / all.length > 0.7, `only ${linked}/${all.length} topics name a polity`);
+});
+
+test('the three topics without a polity render as static headings, never buttons', () => {
+  const unlinked = [];
+  for (const id of ERA_IDS) {
+    const list = topics[id];
+    list.forEach((topic, index) => {
+      if (!topic.polity) unlinked.push(`${id}[${index}]`);
+    });
+    const el = fakeEl();
+    renderTopics(el, id, list, {});
+    assert.equal(
+      (el.innerHTML.match(/class="topic-btn"/g) || []).length,
+      list.filter((topic) => topic.polity).length,
+      `${id}: button count`,
+    );
+    assert.equal(
+      (el.innerHTML.match(/class="topic-static"/g) || []).length,
+      list.filter((topic) => !topic.polity).length,
+      `${id}: static topic count`,
+    );
+  }
+  assert.deepEqual(unlinked.map((at) => at.replace(/\[\d+\]$/, '')), ['700', '1914', '2010']);
 });
 
 test('topic bodies do not mention a year far from their era', () => {
@@ -143,6 +168,8 @@ test('renderTopics lists every topic with its Japanese polity name', () => {
   assert.match(el.innerHTML, /data-polity="Roman Empire"/, 'raw NAME kept for map lookup');
   // polity の無いトピックにはボタンの data 属性が付かない
   assert.equal((el.innerHTML.match(/data-polity=/g) || []).length, 1);
+  assert.equal((el.innerHTML.match(/<button/g) || []).length, 1);
+  assert.equal((el.innerHTML.match(/class="topic-static"/g) || []).length, 1);
 });
 
 test('renderTopics escapes user-visible text', () => {

@@ -17,6 +17,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { ERA_IDS } from '../src/eras.js';
+import { isDrawableGeometry } from '../src/geojson.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const eraDir = join(root, 'data', 'eras');
@@ -28,6 +29,9 @@ for (const id of ERA_IDS) {
   const geo = JSON.parse(readFileSync(join(eraDir, `${id}.geojson`), 'utf8'));
   const seen = new Set();
   for (const f of geo.features ?? []) {
+    // NAME があっても geometry:null なら地図上で選択・描画できない。
+    // 登場断面ナビゲーションから到達不能な断面へ案内しないよう索引から除く。
+    if (!isDrawableGeometry(f.geometry)) continue;
     const raw = f.properties?.NAME;
     if (typeof raw !== 'string') continue;
     const name = raw.trim();

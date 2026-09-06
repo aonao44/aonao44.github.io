@@ -104,7 +104,8 @@ OpenMapTiles の地物は `name:ja` を持っているので、これで「Deuts
 (`src/labelpoint.js`)。ポリゴンに直接張ると MapLibre がタイルごとにラベルを置くため、
 広い版図（北極圏の狩猟民など）が画面上で同じ名前を5回繰り返してしまう。
 代表点は最大の多角形の重心、重心が図形の外に落ちる形（コの字・三日月）では
-走査線で内側を取り直す。
+外周と穴の全交点を使う走査線で内側を取り直す。全48断面・9,305ラベルをテストし、
+外周頂点や穴へ落ちないことを固定している。
 
 > 元データには末尾に空白が付いた NAME (`"Pomeranian culture "`) が混ざっている。
 > 対訳表のキーは trim 済みなので、`decorateEra` で NAME を trim して正規化している。
@@ -117,15 +118,16 @@ OpenMapTiles の地物は `name:ja` を持っているので、これで「Deuts
 
 ## 政体の来歴
 
-`data/polity-info.json` に **全2548政体** の `{summary_ja, period_ja?, capital_ja?, name_ja?}`。
+`data/polity-info.json` に、描画可能な geometry を持つ **全2546政体** の
+`{summary_ja, period_ja?, capital_ja?, name_ja?}`。
 政体の詳細パネルで、名前と「現在の国」のあいだに出る。
 
-記述は二段構え。主要293件は「起こり→最盛期→衰亡」を3〜4文で追う。残り2255件は
+記述は二段構え。主要293件は「起こり→最盛期→衰亡」を3〜4文で追う。残り2253件は
 1〜3文で「それが何で、いつ栄え、どうなったか」に絞る。狩猟採集民や考古学的文化には
 王朝の弧を当てはめず、社会の性格・分布・知られている特徴を書く。現存する民族を
 「滅亡した」と書かない。
 
-**`period_ja` は任意で、実際に2548件中1633件では省いている。** 無名の集団に
+**`period_ja` は任意で、実際に2546件中1631件では省いている。** 無名の集団に
 それらしい年代を付けるのは捏造であり、曖昧なまま置く方が正しいため。
 「確かな一般論 > 怪しい具体」を規則にしてある（`scripts/`外の作成指示は
 scratchpad に置いたが、方針は本節が正）。
@@ -139,7 +141,8 @@ scratchpad に置いたが、方針は本節が正）。
 `scripts/build-name-eras.mjs` が `data/name-eras.json`（NAME → 登場する断面 ID の配列）を
 生成する。政体の詳細パネルに「登場する断面: 紀元前1年〜200年（3断面）」と出し、
 ◀ 最初 / ◀ / ▶ / ▶ 最後 で断面を移動する。移動先にその政体が居れば選択と強調を
-持ち越し、居なければトピック一覧に戻る。
+持ち越し、居なければトピック一覧に戻る。`geometry:null` など描画不能な feature は
+索引へ入れず、全48断面と索引の完全一致をテストする。
 
 ```sh
 node scripts/build-name-eras.mjs   # data/eras/*.geojson を作り直したら再実行する
@@ -151,6 +154,11 @@ node scripts/build-name-eras.mjs   # data/eras/*.geojson を作り直したら�
 > これらは別々の政体として索引されるので、「登場する断面」が実際の存続期間より
 > 短く出ることがある。機械的に名寄せすると実際には別物の政体まで束ねてしまうため、
 > あえて統合していない。
+
+`SUBJECTO` の省略・綴り揺れは `data/subject-aliases.json` で既存 NAME に寄せる。
+単一政体に潰せない共同領有権主張は配列で双方を残す。原典の数値値 `"1"` / `"3"` は
+政体名でないことを該当 feature の `NAME` / `PARTOF` と地理から確認済みで、通常の辞書に
+混ぜず `scripts/normalize-era-data.mjs` が既知の4 feature だけを生成時に補正する。
 
 ## 断面ごとのトピック
 
@@ -218,12 +226,14 @@ data/nonstate.json            非国家判定の規則
 data/events.json              主要な出来事387件
 data/topics.json              断面ごとのトピック（48断面 × 4〜7件）
 data/overviews.json           断面ごとの概説（48断面 × 200〜300字）
-data/polity-info.json         政体の来歴（全2548件）
-data/name-eras.json           NAME → 登場する断面（生成物）
+data/polity-info.json         描画可能な政体の来歴（全2546件）
+data/name-eras.json           描画可能な NAME → 登場する断面（生成物）
+data/subject-aliases.json     SUBJECTO の表記揺れ → 既存 NAME
 src/nonstate.js               非国家判定
 src/labelpoint.js             政体名ラベルの代表点計算
 src/events.js                 断面に対応する出来事の選別
 scripts/build-data.sh         元データ取得 + 簡略化
+scripts/normalize-era-data.mjs 原典の既知の数値 SUBJECTO 補正
 scripts/extract-names.js      NAME ユニーク抽出
 ```
 

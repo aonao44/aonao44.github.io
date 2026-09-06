@@ -50,24 +50,58 @@ function ringCentroid(ring) {
  * 重心が図形の外に落ちる三日月形・コの字形のための保険。
  */
 function scanlineMidpoint(rings, y) {
-  const outer = rings[0];
   const xs = [];
-  for (let i = 0, j = outer.length - 1; i < outer.length; j = i, i += 1) {
-    const [xi, yi] = outer[i];
-    const [xj, yj] = outer[j];
-    if ((yi > y) !== (yj > y)) {
-      xs.push(xi + ((xj - xi) * (y - yi)) / ((yj - yi) || Number.EPSILON));
+  // 外周だけでなく穴の交点も境界候補にする。外周区間の単純な中点が
+  // 大きな穴へ落ちる Madagascar などでも、穴の左右の内側区間を選べる。
+  for (const ring of rings) {
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i, i += 1) {
+      const [xi, yi] = ring[i];
+      const [xj, yj] = ring[j];
+      if ((yi > y) !== (yj > y)) {
+        xs.push(xi + ((xj - xi) * (y - yi)) / ((yj - yi) || Number.EPSILON));
+      }
     }
   }
   xs.sort((a, b) => a - b);
   let best = null;
   let bestWidth = -1;
-  for (let i = 0; i + 1 < xs.length; i += 2) {
+  // 穴があると「外周の交点を2個ずつ」では区間を表せない。
+  // 隣り合う全交点間を調べ、実際にポリゴン内の区間だけを採る。
+  for (let i = 0; i + 1 < xs.length; i += 1) {
     const mid = (xs[i] + xs[i + 1]) / 2;
     const width = xs[i + 1] - xs[i];
     if (width > bestWidth && pointInPolygon([mid, y], rings)) {
       bestWidth = width;
       best = [mid, y];
+    }
+  }
+  return best;
+}
+
+/**
+ * 頂点と同じ緯度を避けた走査線を網羅し、最も広い内側区間の中点を返す。
+ * 有効な面を持つポリゴンなら、隣接する頂点緯度の間のどこかに必ず内側区間がある。
+ */
+function exhaustiveScanlineMidpoint(rings) {
+  const ys = [...new Set(rings.flat().map((point) => point[1]).filter(Number.isFinite))]
+    .sort((a, b) => a - b);
+  let best = null;
+  let bestWidth = -1;
+  for (let i = 0; i + 1 < ys.length; i += 1) {
+    if (ys[i] === ys[i + 1]) continue;
+    const y = (ys[i] + ys[i + 1]) / 2;
+    const point = scanlineMidpoint(rings, y);
+    if (!point) continue;
+
+    // 同じ関数内で幅を再取得する代わりに、境界までの水平距離を比較する。
+    // フォールバック用途なので、厳密な pole of inaccessibility より確実な内点を優先する。
+    let nearest = Infinity;
+    for (const ring of rings) {
+      for (const [x] of ring) nearest = Math.min(nearest, Math.abs(point[0] - x));
+    }
+    if (nearest > bestWidth) {
+      bestWidth = nearest;
+      best = point;
     }
   }
   return best;
@@ -106,8 +140,9 @@ export function interiorPoint(geometry) {
   const scanned = scanlineMidpoint(biggest, centroid[1]);
   if (scanned) return scanned;
 
-  // どうしても決まらなければ外周の一点。ラベルが消えるよりはまし
-  return biggest[0][0];
+  // 頂点を返すとラベルが版図の外へ見える。頂点緯度の間を網羅して必ず内点を探し、
+  // 面積ゼロなどの壊れた geometry だけ null にする。
+  return exhaustiveScanlineMidpoint(biggest);
 }
 
 /**

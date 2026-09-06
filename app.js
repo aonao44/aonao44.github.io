@@ -20,6 +20,14 @@ import {
 } from './src/panel.js';
 import { resolveYearInput } from './src/yearinput.js';
 import { eventsForEra } from './src/events.js';
+import { loadJson, JSON_VALIDATORS } from './src/loadjson.js';
+import {
+  syncEraControls as applyEraControls,
+  rollbackEraControls,
+  setYearInputInvalid as applyYearInputInvalid,
+  clearYearInputState,
+  setSheetContentHidden,
+} from './src/ui-state.js';
 
 const el = {
   map: document.getElementById('map'),
@@ -34,6 +42,7 @@ const el = {
   toastMsg: document.getElementById('toast-msg'),
   toastRetry: document.getElementById('toast-retry'),
   sheet: document.getElementById('panel'),
+  sheetContent: document.getElementById('sheet-content'),
   sheetClose: document.getElementById('sheet-close'),
   sheetHandle: document.getElementById('sheet-handle'),
   legend: document.getElementById('legend'),
@@ -43,7 +52,7 @@ const el = {
 el.slider.max = String(ERA_COUNT - 1);
 
 const store = new EraStore({ basePath: 'data/eras' });
-const dicts = { namesJa: {}, modern: {} };
+const dicts = { namesJa: {}, modern: {}, subjectAliases: {} };
 let nonStateRule = { patterns: [], exceptions: [], explicit: [] };
 let allEvents = [];
 let allTopics = {};
@@ -66,6 +75,8 @@ let selectedId = null;
 /** 強調中の政体名（断面をまたいで選択を持ち越すのに使う）。 */
 let selectedPolityName = null;
 
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
 // 何も選んでいない間はトピック一覧を出す（起動直後は断面未確定なので空）
 el.panel.innerHTML = '';
 
@@ -75,6 +86,17 @@ const BASEMAP_STYLE = 'https://tiles.openfreemap.org/styles/positron';
 
 /** 都市名など下地の細かいラベルを出し始めるズーム。世界表示では国名だけにする。 */
 const BASEMAP_DETAIL_MIN_ZOOM = 4;
+
+// 海の色。src/layers.js の WATER_HUE_MIN–WATER_HUE_MAX に収めてあり、
+// この帯の色相は政体に割り当てられない。だから青は必ず海を意味する。
+const WATER_FILL_COLOR = 'hsl(205, 62%, 78%)';
+const WATER_LABEL_COLOR = 'hsl(212, 68%, 32%)';
+
+/** 下地の海洋名レイヤー。positron の water_name をこの id で描き直す。 */
+const SEA_LABEL_LAYER = 'imperia-sea-labels';
+
+/** 海洋名として世界表示から出す water_name の class。湖・池はズームしてから。 */
+const OPEN_WATER_CLASSES = ['ocean', 'sea'];
 
 const map = new MapLibreMap({
   container: 'map',
@@ -146,22 +168,28 @@ async function showEra(index) {
     setEraData(map, geojson, nonStateRule, dicts.namesJa);
     setEventData(map, eventsForEra(index, allEvents));
     shownIndex = index;
+    // ロード成功をもってスライダーと年表示を確定する。再試行から成功した場合も揃う。
+    syncEraControls(index);
 
     // 登場断面ジャンプの直後は、同じ政体を選び直して詳細を出したままにする
     const carry = pendingSelectName;
     pendingSelectName = null;
     if (carry && reselectPolity(carry)) {
       hideToast();
-      return;
+      return true;
     }
 
     // それ以外は既定表示のトピック一覧に戻す
     showTopics();
     hideToast();
+    return true;
   } catch (err) {
     if (seq !== requestSeq) return;
-    showToast(`${labelAt(index)}のデータを読み込めませんでした`, () => showEra(index));
+    // 先に動いたスライダー/ラベルを、最後に表示できた断面へ戻す。
+    rollbackEraControls(el, shownIndex, labelAt);
+    showToast(`${labelAt(index)}のデータを読み込めませんでした`, () => goTo(index));
     console.error('era load failed', era.id, err);
+    return false;
   } finally {
     if (seq === requestSeq) el.loading.textContent = '';
   }
@@ -172,23 +200,37 @@ function syncLabel(index) {
   el.year.textContent = labelAt(index);
 }
 
+function syncEraControls(index) {
+  applyEraControls(el, index, labelAt);
+}
+
+function setYearInputInvalid(invalid) {
+  applyYearInputInvalid(el.yearInput, invalid);
+}
+
+function clearTypedYear() {
+  clearYearInputState(el.yearInput, el.yearHint);
+  lastAppliedYearInput = null;
+}
+
 // ドラッグ中はラベルだけ更新（spec）
 el.slider.addEventListener('input', () => {
+  pendingSelectName = null;
+  clearTypedYear();
   syncLabel(Number(el.slider.value));
 });
 
 // 離した時に断面をロード（spec）
 el.slider.addEventListener('change', () => {
   // スライダーで動かしたら、年入力に対する「寄せました」表示は用済み
-  el.yearHint.textContent = '';
-  el.yearInput.classList.remove('is-invalid');
+  clearTypedYear();
   showEra(Number(el.slider.value));
 });
 
 /** スライダー・ラベル・地図をまとめて指定インデックスに移す。 */
-function goTo(index) {
-  el.slider.value = String(index);
-  syncLabel(index);
+function goTo(index, options = {}) {
+  if (options.clearTypedYear) clearTypedYear();
+  syncEraControls(index);
   return showEra(index);
 }
 
@@ -200,24 +242,28 @@ function goTo(index) {
  */
 let lastAppliedYearInput = null;
 
-function jumpToTypedYear() {
+async function jumpToTypedYear() {
+  pendingSelectName = null;
   const raw = el.yearInput.value;
   const result = resolveYearInput(raw);
 
   if (!result.ok) {
-    el.yearInput.classList.toggle('is-invalid', result.reason === 'unparsable');
+    setYearInputInvalid(result.reason === 'unparsable');
     el.yearHint.textContent = result.reason === 'unparsable'
       ? '年を読み取れません（例: 117 / 紀元前500 / BC500）'
       : '';
     return;
   }
 
-  el.yearInput.classList.remove('is-invalid');
-  el.yearHint.textContent = result.snapped
-    ? `→ ${labelAt(result.index)}の断面を表示`
-    : '';
+  setYearInputInvalid(false);
+  el.yearHint.textContent = '';
   lastAppliedYearInput = raw;
-  goTo(result.index);
+  const loaded = await goTo(result.index);
+  if (loaded) {
+    el.yearHint.textContent = result.snapped
+      ? `→ ${labelAt(result.index)}の断面を表示`
+      : '';
+  }
 }
 
 el.yearInput.addEventListener('keydown', (e) => {
@@ -239,6 +285,7 @@ el.yearInput.addEventListener('blur', () => {
 function openSheet() {
   el.sheet.classList.add('is-open');
   el.sheetHandle.setAttribute('aria-expanded', 'true');
+  syncSheetInteractivity();
 }
 
 /** 現在の断面のトピック一覧をパネルに出す（既定表示）。 */
@@ -292,7 +339,7 @@ el.panel.addEventListener('click', (e) => {
   if (index < 0) return;
   // 今表示している政体名を覚えておき、移動先で選び直す
   pendingSelectName = selectedPolityName;
-  goTo(index);
+  goTo(index, { clearTypedYear: true });
 });
 
 /**
@@ -313,7 +360,11 @@ function focusPolity(name) {
   }
 
   const bbox = boundsOfFeatures(feats.filter((f) => f.properties?.NAME === name));
-  if (bbox) map.fitBounds(bbox, { padding: 80, maxZoom: 5, duration: 800 });
+  if (bbox) map.fitBounds(bbox, {
+    padding: 80,
+    maxZoom: 5,
+    duration: reducedMotion.matches ? 0 : 800,
+  });
 
   // 描画中の feature から id を取って強調する（feature-state には id が要る）
   const rendered = map.queryRenderedFeatures({ layers: [ERA_FILL_LAYER] })
@@ -408,37 +459,51 @@ el.borders.addEventListener('change', () => {
 });
 
 // --- モバイル: シートの開閉 ---
-el.sheetClose.addEventListener('click', () => {
+const mobileSheet = window.matchMedia('(max-width: 767px)');
+
+function syncSheetInteractivity() {
+  const closed = mobileSheet.matches && !el.sheet.classList.contains('is-open');
+  setSheetContentHidden(el.sheetContent, closed);
+}
+
+function closeSheet() {
+  const returnFocus = el.sheetContent.contains(document.activeElement);
   el.sheet.classList.remove('is-open');
   el.sheetHandle.setAttribute('aria-expanded', 'false');
-});
+  syncSheetInteractivity();
+  if (returnFocus) el.sheetHandle.focus();
+}
+
+el.sheetClose.addEventListener('click', closeSheet);
 
 // ハンドル（「この時代のトピック」）でシートを開閉する
 el.sheetHandle.addEventListener('click', () => {
   const open = el.sheet.classList.toggle('is-open');
   el.sheetHandle.setAttribute('aria-expanded', String(open));
+  syncSheetInteractivity();
 });
+mobileSheet.addEventListener('change', syncSheetInteractivity);
+syncSheetInteractivity();
 
-// --- 凡例（モバイルでは既定で畳まれ、トグルで開く） ---
-// 開閉は is-expanded で表す。デスクトップでは CSS 側で常に開いた見た目になる。
-el.legendToggle.addEventListener('click', () => {
-  const expanded = el.legend.classList.toggle('is-expanded');
+// --- 凡例 ---
+// どの幅でも畳める。左下は版図そのものを見たい場所でもあるため、
+// 読み終えた凡例は退かせられる必要がある。
+// 既定は PC=開く / モバイル=畳む。畳んでも見出しの「凡例」は残るので開き直せる。
+const LEGEND_OPEN_BY_DEFAULT = '(min-width: 768px)';
+
+/** 凡例の開閉を、見た目と支援技術の両方へ反映する。 */
+function setLegendExpanded(expanded) {
+  el.legend.classList.toggle('is-expanded', expanded);
   el.legendToggle.setAttribute('aria-expanded', String(expanded));
+}
+
+setLegendExpanded(window.matchMedia(LEGEND_OPEN_BY_DEFAULT).matches);
+
+el.legendToggle.addEventListener('click', () => {
+  setLegendExpanded(!el.legend.classList.contains('is-expanded'));
 });
 
 // --- 起動 ---
-/** 任意データ。取得できなくてもフォールバックで動く（spec）。 */
-async function loadJson(path, fallback) {
-  try {
-    const res = await fetch(path);
-    if (!res.ok) throw new Error(String(res.status));
-    return await res.json();
-  } catch (err) {
-    console.warn(`optional data not loaded: ${path}`, err);
-    return fallback;
-  }
-}
-
 /**
  * 下地の地名ラベルを日本語にし、かつ「脇役」に落とす。
  *
@@ -474,6 +539,16 @@ function localiseBasemapLabels() {
     map.setPaintProperty(layer.id, 'text-halo-width', 0.8);
     demoted += 1;
 
+    // 海洋名は専用レイヤー(SEA_LABEL_LAYER)で世界表示から出す。下地側の
+    // water_name からは外しておかないと、ズーム4以上で二重に描かれる。
+    if (layer['source-layer'] === 'water_name') {
+      map.setFilter(layer.id, [
+        'all',
+        layer.filter ?? true,
+        ['match', ['get', 'class'], OPEN_WATER_CLASSES, false, true],
+      ]);
+    }
+
     // 都市・町・村・水域名・道路名は世界表示では出さない
     if (/city|town|village|water_name|waterway|highway|poi|label_other/.test(layer.id)) {
       const minzoom = Math.max(BASEMAP_DETAIL_MIN_ZOOM, layer.minzoom ?? 0);
@@ -484,6 +559,74 @@ function localiseBasemapLabels() {
   return { localised, demoted, cityLayers };
 }
 
+/**
+ * 海・湖を、政体に絶対に使われない青へ塗り替える。
+ *
+ * positron の既定の水面は rgb(194,200,202) というほぼ灰色で、淡い政体の塗りと
+ * 見分けがつかない。hueForName が WATER_HUE_MIN–WATER_HUE_MAX を飛ばすので、
+ * この帯の青は地図上で「水」しか意味しない。
+ *
+ * @returns {number} 塗り替えたレイヤー数
+ */
+function colourWater() {
+  let painted = 0;
+  for (const layer of map.getStyle().layers) {
+    if (layer.type === 'fill' && layer['source-layer'] === 'water') {
+      map.setPaintProperty(layer.id, 'fill-color', WATER_FILL_COLOR);
+      painted += 1;
+    } else if (layer.type === 'line' && layer['source-layer'] === 'waterway') {
+      map.setPaintProperty(layer.id, 'line-color', WATER_FILL_COLOR);
+      painted += 1;
+    }
+  }
+  return painted;
+}
+
+/**
+ * 海の名前を世界表示から出す。
+ *
+ * positron は water_name に海洋名を持っているが、このサイトでは都市名と一緒に
+ * ズーム4以上へ落としていたため、世界表示では海が名無しの面でしかなかった。
+ * 政体名(Bold)・現代地名(Regular)と書体でも区別できるよう斜体にし、
+ * 政体名より後に追加して衝突時は政体名を優先させる。
+ *
+ * @returns {boolean} レイヤーを追加したか（下地に water_name が無ければ false）
+ */
+function addSeaLabels() {
+  if (map.getLayer(SEA_LABEL_LAYER)) return false;
+
+  const donor = map.getStyle().layers
+    .find((l) => l.type === 'symbol' && l['source-layer'] === 'water_name');
+  if (!donor) return false;
+
+  map.addLayer({
+    id: SEA_LABEL_LAYER,
+    type: 'symbol',
+    source: donor.source,
+    'source-layer': 'water_name',
+    filter: ['match', ['get', 'class'], OPEN_WATER_CLASSES, true, false],
+    layout: {
+      'text-field': [
+        'coalesce',
+        ['get', 'name:ja'],
+        ['get', 'name:latin'],
+        ['get', 'name'],
+      ],
+      'text-font': ['Noto Sans Italic'],
+      'text-size': ['interpolate', ['linear'], ['zoom'], 0, 10, 3, 13, 6, 15],
+      'text-max-width': 7,
+      'text-letter-spacing': 0.12,
+      'text-padding': 6,
+    },
+    paint: {
+      'text-color': WATER_LABEL_COLOR,
+      'text-halo-color': 'rgba(255,255,255,0.85)',
+      'text-halo-width': 1.4,
+    },
+  });
+  return true;
+}
+
 /** 下地の最初の symbol(ラベル)レイヤー ID。版図の塗りをこの下に入れる。 */
 function firstSymbolLayerId() {
   const found = map.getStyle().layers.find((l) => l.type === 'symbol');
@@ -492,35 +635,40 @@ function firstSymbolLayerId() {
 
 map.on('load', async () => {
   basemapLabelStats = localiseBasemapLabels();
+  colourWater();
 
   // 版図の塗りは下地のラベルより下に入れる。上に載せると
   // 不透明度 0.55 の塗りが地名を覆って読めなくなる。
   addEraLayers(map, firstSymbolLayerId());
   // 政体名と出来事は最前面（下地のラベルより上）
   addEraLabelLayer(map);
+  // 海洋名は政体名の後。衝突したら政体名が残る（このサイトの主役は政体名）
+  addSeaLabels();
   addEventLayer(map);
   layersReady = true;
 
   // 現代国境は任意。失敗してもアプリ本体は動かす。
-  loadJson('data/modern-borders.geojson', null).then((geo) => {
+  loadJson('data/modern-borders.geojson', null, { validate: JSON_VALIDATORS.featureCollection }).then((geo) => {
     if (geo) addBorderLayer(map, geo, el.borders.checked);
   });
 
-  const [namesJa, modern, rule, events, topics, overviews, info, eras] = await Promise.all([
-    loadJson('data/names.ja.json', {}),
-    loadJson('data/modern.json', {}),
-    loadJson('data/nonstate.json', { patterns: [], exceptions: [], explicit: [] }),
-    loadJson('data/events.json', []),
-    loadJson('data/topics.json', {}),
-    loadJson('data/overviews.json', {}),
-    loadJson('data/polity-info.json', {}),
-    loadJson('data/name-eras.json', {}),
+  const [namesJa, modern, subjectAliases, rule, events, topics, overviews, info, eras] = await Promise.all([
+    loadJson('data/names.ja.json', {}, { validate: JSON_VALIDATORS.names }),
+    loadJson('data/modern.json', {}, { validate: JSON_VALIDATORS.modern }),
+    loadJson('data/subject-aliases.json', {}, { validate: JSON_VALIDATORS.subjectAliases }),
+    loadJson('data/nonstate.json', { patterns: [], exceptions: [], explicit: [] }, { validate: JSON_VALIDATORS.nonStateRule }),
+    loadJson('data/events.json', [], { validate: JSON_VALIDATORS.events }),
+    loadJson('data/topics.json', {}, { validate: JSON_VALIDATORS.topics }),
+    loadJson('data/overviews.json', {}, { validate: JSON_VALIDATORS.overviews }),
+    loadJson('data/polity-info.json', {}, { validate: JSON_VALIDATORS.polityInfo }),
+    loadJson('data/name-eras.json', {}, { validate: JSON_VALIDATORS.nameEras }),
   ]);
   allOverviews = overviews;
   polityInfo = info;
   nameEras = eras;
   dicts.namesJa = namesJa;
   dicts.modern = modern;
+  dicts.subjectAliases = subjectAliases;
   nonStateRule = rule;
   allEvents = events;
   allTopics = topics;
@@ -534,7 +682,6 @@ map.on('load', async () => {
     if (Number.isInteger(asIndex) && asIndex >= 0 && asIndex < ERA_COUNT) {
       start = asIndex;
     } else {
-      const { ERA_IDS } = await import('./src/eras.js');
       const i = ERA_IDS.indexOf(raw);
       if (i >= 0) start = i;
     }

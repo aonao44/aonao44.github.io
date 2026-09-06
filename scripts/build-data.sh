@@ -99,6 +99,13 @@ for era in "${ERAS[@]}"; do
   build_era "$era"
 done
 
+# 原典に混入した数値 SUBJECTO を、既知の feature だけに限定して補正する。
+# skip 済みの生成物にも適用し、部分ビルドと全ビルドで結果を一致させる。
+node "$ROOT/scripts/normalize-era-data.mjs" "${ERAS[@]}"
+
+# geometry:null を索引へ混ぜない現行規則で、断面ナビゲーション用索引も同期する。
+node "$ROOT/scripts/build-name-eras.mjs"
+
 # --- Natural Earth 110m 国境線 ---
 if [ ! -f "$BORDERS_OUT" ] || [ "${FORCE:-0}" = "1" ]; then
   echo "fetch  modern-borders (Natural Earth 110m admin-0 boundary lines)"

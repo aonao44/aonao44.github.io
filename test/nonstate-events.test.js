@@ -5,9 +5,13 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 
 import { compileNonStateRule, isNonState, EMPTY_RULE } from '../src/nonstate.js';
-import { eventsForEra, eventYearLabel } from '../src/events.js';
-import { decorateEra, colorForName, strokeForName, hueForName } from '../src/layers.js';
-import { ERAS, ERA_COUNT } from '../src/eras.js';
+import * as eventModule from '../src/events.js';
+import { eventsForEra } from '../src/events.js';
+import {
+  decorateEra, colorForName, strokeForName, hueForName,
+  WATER_HUE_MIN, WATER_HUE_MAX, NONSTATE_FILL, NONSTATE_STROKE,
+} from '../src/layers.js';
+import { ERAS, ERA_COUNT, formatYear } from '../src/eras.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = (p) => JSON.parse(readFileSync(join(root, p), 'utf8'));
@@ -123,6 +127,109 @@ test('colours are saturated enough to tell polities apart', () => {
   assert.ok(sat >= 60, `fill saturation should be strong, got ${sat}%`);
 });
 
+// --- 非国家は無彩色 ---
+
+const saturationOf = (hsl) => Number(/hsl\(\d+, (\d+)%/.exec(hsl)[1]);
+
+test('the non-state palette is achromatic and darker on the outline', () => {
+  assert.equal(saturationOf(NONSTATE_FILL), 0, 'fill must be achromatic');
+  assert.equal(saturationOf(NONSTATE_STROKE), 0, 'stroke must be achromatic');
+  const light = (hsl) => Number(/(\d+)%\)$/.exec(hsl)[1]);
+  assert.ok(light(NONSTATE_STROKE) < light(NONSTATE_FILL), 'outline must stay darker than fill');
+});
+
+test('colorForName ignores a stray second argument from Array.map', () => {
+  // 真偽値の第2引数を足すと names.map(colorForName) がインデックスを渡し、
+  // 2件目以降が黙って非国家扱いになる。その退行を固定する。
+  const names = ['Roman Empire', 'Han Empire', 'Mongol Empire', 'Ottoman Empire'];
+  assert.equal(new Set(names.map(colorForName)).size, names.length);
+  assert.equal(new Set(names.map(strokeForName)).size, names.length);
+});
+
+test('decorateEra hands the non-state verdict to the colours it bakes in', () => {
+  const rule = readJson('data/nonstate.json');
+  const out = decorateEra({
+    features: [
+      { properties: { NAME: 'Amazon hunter-gatherers' } },
+      { properties: { NAME: 'Roman Empire' } },
+    ],
+  }, rule);
+
+  const [culture, empire] = out.features.map((f) => f.properties);
+  assert.equal(culture._nonstate, true);
+  assert.equal(saturationOf(culture._color), 0, 'a culture must not be tinted');
+  assert.equal(saturationOf(culture._stroke), 0);
+  assert.equal(empire._nonstate, false);
+  assert.ok(saturationOf(empire._color) >= 60, 'an empire keeps its identifying hue');
+});
+
+test('every non-state culture in the real corpus comes out achromatic', () => {
+  const rule = readJson('data/nonstate.json');
+  const compiled = compileNonStateRule(rule);
+  const names = Object.keys(readJson('data/names.ja.json'));
+  const cultures = names.filter((name) => isNonState(name, compiled));
+  assert.ok(cultures.length > 100, `the corpus must contain cultures, found ${cultures.length}`);
+
+  const decorated = decorateEra(
+    { features: cultures.map((NAME) => ({ properties: { NAME } })) },
+    rule,
+  );
+  const tinted = decorated.features
+    .filter((f) => saturationOf(f.properties._color) !== 0
+      || saturationOf(f.properties._stroke) !== 0)
+    .map((f) => f.properties.NAME);
+
+  assert.deepEqual(tinted, [], 'these cultures would still be tinted');
+});
+
+// --- 海の青は政体に使わない ---
+
+test('no polity in the whole corpus is given a hue reserved for the sea', () => {
+  const names = Object.keys(readJson('data/names.ja.json'));
+  assert.ok(names.length > 2000, 'the real corpus must be exercised');
+
+  const clashes = names.filter((name) => {
+    const hue = hueForName(name);
+    return hue >= WATER_HUE_MIN && hue <= WATER_HUE_MAX;
+  });
+  assert.deepEqual(clashes, [], 'these polities would be coloured like the sea');
+});
+
+test('the reserved band is skipped, not clamped onto its edges', () => {
+  // 帯を「端に丸める」実装だと WATER_HUE_MIN-1 / WATER_HUE_MAX+1 に山ができる。
+  const counts = new Map();
+  for (let i = 0; i < 20000; i += 1) {
+    const hue = hueForName(`synthetic polity ${i}`);
+    assert.ok(hue >= 0 && hue < 360, `hue out of range: ${hue}`);
+    assert.ok(
+      hue < WATER_HUE_MIN || hue > WATER_HUE_MAX,
+      `hue ${hue} fell inside the sea band`,
+    );
+    counts.set(hue, (counts.get(hue) ?? 0) + 1);
+  }
+  const edges = (counts.get(WATER_HUE_MIN - 1) ?? 0) + (counts.get(WATER_HUE_MAX + 1) ?? 0);
+  const typical = 20000 / (360 - (WATER_HUE_MAX - WATER_HUE_MIN + 1));
+  assert.ok(edges < typical * 6, `hues piled up on the band edges: ${edges}`);
+});
+
+test('the sea colours in the legend and the map sit inside the reserved band', () => {
+  const html = readFileSync(join(root, 'index.html'), 'utf8');
+  const app = readFileSync(join(root, 'app.js'), 'utf8');
+
+  const hues = [
+    ...html.matchAll(/\.lg-sea\s*\{[^}]*?hsl\((\d+),/gs),
+    ...app.matchAll(/WATER_(?:FILL|LABEL)_COLOR\s*=\s*'hsl\((\d+),/g),
+  ].map((m) => Number(m[1]));
+
+  assert.equal(hues.length, 3, 'expected the legend swatch plus both map colours');
+  for (const hue of hues) {
+    assert.ok(
+      hue >= WATER_HUE_MIN && hue <= WATER_HUE_MAX,
+      `sea colour hue ${hue} is outside the reserved band`,
+    );
+  }
+});
+
 // --- 出来事 ---
 
 test('eventsForEra takes events after the previous era up to this one', () => {
@@ -154,9 +261,10 @@ test('eventsForEra clamps out-of-range indexes and handles no events', () => {
   assert.deepEqual(eventsForEra(-5, [{ year: -5000 }]).map((e) => e.year), [-5000]);
 });
 
-test('eventYearLabel matches the slider label format', () => {
-  assert.equal(eventYearLabel(-753), '紀元前753年');
-  assert.equal(eventYearLabel(1492), '1492年');
+test('events share the canonical year formatter instead of duplicating it', () => {
+  assert.equal('eventYearLabel' in eventModule, false);
+  assert.equal(formatYear(-753), '紀元前753年');
+  assert.equal(formatYear(1492), '1492年');
 });
 
 // --- 同梱データ ---

@@ -6,6 +6,7 @@ import { dirname, join, resolve } from 'node:path';
 
 import { interiorPoint, pointInRing, buildLabelFeatures } from '../src/labelpoint.js';
 import { decorateEra, geometryArea } from '../src/layers.js';
+import { ERA_IDS } from '../src/eras.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = (p) => JSON.parse(readFileSync(join(root, p), 'utf8'));
@@ -142,10 +143,57 @@ test('no era file contains a NAME whose translation is missing after trimming', 
 test('geometryArea is plausible for a known country', () => {
   const era = readJson('data/eras/2010.geojson');
   const japan = era.features.find((f) => f.properties?.NAME === 'Japan');
-  if (!japan) return; // データに無ければスキップ
+  assert.ok(japan, 'Japan must exist in the 2010 data');
   const km2 = geometryArea(japan.geometry);
   // 日本は約 37.8 万 km^2。簡略化とマルチポリゴンの粗さを見込んで広めに取る
   assert.ok(km2 > 200000 && km2 < 600000, `Japan area looked wrong: ${km2} km2`);
+});
+
+test('all 9,305 label points across 48 eras stay strictly inside and off outer vertices', () => {
+  const names = readJson('data/names.ja.json');
+  const rule = readJson('data/nonstate.json');
+  let total = 0;
+
+  const areaOfRing = (ring) => {
+    let sum = 0;
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i, i += 1) {
+      sum += (ring[j][0] * ring[i][1]) - (ring[i][0] * ring[j][1]);
+    }
+    return Math.abs(sum / 2);
+  };
+
+  for (const id of ERA_IDS) {
+    const decorated = decorateEra(readJson(`data/eras/${id}.geojson`), rule, names);
+    const labels = buildLabelFeatures(decorated.features);
+    total += labels.features.length;
+
+    for (const label of labels.features) {
+      const source = decorated.features.find((feature) => (
+        feature.properties.NAME === label.properties.NAME
+        && feature.properties._area === label.properties._area
+      ));
+      assert.ok(source, `${id}/${label.properties.NAME}: source feature missing`);
+
+      const polygons = source.geometry.type === 'Polygon'
+        ? [source.geometry.coordinates]
+        : source.geometry.coordinates;
+      const rings = polygons.reduce((largest, candidate) => (
+        areaOfRing(candidate[0]) > areaOfRing(largest[0]) ? candidate : largest
+      ));
+      const point = label.geometry.coordinates;
+      assert.equal(pointInRing(point, rings[0]), true, `${id}/${label.properties.NAME}: outside outer ring`);
+      for (const hole of rings.slice(1)) {
+        assert.equal(pointInRing(point, hole), false, `${id}/${label.properties.NAME}: inside a hole`);
+      }
+      assert.equal(
+        rings[0].some(([x, y]) => x === point[0] && y === point[1]),
+        false,
+        `${id}/${label.properties.NAME}: fell back to an outer vertex`,
+      );
+    }
+  }
+
+  assert.equal(total, 9305, 'the full 48-era corpus must be exercised');
 });
 
 test('geometryArea returns 0 for non-polygons', () => {

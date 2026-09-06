@@ -47,16 +47,18 @@
 - どの勢力が伸び/傾き、地域どうしがどうつながっていたかを地域横断で書く
 
 ### 政体の来歴 `data/polity-info.json`
-- **全2548政体** の `{summary_ja, period_ja?, capital_ja?, name_ja?}`
+- 描画可能な geometry を持つ **全2546政体** の `{summary_ja, period_ja?, capital_ja?, name_ja?}`
 - 主要293件は3〜4文（起こり→最盛期→衰亡）、残りは1〜3文
 - `period_ja` は任意。年代を確証できない政体では**省くのが正しい**（捏造しない）
 - 政体パネルの名前と「現在の国」のあいだに出す
 
 ### 登場する断面 `data/name-eras.json`
-- `scripts/build-name-eras.mjs` が生成。NAME → 登場する断面 ID の配列
+- `scripts/build-name-eras.mjs` が生成。描画可能な geometry を持つ NAME → 登場する断面 ID の配列
 - 政体パネルに「登場する断面: 前1年〜200年（3断面）」と出し、最初/前/次/最後で移動する
 - 移動先にその政体が居れば選択を持ち越す
 - **表記揺れ（Bantu/Bantou 等）は統合しない。** 機械的な名寄せは別物の政体まで束ねるため
+- `SUBJECTO` の既知の省略・綴り揺れは `data/subject-aliases.json` で既存 NAME に寄せる
+- 原典の数値 `SUBJECTO` は別名辞書に入れず、出典 feature を限定した生成後処理で補正する
 
 ### 断面ごとのトピック `data/topics.json`
 - 各断面に 4〜7 件。その年代に世界で何が起きていたかを地域横断で並べる

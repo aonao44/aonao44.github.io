@@ -20,12 +20,3 @@ export function eventsForEra(index, events = []) {
     .filter((e) => Number.isFinite(e?.year) && e.year > lower && e.year <= upper)
     .sort((a, b) => a.year - b.year);
 }
-
-/**
- * 出来事の年ラベル。formatYear と同じ規則。
- * @param {number} year
- * @returns {string}
- */
-export function eventYearLabel(year) {
-  return year < 0 ? `紀元前${Math.abs(year)}年` : `${year}年`;
-}

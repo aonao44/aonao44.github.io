@@ -150,12 +150,17 @@
     font-size: 11.5px; line-height: 1.55; color: #4b4b50;
     box-shadow: 0 2px 10px rgba(0, 0, 0, .07);
   }
+  /* 凡例はどの幅でも畳める。地図の左下は版図が見たい場所でもあるため。
+     既定は PC=開く / モバイル=畳む で、app.js が初期状態を決める。 */
   #legend-toggle {
-    display: none;
+    display: block;
     background: none; border: 0; padding: 0;
     font: inherit; font-weight: 600; color: var(--ink); cursor: pointer;
   }
-  #legend-body { list-style: none; margin: 0; padding: 0; }
+  #legend-toggle::after { content: ' ▸'; }
+  #legend.is-expanded #legend-toggle::after { content: ' ▾'; }
+  #legend-body { display: none; list-style: none; margin: 7px 0 0; padding: 0; }
+  #legend.is-expanded #legend-body { display: block; }
   #legend-body li {
     display: flex; align-items: flex-start; gap: 7px;
     margin-top: 5px;
@@ -371,13 +376,6 @@
       max-width: calc(100% - 16px);
       padding: 7px 10px;
     }
-    #legend-toggle { display: block; }
-    #legend-toggle::after { content: ' ▸'; }
-    /* 既定は畳んだ状態。開いた時だけ本体を出す */
-    #legend-body { display: none; margin-top: 7px; }
-    #legend.is-expanded #legend-body { display: block; }
-    #legend.is-expanded #legend-toggle::after { content: ' ▾'; }
-
     .bar-end { font-size: 10px; }
     #year-input { width: 92px; }
     #year-format-hint { left: 0; right: auto; width: calc(100vw - 20px); }

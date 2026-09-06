@@ -485,11 +485,22 @@ el.sheetHandle.addEventListener('click', () => {
 mobileSheet.addEventListener('change', syncSheetInteractivity);
 syncSheetInteractivity();
 
-// --- 凡例（モバイルでは既定で畳まれ、トグルで開く） ---
-// 開閉は is-expanded で表す。デスクトップでは CSS 側で常に開いた見た目になる。
-el.legendToggle.addEventListener('click', () => {
-  const expanded = el.legend.classList.toggle('is-expanded');
+// --- 凡例 ---
+// どの幅でも畳める。左下は版図そのものを見たい場所でもあるため、
+// 読み終えた凡例は退かせられる必要がある。
+// 既定は PC=開く / モバイル=畳む。畳んでも見出しの「凡例」は残るので開き直せる。
+const LEGEND_OPEN_BY_DEFAULT = '(min-width: 768px)';
+
+/** 凡例の開閉を、見た目と支援技術の両方へ反映する。 */
+function setLegendExpanded(expanded) {
+  el.legend.classList.toggle('is-expanded', expanded);
   el.legendToggle.setAttribute('aria-expanded', String(expanded));
+}
+
+setLegendExpanded(window.matchMedia(LEGEND_OPEN_BY_DEFAULT).matches);
+
+el.legendToggle.addEventListener('click', () => {
+  setLegendExpanded(!el.legend.classList.contains('is-expanded'));
 });
 
 // --- 起動 ---

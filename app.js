@@ -68,8 +68,11 @@ let basemapLabelStats = { localised: 0, demoted: 0, cityLayers: 0 };
 let shownIndex = -1;
 /** ロード要求の世代。古い応答で新しい表示を上書きしないため。 */
 let requestSeq = 0;
-/** 地図レイヤーの準備ができたか。'load' 前のスライダー操作を待たせるのに使う。 */
+/** 地図レイヤーの準備ができたか。レイヤー追加前のスライダー操作を待たせるのに使う。 */
 let layersReady = false;
+/** 同じ準備完了を待てる約束。'load' を二度待ちして固まるのを避けるため。 */
+let markLayersReady;
+const layersReadyPromise = new Promise((resolve) => { markLayersReady = resolve; });
 /** feature-state で強調中のポリゴン id。 */
 let selectedId = null;
 /** 強調中の政体名（断面をまたいで選択を持ち越すのに使う）。 */
@@ -157,10 +160,11 @@ async function showEra(index) {
     const geojson = await store.load(era.id);
     if (seq !== requestSeq) return; // より新しい要求に追い越された
 
-    // 地図の 'load' 前に呼ばれるとレイヤーがまだ無い。これはロード失敗ではないので、
+    // レイヤー追加前に呼ばれると描き込む先がまだ無い。これはロード失敗ではないので、
     // トーストを出さずに準備できるまで待ってから描く。
+    // map.once('load') を待ってはいけない。既に発火済みなら二度と解決しない。
     if (!layersReady) {
-      await new Promise((resolve) => { map.once('load', resolve); });
+      await layersReadyPromise;
       if (seq !== requestSeq) return;
     }
 
@@ -633,7 +637,29 @@ function firstSymbolLayerId() {
   return found?.id;
 }
 
-map.on('load', async () => {
+/**
+ * レイヤーを載せられるようになったら解決する。
+ *
+ * 以前は起動処理を丸ごと map.on('load') にぶら下げていた。'load' は下地の
+ * タイルが最初の一枚描けるまで発火しないので、OpenFreeMap のタイルが
+ * 返ってこないと、エラーもトーストも出ないまま画面が白いままになる
+ * （実際に発生。version polygon もパネルも一切出ない）。
+ * レイヤー追加に要るのはスタイルだけなので 'style.load' で足りる。
+ * タイルが来なくても、下地が白いまま版図と政体名は読める。
+ */
+const styleReady = new Promise((resolve) => {
+  if (map.isStyleLoaded()) resolve();
+  else map.once('style.load', resolve);
+});
+
+/** スタイルすら来ない時に、白い画面のまま放置せず再読み込みを促すまでの猶予。 */
+const STYLE_TIMEOUT_MS = 20000;
+setTimeout(() => {
+  if (layersReady) return;
+  showToast('地図の下地を読み込めませんでした', () => location.reload());
+}, STYLE_TIMEOUT_MS);
+
+styleReady.then(async () => {
   basemapLabelStats = localiseBasemapLabels();
   colourWater();
 
@@ -646,6 +672,7 @@ map.on('load', async () => {
   addSeaLabels();
   addEventLayer(map);
   layersReady = true;
+  markLayersReady();
 
   // 現代国境は任意。失敗してもアプリ本体は動かす。
   loadJson('data/modern-borders.geojson', null, { validate: JSON_VALIDATORS.featureCollection }).then((geo) => {

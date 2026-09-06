@@ -1,0 +1,53 @@
+# npm test は node だけで走るので app.js を一度も実行しない。それだけを信じていた結果、
+# 「下地のタイルが返ってこないと画面が真っ白のまま固まる」欠陥が本番まで出た。
+# だからここでは単体テストと、実ブラウザでの起動検査の両方を回す。
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+# 同じブランチに続けて push した時、古い実行は畳む。
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # package-lock.json は .gitignore に入れてあるので npm ci は使えない。
+      - name: 依存を入れる
+        run: npm install --no-audit --no-fund
+
+      - name: データと配色の単体テスト
+        run: npm test
+
+      - name: Chromium を入れる
+        run: npx playwright install --with-deps chromium
+
+      # startup-check は静的サーバ越しの本番同等の読み込みを見るので、実際に配信する。
+      - name: 静的サーバを起動する
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 &
+          for i in $(seq 1 30); do
+            curl -sf -o /dev/null http://127.0.0.1:8765/index.html && exit 0
+            sleep 1
+          done
+          echo "静的サーバが立ち上がらなかった" >&2
+          exit 1
+
+      # 下地が来ない/スタイルが来ない時に白紙で固まらないことを実ブラウザで確認する。
+      # MapLibre を jsDelivr から、下地を OpenFreeMap から実際に取りに行くため、
+      # 外部が落ちている時はここが落ちる。CI の落ち方としてはそれで正しい。
+      - name: 実ブラウザでの起動検査
+        run: npm run check:startup

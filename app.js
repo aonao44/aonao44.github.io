@@ -175,7 +175,7 @@ async function showEra(index) {
 
     clearSelection();
     setEraData(map, geojson, nonStateRule, dicts.namesJa);
-    setEventData(map, eventsForEra(index, allEvents));
+    setEventData(map, eventsForEra(index, allEvents, typedYear));
     shownIndex = index;
     // ロード成功をもってスライダーと年表示を確定する。再試行から成功した場合も揃う。
     syncEraControls(index);
@@ -217,9 +217,15 @@ function setYearInputInvalid(invalid) {
   applyYearInputInvalid(el.yearInput, invalid);
 }
 
+// 読者が年を打ち込んだ時だけ入る。断面は指定年以前へ寄るので、これが無いと
+// 「その年にはもう起きている出来事」が一つ先の断面に隠れる（例: 紀元前220年と
+// 打つと紀元前300年の地図が出るが、秦の中国統一(前221)は見えない）。
+let typedYear = null;
+
 function clearTypedYear() {
   clearYearInputState(el.yearInput, el.yearHint);
   lastAppliedYearInput = null;
+  typedYear = null;
 }
 
 // ドラッグ中はラベルだけ更新（spec）
@@ -284,6 +290,7 @@ async function jumpToTypedYear() {
   setYearInputInvalid(false);
   el.yearHint.textContent = '';
   lastAppliedYearInput = raw;
+  typedYear = result.year;
   const loaded = await goTo(result.index);
   if (loaded) {
     el.yearHint.textContent = result.snapped ? snapNotice(result) : '';

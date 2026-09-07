@@ -251,6 +251,23 @@ function goTo(index, options = {}) {
  */
 let lastAppliedYearInput = null;
 
+/**
+ * 打った年そのものの地図は無い、と伝える。
+ *
+ * 「→ 紀元前300年の断面を表示」だけだと、どれだけ離れた年を見せられているのか
+ * 読み取れない。紀元前300年と紀元前200年の間には断面が無いので、紀元前220年と
+ * 打つと 80年前が出る。そこに秦帝国(前221-206)は無く、居るのは戦国七雄の秦。
+ * これを黙って出すと「サイトが壊れている」に見えるので、ずれ幅を必ず添える。
+ *
+ * @param {{year: number, index: number, era: {year: number}}} result resolveYearInput の結果
+ * @returns {string}
+ */
+function snapNotice(result) {
+  const gap = Math.abs(result.year - result.era.year);
+  const side = result.era.year < result.year ? '前' : '後';
+  return `${formatYear(result.year)}の地図はありません → ${labelAt(result.index)}を表示（${gap}年${side}）`;
+}
+
 async function jumpToTypedYear() {
   pendingSelectName = null;
   const raw = el.yearInput.value;
@@ -269,9 +286,7 @@ async function jumpToTypedYear() {
   lastAppliedYearInput = raw;
   const loaded = await goTo(result.index);
   if (loaded) {
-    el.yearHint.textContent = result.snapped
-      ? `→ ${labelAt(result.index)}の断面を表示`
-      : '';
+    el.yearHint.textContent = result.snapped ? snapNotice(result) : '';
   }
 }
 

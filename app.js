@@ -2,10 +2,15 @@
 
 // MapLibre GL JS v6 は ESM のみ配布されており、UMD グローバル (window.maplibregl) も
 // default export も無い。名前付き export をここで import する。
+//
+// CDN ではなく vendor/ に同梱している。学校などホワイトリスト運用のネットワークで
+// jsDelivr が塞がれると、この import が失敗した時点で app.js 全体が死に、画面が
+// 真っ白のまま何のエラーも出せない（実測で確認）。地図タイルは外部に頼らざるを
+// 得ないが、少なくとも本体は自分で配れる。
 import {
   Map as MapLibreMap,
   NavigationControl,
-} from 'https://cdn.jsdelivr.net/npm/maplibre-gl@6.5.0/dist/maplibre-gl.mjs';
+} from './vendor/maplibre-gl/maplibre-gl.mjs';
 
 import {
   ERA_COUNT, ERA_IDS, eraAt, labelAt, formatYear, indexOfEra, EraStore,

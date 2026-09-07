@@ -4,7 +4,25 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>imperia — 世界史の版図を現代地図に重ねる</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@6.5.0/dist/maplibre-gl.css">
+<meta name="description" content="紀元前3000年から2010年までの48断面で、世界史の版図を現代の地図に重ねて見られます。2,548の政体名を日本語で表示し、年代を動かすと国境が変わります。">
+
+<!-- 共有された時のカード。これが無いと SNS でもチャットでもただの青いリンクになり、
+     地図サイトなのに絵が出ない。og:image は実際の地図(1279年)から生成している。 -->
+<link rel="canonical" href="https://aonao44.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="imperia">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:url" content="https://aonao44.github.io/">
+<meta property="og:title" content="imperia — 世界史の版図を現代地図に重ねる">
+<meta property="og:description" content="紀元前3000年から2010年までの48断面で、世界史の版図を現代の地図に重ねて見られます。2,548の政体名を日本語で表示し、年代を動かすと国境が変わります。">
+<meta property="og:image" content="https://aonao44.github.io/assets/ogp.png">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="1008">
+<meta property="og:image:alt" content="1279年のユーラシア。キプチャク・ハン国やイルハン国などモンゴル系の版図が、現代の国境の上に日本語で描かれている。">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./vendor/maplibre-gl/maplibre-gl.css">
 <style>
   :root {
     --panel-w: 320px;

@@ -319,6 +319,25 @@ function openSheet() {
   syncSheetInteractivity();
 }
 
+/**
+ * 指定年が断面より後のとき、その間に起きたことをまとめる。
+ *
+ * 地図は断面のまま止まっているので、指定年の時点で既に起きたことは地図と
+ * 食い違う。紀元前220年を求めた読者に紀元前300年の分裂した中国を見せて、
+ * 秦の統一に一言も触れないのは、事実として誤った印象を与える。
+ *
+ * @returns {{askedLabel:string, events:Array, formatYear:Function}|null}
+ */
+function changesSinceShownEra() {
+  if (typedYear === null) return null;
+  const era = eraAt(shownIndex < 0 ? Number(el.slider.value) : shownIndex);
+  if (typedYear <= era.year) return null;
+  const events = eventsForEra(shownIndex, allEvents, typedYear)
+    .filter((e) => e.year > era.year);
+  if (!events.length) return null;
+  return { askedLabel: formatYear(typedYear), events, formatYear };
+}
+
 /** 現在の断面のトピック一覧をパネルに出す（既定表示）。 */
 function showTopics() {
   const era = eraAt(shownIndex < 0 ? Number(el.slider.value) : shownIndex);
@@ -328,6 +347,7 @@ function showTopics() {
     allTopics[era.id] ?? [],
     dicts.namesJa,
     allOverviews[era.id] ?? '',
+    changesSinceShownEra(),
   );
 }
 

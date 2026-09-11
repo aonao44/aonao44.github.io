@@ -241,3 +241,48 @@ test('renderTopics omits the overview block when there is none', () => {
   renderTopics(el, '100年', [], {}, '');
   assert.ok(!el.innerHTML.includes('この時代の世界'));
 });
+
+// --- 地図より後に起きたこと ---
+// 断面は指定年より前へ寄るので、地図は指定年時点の世界と食い違う。
+// 紀元前220年を求めた読者に紀元前300年の分裂した中国を見せて秦の統一に
+// 触れないのは、事実として誤った印象を与える。
+
+const fakeYear = (y) => (y < 0 ? `紀元前${Math.abs(y)}年` : `${y}年`);
+
+test('renderTopics leads with what changed after the map it is showing', () => {
+  const el = { innerHTML: '', prepend() {} };
+  renderTopics(el, '紀元前300年', [
+    { title_ja: 'T', body_ja: 'B', wiki_url: 'https://ja.wikipedia.org/wiki/X' },
+  ], {}, 'この時代の概説', {
+    askedLabel: '紀元前220年',
+    formatYear: fakeYear,
+    events: [{
+      year: -221,
+      title_ja: '秦の中国統一',
+      summary_ja: '秦王政が中国全土を統一し、始皇帝として中央集権的な統一帝国を築いた。',
+      source_url: 'https://ja.wikipedia.org/wiki/秦',
+    }],
+  });
+
+  assert.match(el.innerHTML, /この地図は紀元前300年のものです/, '地図がいつのものか言っていない');
+  assert.match(el.innerHTML, /紀元前220年までに/, '読者が求めた年を言っていない');
+  assert.match(el.innerHTML, /秦の中国統一/);
+  assert.match(el.innerHTML, /紀元前221年/, '出来事の年が出ていない');
+  assert.match(el.innerHTML, /始皇帝/, '何が起きたのか説明していない');
+  assert.match(el.innerHTML, /ja\.wikipedia\.org/, '出典が無い');
+  assert.ok(
+    el.innerHTML.indexOf('秦の中国統一') < el.innerHTML.indexOf('この時代の概説'),
+    '地図と食い違う内容なので、概説より前に出す',
+  );
+});
+
+test('renderTopics stays quiet when the map is the year that was asked for', () => {
+  const el = { innerHTML: '', prepend() {} };
+  renderTopics(el, '紀元前300年', [], {}, '概説', null);
+  assert.ok(!el.innerHTML.includes('この地図は'), '寄せていないのに注意書きが出ている');
+
+  const empty = { innerHTML: '', prepend() {} };
+  renderTopics(empty, '紀元前300年', [], {}, '概説',
+    { askedLabel: '紀元前290年', formatYear: fakeYear, events: [] });
+  assert.ok(!empty.innerHTML.includes('この地図は'), '出来事ゼロでも枠が出ている');
+});

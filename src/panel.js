@@ -147,8 +147,29 @@ export function renderEventPanel(el, ev, formatYear) {
  * @param {string} eraLabel 「紀元前1年」など
  * @param {Array<{title_ja:string,body_ja:string,polity?:string,wiki_url:string}>} topics
  * @param {Record<string,string>} [namesJa] polity の日本語名引き
+ * @param {string} [overview] その断面の概説
+ * @param {{askedLabel:string, events:Array<{year:number,title_ja:string,summary_ja:string,source_url:string}>, formatYear:Function}|null} [since]
+ *   読者が指定した年が断面より後のとき、その間に起きたこと。
+ *   地図は断面のままなので、指定年の時点で既に起きたことは地図と食い違う。
+ *   紀元前220年を求めた読者に紀元前300年の分裂した中国を見せて、
+ *   秦の統一に触れないのは、事実として誤った印象を与える。
  */
-export function renderTopics(el, eraLabel, topics = [], namesJa = {}, overview = '') {
+export function renderTopics(el, eraLabel, topics = [], namesJa = {}, overview = '', since = null) {
+  const sinceHtml = since && since.events.length
+    ? '<section class="since" data-testid="era-since">'
+      + `<h3 class="since-title">この地図は${escapeHtml(eraLabel)}のものです。`
+      + `${escapeHtml(since.askedLabel)}までに、こう変わりました</h3>`
+      + `<ul class="since-list">${since.events.map((e) => '<li class="since-item">'
+        + `<span class="since-year">${escapeHtml(since.formatYear(e.year))}</span>`
+        + `<span class="since-name">${escapeHtml(e.title_ja ?? '')}</span>`
+        + `<p class="since-body">${escapeHtml(e.summary_ja ?? '')}</p>`
+        + (e.source_url
+          ? `<p class="topic-source"><a href="${escapeHtml(e.source_url)}" target="_blank" rel="noopener noreferrer">Wikipedia</a></p>`
+          : '')
+        + '</li>').join('')}</ul>`
+      + '</section>'
+    : '';
+
   const overviewHtml = overview
     ? `<section class="overview" data-testid="era-overview">`
       + '<h3 class="overview-title">この時代の世界</h3>'
@@ -158,6 +179,7 @@ export function renderTopics(el, eraLabel, topics = [], namesJa = {}, overview =
 
   if (!topics.length) {
     el.innerHTML = `<p class="panel-kicker">${escapeHtml(eraLabel)}</p>`
+      + sinceHtml
       + overviewHtml
       + '<p class="panel-hint">この年代のトピックはまだ登録されていません。'
       + '地図上の政体をクリックすると詳細が出ます。</p>';
@@ -181,6 +203,7 @@ export function renderTopics(el, eraLabel, topics = [], namesJa = {}, overview =
   });
 
   el.innerHTML = `<p class="panel-kicker" data-testid="topics-era">${escapeHtml(eraLabel)}</p>`
+    + sinceHtml
     + overviewHtml
     + '<h3 class="topics-title">この時代のトピック</h3>'
     + `<ul class="topics" data-testid="topics-list">${items.join('')}</ul>`;

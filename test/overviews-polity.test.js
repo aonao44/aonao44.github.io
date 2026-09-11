@@ -286,3 +286,32 @@ test('renderTopics stays quiet when the map is the year that was asked for', () 
     { askedLabel: '紀元前290年', formatYear: fakeYear, events: [] });
   assert.ok(!empty.innerHTML.includes('この地図は'), '出来事ゼロでも枠が出ている');
 });
+
+// --- 戦国期のラベル ---
+// 地図の文法は「1色1ラベル = 1つの国」なので、秦の隣に「周諸国」と書くと
+// 秦が周の世界の外から来た別の国に見える。実際には秦も戦国七雄の一つで、
+// 「周諸国」として塗られているのは秦を除いた六国。ラベルがそう言う必要がある。
+
+test('the warring states label does not read as a country separate from Qin', () => {
+  const names = readJson('data/names.ja.json');
+  const info = readJson('data/polity-info.json');
+
+  // 秦が分離して描かれる断面（bc323 / bc300）の塊は「六国」
+  assert.equal(names['Zhow states'], '戦国六国');
+  // 秦がまだ分離していない春秋期（bc500 / bc400）はそのまま
+  assert.equal(names['Zhou states'], '周諸国');
+  assert.notEqual(names['Zhow states'], names['Zhou states'], '二つの時代を同じ名前にしない');
+
+  const six = info['Zhow states'].summary_ja;
+  assert.match(six, /秦/, '秦との関係に触れていない');
+  assert.match(six, /斉.*楚.*燕.*韓.*魏.*趙/, '六国を数え上げていない');
+  assert.match(six, /七雄|同じ周の世界/, '秦が同じ世界の一員だと言っていない');
+});
+
+test('the eras that separate Qin are exactly the ones relabelled', () => {
+  const nameEras = readJson('data/name-eras.json');
+  assert.deepEqual(nameEras['Zhow states'], ['bc323', 'bc300']);
+  assert.deepEqual(nameEras['Zhou states'], ['bc500', 'bc400']);
+  // 秦が単独で立っているのは、六国と並ぶこの二断面だけ
+  assert.deepEqual(nameEras.Qin, ['bc323', 'bc300']);
+});

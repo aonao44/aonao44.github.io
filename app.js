@@ -175,7 +175,7 @@ async function showEra(index) {
 
     clearSelection();
     setEraData(map, geojson, nonStateRule, dicts.namesJa);
-    setEventData(map, eventsForEra(index, allEvents));
+    setEventData(map, eventsForEra(index, allEvents, typedYear));
     shownIndex = index;
     // ロード成功をもってスライダーと年表示を確定する。再試行から成功した場合も揃う。
     syncEraControls(index);
@@ -217,9 +217,15 @@ function setYearInputInvalid(invalid) {
   applyYearInputInvalid(el.yearInput, invalid);
 }
 
+// 読者が年を打ち込んだ時だけ入る。断面は指定年以前へ寄るので、これが無いと
+// 「その年にはもう起きている出来事」が一つ先の断面に隠れる（例: 紀元前220年と
+// 打つと紀元前300年の地図が出るが、秦の中国統一(前221)は見えない）。
+let typedYear = null;
+
 function clearTypedYear() {
   clearYearInputState(el.yearInput, el.yearHint);
   lastAppliedYearInput = null;
+  typedYear = null;
 }
 
 // ドラッグ中はラベルだけ更新（spec）
@@ -251,6 +257,23 @@ function goTo(index, options = {}) {
  */
 let lastAppliedYearInput = null;
 
+/**
+ * 打った年そのものの地図は無い、と伝える。
+ *
+ * 「→ 紀元前300年の断面を表示」だけだと、どれだけ離れた年を見せられているのか
+ * 読み取れない。紀元前300年と紀元前200年の間には断面が無いので、紀元前220年と
+ * 打つと 80年前が出る。そこに秦帝国(前221-206)は無く、居るのは戦国七雄の秦。
+ * これを黙って出すと「サイトが壊れている」に見えるので、ずれ幅を必ず添える。
+ *
+ * @param {{year: number, index: number, era: {year: number}}} result resolveYearInput の結果
+ * @returns {string}
+ */
+function snapNotice(result) {
+  const gap = Math.abs(result.year - result.era.year);
+  const side = result.era.year < result.year ? '前' : '後';
+  return `${formatYear(result.year)}の地図はありません → ${labelAt(result.index)}を表示（${gap}年${side}）`;
+}
+
 async function jumpToTypedYear() {
   pendingSelectName = null;
   const raw = el.yearInput.value;
@@ -267,11 +290,10 @@ async function jumpToTypedYear() {
   setYearInputInvalid(false);
   el.yearHint.textContent = '';
   lastAppliedYearInput = raw;
+  typedYear = result.year;
   const loaded = await goTo(result.index);
   if (loaded) {
-    el.yearHint.textContent = result.snapped
-      ? `→ ${labelAt(result.index)}の断面を表示`
-      : '';
+    el.yearHint.textContent = result.snapped ? snapNotice(result) : '';
   }
 }
 
@@ -297,6 +319,25 @@ function openSheet() {
   syncSheetInteractivity();
 }
 
+/**
+ * 指定年が断面より後のとき、その間に起きたことをまとめる。
+ *
+ * 地図は断面のまま止まっているので、指定年の時点で既に起きたことは地図と
+ * 食い違う。紀元前220年を求めた読者に紀元前300年の分裂した中国を見せて、
+ * 秦の統一に一言も触れないのは、事実として誤った印象を与える。
+ *
+ * @returns {{askedLabel:string, events:Array, formatYear:Function}|null}
+ */
+function changesSinceShownEra() {
+  if (typedYear === null) return null;
+  const era = eraAt(shownIndex < 0 ? Number(el.slider.value) : shownIndex);
+  if (typedYear <= era.year) return null;
+  const events = eventsForEra(shownIndex, allEvents, typedYear)
+    .filter((e) => e.year > era.year);
+  if (!events.length) return null;
+  return { askedLabel: formatYear(typedYear), events, formatYear };
+}
+
 /** 現在の断面のトピック一覧をパネルに出す（既定表示）。 */
 function showTopics() {
   const era = eraAt(shownIndex < 0 ? Number(el.slider.value) : shownIndex);
@@ -306,6 +347,7 @@ function showTopics() {
     allTopics[era.id] ?? [],
     dicts.namesJa,
     allOverviews[era.id] ?? '',
+    changesSinceShownEra(),
   );
 }
 

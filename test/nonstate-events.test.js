@@ -11,7 +11,7 @@ import {
   decorateEra, colorForName, strokeForName, hueForName,
   WATER_HUE_MIN, WATER_HUE_MAX, NONSTATE_FILL, NONSTATE_STROKE,
 } from '../src/layers.js';
-import { ERAS, ERA_COUNT, formatYear } from '../src/eras.js';
+import { ERAS, ERA_COUNT, ERA_IDS, formatYear } from '../src/eras.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = (p) => JSON.parse(readFileSync(join(root, p), 'utf8'));
@@ -312,4 +312,50 @@ test('modern.json values are non-empty arrays of Japanese country names', () => 
     for (const v of modern[k]) assert.ok(typeof v === 'string' && v.trim(), `${k}: bad entry`);
   }
   assert.ok(modern['Roman Empire'].includes('イタリア'));
+});
+
+// --- 指定年までの出来事 ---
+// 断面は指定年より前へ寄るのに、出来事は指定年より後の断面に属する。
+// この向きの食い違いで「その年にはもう起きている出来事」が隠れていた。
+
+test('a typed year pulls in what had already happened by then', () => {
+  const events = readJson('data/events.json');
+  const bc300 = ERA_IDS.indexOf('bc300');
+  const has = (list, title) => list.some((e) => e.title_ja === title);
+
+  // 断面そのものを見ているだけなら、まだ起きていない
+  const asEra = eventsForEra(bc300, events);
+  assert.equal(has(asEra, '秦の中国統一'), false, '紀元前300年に前221年の出来事は出ない');
+
+  // 紀元前220年を指定した読者にとっては、統一(前221)はもう済んでいる
+  const asked = eventsForEra(bc300, events, -220);
+  assert.equal(has(asked, '秦の中国統一'), true, '指定年までの出来事が出ていない');
+  assert.ok(asked.every((e) => e.year <= -220), '指定年より後の出来事まで出している');
+  assert.ok(asked.length > asEra.length, '指定年を渡しても増えていない');
+
+  // 統一の前年ならまだ起きていない
+  assert.equal(has(eventsForEra(bc300, events, -222), '秦の中国統一'), false);
+});
+
+test('a typed year never reaches past the next era or drags in older ones', () => {
+  // 窓は (直前の断面, 指定年]。bc300 の直前は bc323 なので下限は -323。
+  const events = [
+    { year: -400, title_ja: '下限より前' },
+    { year: -310, title_ja: '断面より前' },
+    { year: -299, title_ja: '断面より後' },
+    { year: -221, title_ja: '指定年の直前' },
+    { year: -205, title_ja: '指定年より後' },
+  ];
+  const bc300 = ERA_IDS.indexOf('bc300');
+  const got = eventsForEra(bc300, events, -220).map((e) => e.title_ja);
+  assert.deepEqual(got, ['断面より前', '断面より後', '指定年の直前'], '窓が正しくない');
+});
+
+test('a typed year at or before the era changes nothing', () => {
+  const events = readJson('data/events.json');
+  const bc300 = ERA_IDS.indexOf('bc300');
+  const plain = eventsForEra(bc300, events);
+  for (const y of [-300, -350, null, undefined, NaN]) {
+    assert.deepEqual(eventsForEra(bc300, events, y), plain, `${y} で結果が変わった`);
+  }
 });

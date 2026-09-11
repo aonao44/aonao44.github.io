@@ -238,6 +238,32 @@
     margin: 0;
     font-size: 12.5px; line-height: 1.85; color: #3a3a3e;
   }
+  /* 地図より後に起きたこと。地図と食い違う内容なので、概説より前に、
+     地図の色(海の青)ではなく注意を引く枠で出す。 */
+  .since {
+    margin: 14px 0 0;
+    padding: 12px 13px;
+    background: #fff8ec;
+    border: 1px solid #f0dcb8;
+    border-radius: 8px;
+  }
+  .since-title {
+    margin: 0 0 8px;
+    font-size: 11.5px; line-height: 1.6; font-weight: 600;
+    color: #7a5a1e;
+  }
+  .since-list { list-style: none; margin: 0; padding: 0; }
+  .since-item { margin-top: 10px; }
+  .since-item:first-child { margin-top: 0; }
+  .since-year {
+    display: inline-block; margin-right: 7px;
+    font-size: 11px; font-weight: 700; color: #8a6520;
+  }
+  .since-name { font-size: 13.5px; font-weight: 700; color: var(--ink); }
+  .since-body {
+    margin: 4px 0 0;
+    font-size: 12.5px; line-height: 1.8; color: #3a3a3e;
+  }
   .topics-title {
     margin: 20px 0 0;
     font-size: 11px; letter-spacing: .06em; font-weight: 600;

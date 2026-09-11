@@ -221,6 +221,10 @@
     pointer-events: none;
   }
   #year-jump:focus-within #year-format-hint { opacity: 1; }
+  /* 案内文と注記は入力欄の真上、同じ帯に出る。両方出ると重なって読めない。
+     結果の注記が出ている間は、入力の書き方案内は引っ込める。 */
+  #bar:has(#year-hint:not(:empty)) #year-format-hint { opacity: 0; }
+  #year-hint { z-index: 1; }
 
   /* --- この時代の世界（概説） --- */
   .overview {

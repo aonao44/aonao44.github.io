@@ -63,3 +63,13 @@ test('the declared og:image size matches the file on disk', () => {
   // 大きすぎるカード画像は配信側で落とされることがある
   assert.ok(png.length < 5_000_000, `og:image が大きすぎる: ${png.length} bytes`);
 });
+
+test('the year notice and the format help never share the same band', () => {
+  // どちらも入力欄の真上に absolute で出る。長い注記を出すようにしたとき、
+  // 両方同時に見えて文字が重なった。注記が出ている間は案内を引っ込める。
+  assert.match(
+    html,
+    /#bar:has\(#year-hint:not\(:empty\)\)\s*#year-format-hint\s*\{[^}]*opacity:\s*0/,
+    '注記が出ている間に案内文を隠す規則が無い',
+  );
+});

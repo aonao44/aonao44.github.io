@@ -73,3 +73,10 @@ test('the year notice and the format help never share the same band', () => {
     '注記が出ている間に案内文を隠す規則が無い',
   );
 });
+
+test('the legend markup starts closed before any script runs', () => {
+  // 既定は畳んだ状態。JS が動く前の HTML に is-expanded が付いていると、
+  // 読み込み中の一瞬だけ開いて見えてしまう。
+  assert.doesNotMatch(html, /id="legend"[^>]*class="[^"]*is-expanded/);
+  assert.match(html, /id="legend-toggle"[^>]*aria-expanded="false"/);
+});

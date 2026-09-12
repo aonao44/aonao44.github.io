@@ -313,5 +313,6 @@ test('the eras that separate Qin are exactly the ones relabelled', () => {
   assert.deepEqual(nameEras['Zhow states'], ['bc323', 'bc300']);
   assert.deepEqual(nameEras['Zhou states'], ['bc500', 'bc400']);
   // 秦が単独で立っているのは、六国と並ぶこの二断面だけ
-  assert.deepEqual(nameEras.Qin, ['bc323', 'bc300']);
+  // bc221 は上流に無く scripts/build-bc221.mjs で合成した断面。秦はそこにも立つ
+  assert.deepEqual(nameEras.Qin, ['bc323', 'bc300', 'bc221']);
 });

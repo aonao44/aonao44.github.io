@@ -251,7 +251,8 @@ test('eventsForEra collects everything before the first era into it', () => {
 
 test('eventsForEra returns results sorted by year and skips malformed entries', () => {
   const events = [{ year: 1500 }, { year: 1492 }, { year: null }, {}, { year: NaN }];
-  const out = eventsForEra(28, events); // index 28 = 1500 -> (1492, 1500]
+  // 断面を足すと番号がずれるので、id から引く
+  const out = eventsForEra(ERA_IDS.indexOf('1500'), events); // (1492, 1500]
   assert.deepEqual(out.map((e) => e.year), [1500]);
 });
 

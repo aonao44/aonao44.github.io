@@ -2107,5 +2107,49 @@
    "polity": "Axum",
    "wiki_url": "https://ja.wikipedia.org/wiki/アクスム王国"
   }
+ ],
+ "bc221": [
+  {
+   "title_ja": "秦が六国を滅ぼし中国を統一",
+   "body_ja": "秦王政は前230年の韓を皮切りに趙・魏・楚・燕を次々と滅ぼし、前221年に斉を降して統一を完成させ、始皇帝を称した。",
+   "polity": "Qin",
+   "wiki_url": "https://ja.wikipedia.org/wiki/秦の中国統一"
+  },
+  {
+   "title_ja": "郡県制と度量衡・文字の統一",
+   "body_ja": "始皇帝は封建を廃して全土を郡と県に分け官吏を派遣し、度量衡・貨幣・文字・車軌を揃えて中央集権的な統治の枠組みを築いた。",
+   "polity": "Qin",
+   "wiki_url": "https://ja.wikipedia.org/wiki/始皇帝"
+  },
+  {
+   "title_ja": "ローマ、ガリア人を退け北へ版図を広げる",
+   "body_ja": "第一次ポエニ戦争でシチリアを得たローマは、前225年テラモンの戦いでガリア人を破り、ポー川流域へ支配を及ぼしていった。",
+   "polity": "Roman Republic",
+   "wiki_url": "https://ja.wikipedia.org/wiki/テラモンの戦い"
+  },
+  {
+   "title_ja": "ハンニバルがイベリアの軍を継ぐ",
+   "body_ja": "前221年、ハンニバルが義兄ハスドルバルの死を受けてイベリアのカルタゴ軍を率い、第二次ポエニ戦争へ向かう情勢が固まった。",
+   "polity": "Carthaginian Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/ハンニバル"
+  },
+  {
+   "title_ja": "アンティオコス三世が帝国の再統合に着手",
+   "body_ja": "前223年に即位したアンティオコス三世は東方の離反や太守モロンの反乱を鎮め、セレウコス朝の再建に乗り出した。",
+   "polity": "Seleucid Kingdom",
+   "wiki_url": "https://ja.wikipedia.org/wiki/アンティオコス3世"
+  },
+  {
+   "title_ja": "プトレマイオス四世の即位とシリア戦争の再燃",
+   "body_ja": "前221年に即位したプトレマイオス四世はコイレ・シリアをめぐってセレウコス朝と対立し、第四次シリア戦争へ向かった。",
+   "polity": "Ptolemaic Kingdom",
+   "wiki_url": "https://ja.wikipedia.org/wiki/プトレマイオス4世"
+  },
+  {
+   "title_ja": "アショーカ王没後のマウリヤ朝の衰退",
+   "body_ja": "前232年ごろのアショーカ王の死後、マウリヤ朝は後継争いと地方の自立で求心力を失い、インド統一の版図は解体へ向かった。",
+   "polity": "Mauryan Empire",
+   "wiki_url": "https://ja.wikipedia.org/wiki/マウリヤ朝"
+  }
  ]
 }

@@ -149,7 +149,7 @@ test('geometryArea is plausible for a known country', () => {
   assert.ok(km2 > 200000 && km2 < 600000, `Japan area looked wrong: ${km2} km2`);
 });
 
-test('all 9,305 label points across 48 eras stay strictly inside and off outer vertices', () => {
+test('all 9,377 label points across 49 eras stay strictly inside and off outer vertices', () => {
   const names = readJson('data/names.ja.json');
   const rule = readJson('data/nonstate.json');
   let total = 0;
@@ -193,7 +193,7 @@ test('all 9,305 label points across 48 eras stay strictly inside and off outer v
     }
   }
 
-  assert.equal(total, 9305, 'the full 48-era corpus must be exercised');
+  assert.equal(total, 9377, 'the full 49-era corpus must be exercised');
 });
 
 test('geometryArea returns 0 for non-polygons', () => {

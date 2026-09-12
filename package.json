@@ -13,6 +13,7 @@
     "check:startup": "node scripts/startup-check.mjs"
   },
   "devDependencies": {
-    "playwright": "^1.62.1"
+    "playwright": "^1.62.1",
+    "polygon-clipping": "^0.15.7"
   }
 }
